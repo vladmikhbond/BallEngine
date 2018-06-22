@@ -17,37 +17,47 @@ class Ball {
         return kin - pot;
     }
 
+    move() {
 
-    forses() {
-        let b = this;
+        // тяготение (шар подпрыгивает)
+        this.vy += g;
 
-        // фиксируем точку останова
-        if (b.x < b.radius || b.x > b.box.width - b.radius ||
-            b.y < b.radius || b.y > b.box.height - b.radius)
-        {
-            if (!b.dot) b.dot = {x: b.x, y: b.y};
-        } else {
-            b.dot = null;
-        }
+        // изменение скорости при столновении с др.шарами
+        let bs = this.box.balls;
+        let i = bs.indexOf(this);
+        for (let j = i + 1; j < bs.length; j++ )
+            Ball.strike(this, bs[j]);
 
+        // изменение скорости при ударе о стенки
+        if (this.x < this.radius && this.vx < 0)
+            this.vx = -this.vx * W;
+        if (this.x > this.box.width - this.radius && this.vx > 0)
+            this.vx = -this.vx * W;
 
-        b.fx = b.fy = 0;
-        // сила деформации
-        if (b.dot) {
-            let defX = b.dot.x - b.x;
-            let defY = b.dot.y - b.y;
-            b.fx += defX * K;
-            b.fy += defY * K;
-        }
+        if (this.y < this.radius && this.vy < 0)
+            this.vy = -this.vy * W;
+        if (this.y > this.box.height - this.radius && this.vy > 0)
+            this.vy = -this.vy * W;
 
-        // сила тяжести
-        b.fy += g * b.m;
+        // тяготение (шар проваливается)
+        //this.vy += g/2;
 
-        // потери на сопротивление воздуха
-        b.fx -= b.vx * AIR;
-        b.fy -= b.vy * AIR;
+        // изменение координат
+        this.x += this.vx;
+        this.y += this.vy;
     }
 
+
+    // static strike(a, b) {
+    //     if (G.dist(a, b) < a.radius + b.radius ) {
+    //         // stub
+    //         const K = 1;
+    //         a.vx = -a.vx  * K;
+    //         a.vy = -a.vy * K;
+    //         b.vx = -b.vx * K;
+    //         b.vy = -b.vy * K;
+    //     }
+    // }
 
     static strike(a, b) {
         // шары далеко
@@ -71,10 +81,8 @@ class Ball {
         let mb = b.radius * b.radius;
         let avx = ((ma - mb) * a.vx + 2 * mb * b.vx) / (ma + mb);
         let bvx = ((mb - ma) * b.vx + 2 * ma * a.vx) / (ma + mb);
-        avx = b.vx;
-        bvx = a.vx;
-        a.vx = avx;
-        b.vx = bvx;
+        a.vx = avx * W;
+        b.vx = bvx * W;
         // обратный поворот скоростей
         G.turnV(a, -alpha);
         G.turnV(b, -alpha);

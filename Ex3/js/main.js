@@ -1,7 +1,7 @@
 // главная программа
 const box = new Box(100, 100, 600, 400);
-//box.addBall(new Ball(100, 150, 50, 'red', 3.3, 0 ));
-box.addBall(new Ball(300, 100, 50, 'black', 0, 0));
+box.addBall(new Ball(100, 150, 50, 'red', 3.3, 2 ));
+box.addBall(new Ball(300, 100, 50, 'black', 0, -2));
 box.start(draw);
 
 const ctx = canvas.getContext("2d");
@@ -9,6 +9,7 @@ const ctx = canvas.getContext("2d");
 function draw() {
     // ctx.lineWidth = 1;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    let k = 20;
 
     // draw box
     ctx.strokeStyle = "black";
@@ -16,40 +17,15 @@ function draw() {
 
     // draw balls
     for (let b of box.balls) {
-        drawBall(b);
+        ctx.beginPath();
+        ctx.strokeStyle = b.color;
+        let x = box.x + b.x, y = box.y + b.y;
+        ctx.arc(x, y, b.radius, 0, Math.PI * 2);
+        ctx.arc(x, y, b.radius + 1, 0, Math.PI * 2);
+        ctx.moveTo(x, y);
+        ctx.lineTo(x + b.vx * k, y + b.vy * k );
+        ctx.stroke();
     }
     // print sum energy
     ctx.fillText("E = " + box.SumEnergy, 20, 20 );
-}
-
-function drawBall(b) {
-    let Kv = 20;
-
-    ctx.beginPath();
-    ctx.save();
-
-    let x = b.x + b.box.x, y = b.y + b.box.y;
-
-    if (b.dot) {
-        // показываем деформацию
-        let alpha = Math.atan2(b.dot.y - b.y, b.dot.x - b.x);
-        let k =  1 - G.dist(b.dot, b) / b.radius;
-
-        ctx.translate(x, y);
-        ctx.rotate(alpha);
-        ctx.scale(k, 1/k);
-        ctx.rotate(-alpha);
-
-        ctx.arc(0, 0, b.radius, 0, Math.PI * 2);
-    }
-    else
-    {
-        ctx.arc(x, y, b.radius, 0, Math.PI * 2);
-    }
-    ctx.restore();
-
-    ctx.moveTo(x, y);
-    ctx.lineTo(x + b.vx * Kv, y + b.vy * Kv );
-    ctx.stroke();
-
 }

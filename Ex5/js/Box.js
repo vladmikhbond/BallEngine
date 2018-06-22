@@ -1,6 +1,6 @@
 class Box {
     static get INTERVAL() {
-        return 30;
+        return 50;
     }
 
     constructor(x, y, w, h) {
@@ -27,8 +27,18 @@ class Box {
     start(draw) {
         const balls = this.balls;
         setInterval( function () {
+
+            balls.forEach( b => b.forses() );
+
+            balls.forEach( b => {
+                b.vx += b.fx / b.m;
+                b.vy += b.fy / b.m;
+                b.x += b.vx;
+                b.y += b.vy;
+            } );
+
             draw();
-            balls.forEach( b => b.move() );
+
         }, Box.INTERVAL);
     }
 

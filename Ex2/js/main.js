@@ -1,7 +1,7 @@
 // главная программа
 const box = new Box(100, 100, 600, 400);
-//box.addBall(new Ball(100, 150, 50, 'red', 3.3, 0 ));
-box.addBall(new Ball(300, 100, 50, 'black', 0, 0));
+box.addBall(new Ball(100, 150, 50, 'red', 3.3, 2 ));
+box.addBall(new Ball(300, 100, 50, 'black', 0, -2));
 box.start(draw);
 
 const ctx = canvas.getContext("2d");

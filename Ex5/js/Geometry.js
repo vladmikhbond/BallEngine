@@ -1,5 +1,6 @@
-const W = 0.5;
-const g = 0.05;
+const K = 5000; // коэффициент упругости шара
+const g = 0.05; // ускорение свободного падения
+const AIR = 0;     // сопротивление воздуха
 
 
 const G = function () {
@@ -63,24 +64,24 @@ function near(a, b) {
     return Math.abs(a - b) < 0.00000001;
 }
 
-
+let _G = G;
 
 
 // angle tests
 // let res = _G.angle({x: 0, y: 0}, {x: 1, y: 0} )
 // console.log(res == 0)
-// res = G.angle({x: 0, y: 0}, {x: 0, y: 1} )
+// res = _G.angle({x: 0, y: 0}, {x: 0, y: 1} )
 // console.log(res == - Math.PI / 2)
-// res = G.angle({x: 0, y: 0}, {x: -1, y: 0} )
+// res = _G.angle({x: 0, y: 0}, {x: -1, y: 0} )
 // console.log(res == Math.PI)
-// res = G.angle({x: 0, y: 0}, {x: 0, y: -1} )
+// res = _G.angle({x: 0, y: 0}, {x: 0, y: -1} )
 // console.log(res == Math.PI / 2)
 
 
 // turn tests
-res = G.turn(1, 0,  Math.PI / 2)
+res = _G.turn(1, 0,  Math.PI / 2)
 console.log(near(res.x, 0) && near(res.y, -1));
-res = G.turn(1, 0,  Math.PI)
+res = _G.turn(1, 0,  Math.PI)
 console.log(near(res.x, -1) && near(res.y, 0));
-res = G.turn(1, 0,  -Math.PI / 2)
+res = _G.turn(1, 0,  -Math.PI / 2)
 console.log(near(res.x, 0) && near(res.y, 1));
