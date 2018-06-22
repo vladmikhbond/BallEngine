@@ -1,4 +1,3 @@
-let G = Geometry();
 
 class Ball {
     constructor(x, y, r, c, vx, vy) {
@@ -8,13 +7,20 @@ class Ball {
         this.color = c;
         this.vx = vx;
         this.vy = vy;
+        this.m = r * r;
+        this.box = null;
+    }
+
+    get Energy() {
+        let kin = this.m * (this.vx * this.vx + this.vy * this.vy) / 2;
+        let pot = this.m * g * this.y;
+        return kin - pot;
     }
 
     move() {
-        const K = 1; // 0.8
-        const g = 0; // 0.05;
 
-
+        // тяготение (шар подпрыгивает)
+        this.vy += g;
 
         // изменение скорости при столновении с др.шарами
         let bs = this.box.balls;
@@ -28,8 +34,8 @@ class Ball {
         if (this.y < this.radius || this.y > this.box.height - this.radius)
             this.vy = -this.vy * K;
 
-        // тяготение
-        this.vy += g;
+        // тяготение (шар проваливается)
+        //this.vy += g;
 
         // изменение координат
         this.x += this.vx;
@@ -49,28 +55,23 @@ class Ball {
     // }
 
     static strike(a, b) {
+        // шары далеко
         if (G.dist(a, b) > a.radius + b.radius )
             return;
-
+        // шары близко, но расходятся
         let a1 = {x: a.x + a.vx, y: a.y + a.vy}
         let b1 = {x: b.x + b.vx, y: b.y + b.vy}
         let d = G.dist(a1, b1) - G.dist(a, b);
         if (d >= 0  )
             return;
 
-        //
+        // угол между прямой через центры шаров и осью Ox
         let alpha = G.angle(a, b);
         // поворот скоростей
         G.turnV(a, alpha);
         G.turnV(b, alpha);
-        //
-        // if (a.vx - b.vx > 0) {
-        //     G.turnV(a, -alpha);
-        //     G.turnV(b, -alpha);
-        //     return;
-        // }
-        //
-        // обмен скоростей вдоль Оx
+
+         // обмен скоростей вдоль Оx
         let ma = a.radius * a.radius;
         let mb = b.radius * b.radius;
         let avx = ((ma - mb) * a.vx + 2 * mb * b.vx) / (ma + mb);
@@ -79,7 +80,7 @@ class Ball {
         bvx = a.vx;
         a.vx = avx;
         b.vx = bvx;
-        // поворот скоростей
+        // обратный поворот скоростей
         G.turnV(a, -alpha);
         G.turnV(b, -alpha);
     }
