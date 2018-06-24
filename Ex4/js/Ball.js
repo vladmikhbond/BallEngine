@@ -18,7 +18,7 @@ class Ball {
     }
 
     move() {
-        // тяготение (шар подпрыгивает)
+        // тяготение
         this.vy += g;
 
         // изменение скорости при столновении с линиями
@@ -34,16 +34,18 @@ class Ball {
         for (let j = i + 1; j < bs.length; j++ )
             Ball.strikeBall(this, bs[j]);
 
+
         // изменение скорости при столновении с границей
         for (let l of this.box.border) {
-            if (Ball.strikeLine(this, l))
-                break;
+            Ball.strikeLine(this, l)
         }
 
-        // тяготение (шар проваливается)
-        //this.vy += g/2;
+        // учет связей
+        for (let l of this.box.links) {
+            Link.link(l)
+        }
 
-        // изменение координат
+        // --- изменение координат
         this.x += this.vx;
         this.y += this.vy;
     }
@@ -78,7 +80,6 @@ class Ball {
         G.turnV(b, -alpha);
         return true;
     }
-
 
     static strikeEnds(b, l) {
         let p = null;

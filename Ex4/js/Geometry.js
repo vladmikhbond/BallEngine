@@ -1,4 +1,4 @@
-const W = 0.8;
+const W = 1;
 const g = 0.05;
 
 

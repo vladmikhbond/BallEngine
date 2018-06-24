@@ -9,8 +9,9 @@ class Box {
         this.width = w;
         this.height = h;
         this.balls = [];
-        this.border = [new Line(0, 0, w, 0), new Line(0, 0, 0, h), new Line(0, h, w, h), new Line(w, 0, w, h), ];
         this.lines = [];
+        this.links = [];
+        this.border = [new Line(0, 0, w, 0), new Line(0, 0, 0, h), new Line(0, h, w, h), new Line(w, 0, w, h), ];
         this.zeroEnergy = 0;
     }
 
@@ -28,6 +29,10 @@ class Box {
 
     addLine(l) {
         this.lines.push(l);
+    }
+
+    addLink(l) {
+        this.links.push(l);
     }
 
     start(draw) {
