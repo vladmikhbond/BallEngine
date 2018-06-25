@@ -1,5 +1,8 @@
-const W = 1;
-const g = 0.05;
+let khronos;
+let timer;
+
+const W = 0.9;   //0.9;
+const g = 0.00;  // 0.05;
 
 
 const G = function () {

@@ -37,9 +37,11 @@ class Box {
 
     start(draw) {
         const balls = this.balls;
-        setInterval( function () {
+        khronos = 0;
+        timer = setInterval( function () {
             draw();
             balls.forEach( b => b.move() );
+            khronos++;
         }, Box.INTERVAL);
     }
 

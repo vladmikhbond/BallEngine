@@ -39,6 +39,8 @@ function draw() {
     }
     ctx.stroke();
 
-    // print sum energy
-    ctx.fillText("E = " + box.SumEnergy, 20, 20 );
+    // print info
+    ctx.fillText("t = " + khronos, 20, 20);
+    ctx.fillText("Energy = " + box.SumEnergy, 120, 20);
+
 }

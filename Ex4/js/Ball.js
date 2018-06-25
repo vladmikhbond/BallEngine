@@ -21,28 +21,27 @@ class Ball {
         // тяготение
         this.vy += g;
 
+        // учет связей
+        for (let l of this.box.links) {
+            Link.link(l)
+        }
+
         // изменение скорости при столновении с линиями
-        let ls = this.box.lines;
-        for (let l of ls) {
-            if (Ball.strikeLine(this, l))
-                break;
+        for(let i = 0; i< 2; i++)
+        for (let l of this.box.lines) {
+            Ball.strikeLine(this, l)
         }
 
         // изменение скорости при столновении с др.шарами
         let bs = this.box.balls;
         let i = bs.indexOf(this);
-        for (let j = i + 1; j < bs.length; j++ )
+        for (let j = i + 1; j < bs.length; j++ ) {
             Ball.strikeBall(this, bs[j]);
-
-
-        // изменение скорости при столновении с границей
-        for (let l of this.box.border) {
-            Ball.strikeLine(this, l)
         }
 
-        // учет связей
-        for (let l of this.box.links) {
-            Link.link(l)
+         // изменение скорости при столновении с границей
+        for (let l of this.box.border) {
+            Ball.strikeLine(this, l)
         }
 
         // --- изменение координат
@@ -56,15 +55,16 @@ class Ball {
         if (d > b.radius)
             return;
 
+        // точка касания за пределами отрезока
+        if (!G.crossPerpen(b, l)) {
+            return Ball.strikeEnds(b, l);
+        }
+
         // линия близко, но удаляется
         let b1 = {x: b.x + b.vx, y: b.y + b.vy}
         if (G.distToInfiniteLine(b1, l) >= d )
             return;
 
-        // точка касания за пределами отрезока
-        if (!G.crossPerpen(b, l)) {
-            return Ball.strikeEnds(b, l);
-        }
         // --- Соударение с отрезком ---
 
         // угол между линией и осью Ox
