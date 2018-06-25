@@ -16,14 +16,6 @@ class Line {
 
     get p1() { return { x: this.x1, y: this.y1 } }
     get p2() { return { x: this.x2, y: this.y2 } }
-
-    // shift(dx, dy) {
-    //     this.x1 += dx;
-    //     this.y1 += dy;
-    //     this.x2 += dx;
-    //     this.y2 += dy;
-    // };
-
 }
 
 

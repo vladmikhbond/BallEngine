@@ -19,13 +19,20 @@ class Link {
         G.turnV(b1, alpha);
         G.turnV(b2, alpha);
         // пересчет скоростей шаров
-        let M = b1.m + b2.m;
+        let m = b1.m + b2.m;
         b1.vx = b2.vx =
-            (b1.m * b1.vx + b2.m * b2.vx) / M;
-        // коррекция длины связи
-        let dv = (l.len - l.len0) * 0.03;
-        b1.vx += dv * b2.m / M;
-        b2.vx -= dv * b1.m / M;
+            (b1.m * b1.vx + b2.m * b2.vx) / m;
+
+        // обрыв связи
+        if (l.len / l.len0 > 1.20) {
+            let i = l.box.links.indexOf(l);
+            l.box.links.splice(i, 1);
+        }
+
+        // реакция связи
+        let f = (l.len - l.len0) * 0.05;
+        b1.vx += f * b2.m / m;
+        b2.vx -= f * b1.m / m;
 
         // обратный поворот
         G.turnV(b1, -alpha);

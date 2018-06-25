@@ -1,8 +1,11 @@
+// time
 let khronos;
 let timer;
+let INTERVAL = 30;
 
-const W = 0.9;   //0.9;
-const g = 0.00;  // 0.05;
+// world constants
+const W = 1;   //0.9;
+const g = 0.05;  // 0.05;
 
 
 const G = function () {
@@ -16,10 +19,10 @@ const G = function () {
     }
 
     // Скалярное произведение векторов
-    function _scalar(a, b)
-    {
-        return a.x * b.x + a.y * b.y;
-    }
+    // function _scalar(a, b)
+    // {
+    //     return a.x * b.x + a.y * b.y;
+    // }
 
     // Угол вектора (a, b) по отношению к оси Ox.
     function _angle(a, b)
@@ -31,8 +34,8 @@ const G = function () {
 
     // поворот вектора (x, y) на угол alpha
     function _turn(x, y, alpha) {
-        let x1 = x * Math.cos(alpha) + y * Math.sin(alpha)
-        let y1 =-x * Math.sin(alpha) + y * Math.cos(alpha)
+        let x1 = x * Math.cos(alpha) + y * Math.sin(alpha);
+        let y1 =-x * Math.sin(alpha) + y * Math.cos(alpha);
         return {x: x1, y: y1};
     }
 
@@ -47,7 +50,7 @@ const G = function () {
         // поворот скорости шара a на угол alpha
         //
         turnV(a, alpha) {
-            let va = _turn(a.vx, a.vy, alpha)
+            let va = _turn(a.vx, a.vy, alpha);
             a.vx = va.x;
             a.vy = va.y;
         },
@@ -123,9 +126,9 @@ function near(a, b) {
 
 
 // turn tests
-res = G.turn(1, 0,  Math.PI / 2)
+res = G.turn(1, 0,  Math.PI / 2);
 console.log(near(res.x, 0) && near(res.y, -1));
-res = G.turn(1, 0,  Math.PI)
+res = G.turn(1, 0,  Math.PI);
 console.log(near(res.x, -1) && near(res.y, 0));
-res = G.turn(1, 0,  -Math.PI / 2)
+res = G.turn(1, 0,  -Math.PI / 2);
 console.log(near(res.x, 0) && near(res.y, 1));

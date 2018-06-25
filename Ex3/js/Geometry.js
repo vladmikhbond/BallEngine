@@ -1,5 +1,12 @@
-const W = 0.8;
-const g = 0.05;
+// time
+let khronos;
+let timer;
+let INTERVAL = 30
+
+// world constants
+const W = 0.9;   //0.9;
+const g = 0.05;  // 0.05;
+
 
 
 const G = function () {

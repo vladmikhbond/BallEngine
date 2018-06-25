@@ -1,9 +1,5 @@
 class Box {
-    static get INTERVAL() {
-        return 30;
-    }
-
-    constructor(x, y, w, h) {
+     constructor(x, y, w, h) {
         this.x = x;
         this.y = y;
         this.width = w;
@@ -11,11 +7,10 @@ class Box {
         this.balls = [];
         this.border = [new Line(0, 0, w, 0), new Line(0, 0, 0, h), new Line(0, h, w, h), new Line(w, 0, w, h), ];
         this.lines = [];
-        this.zeroEnergy = 0;
     }
 
     get SumEnergy() {
-        let e = -this.zeroEnergy;
+        let e = 0;
         this.balls.forEach( b => e += b.Energy);
         return e | 0;
     }
@@ -23,7 +18,6 @@ class Box {
     addBall(b) {
         b.box = this;
         this.balls.push(b);
-        this.zeroEnergy += b.Energy;
     }
 
     addLine(l) {
@@ -32,10 +26,12 @@ class Box {
 
     start(draw) {
         const balls = this.balls;
-        setInterval( function () {
+        khronos = 0;
+        timer = setInterval( function () {
             draw();
             balls.forEach( b => b.move() );
-        }, Box.INTERVAL);
+            khronos++;
+        }, INTERVAL);
     }
 
 }

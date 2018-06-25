@@ -1,8 +1,4 @@
 class Box {
-    static get INTERVAL() {
-        return 30;
-    }
-
     constructor(x, y, w, h) {
         this.x = x;
         this.y = y;
@@ -11,12 +7,12 @@ class Box {
         this.balls = [];
         this.lines = [];
         this.links = [];
-        this.border = [new Line(0, 0, w, 0), new Line(0, 0, 0, h), new Line(0, h, w, h), new Line(w, 0, w, h), ];
-        this.zeroEnergy = 0;
+        this.border = [new Line(0, 0, w, 0), new Line(0, 0, 0, h),
+            new Line(0, h, w, h), new Line(w, 0, w, h), ];
     }
 
     get SumEnergy() {
-        let e = -this.zeroEnergy;
+        let e = 0;
         this.balls.forEach( b => e += b.Energy);
         return e | 0;
     }
@@ -24,7 +20,6 @@ class Box {
     addBall(b) {
         b.box = this;
         this.balls.push(b);
-        this.zeroEnergy += b.Energy;
     }
 
     addLine(l) {
@@ -32,6 +27,7 @@ class Box {
     }
 
     addLink(l) {
+        l.box = this;
         this.links.push(l);
     }
 
@@ -42,7 +38,7 @@ class Box {
             draw();
             balls.forEach( b => b.move() );
             khronos++;
-        }, Box.INTERVAL);
+        }, INTERVAL);
     }
 
 }

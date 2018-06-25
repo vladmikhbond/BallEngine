@@ -1,13 +1,13 @@
 
 class Ball {
-    constructor(x, y, r, c, vx, vy) {
+    constructor(x, y, r, c, vx, vy, m) {
         this.x = x;
         this.y = y;
         this.radius = r;
         this.color = c;
         this.vx = vx;
         this.vy = vy;
-        this.m = r * r;
+        this.m = m ? m * m : r * r;
         this.box = null;
     }
 
@@ -21,15 +21,16 @@ class Ball {
         // тяготение
         this.vy += g;
 
-        // учет связей
+        // учет реакции связей
         for (let l of this.box.links) {
             Link.link(l)
         }
 
         // изменение скорости при столновении с линиями
-        for(let i = 0; i< 2; i++)
+        for(let i = 0; i < 2; i++)
         for (let l of this.box.lines) {
-            Ball.strikeLine(this, l)
+            if (Ball.strikeLine(this, l))
+                break;
         }
 
         // изменение скорости при столновении с др.шарами
@@ -41,7 +42,7 @@ class Ball {
 
          // изменение скорости при столновении с границей
         for (let l of this.box.border) {
-            Ball.strikeLine(this, l)
+            Ball.strikeLine(this, l);
         }
 
         // --- изменение координат
@@ -61,7 +62,7 @@ class Ball {
         }
 
         // линия близко, но удаляется
-        let b1 = {x: b.x + b.vx, y: b.y + b.vy}
+        let b1 = {x: b.x + b.vx, y: b.y + b.vy};
         if (G.distToInfiniteLine(b1, l) >= d )
             return;
 
@@ -107,8 +108,8 @@ class Ball {
         if (d > a.radius + b.radius )
             return;
         // шары близко, но расходятся
-        let a1 = {x: a.x + a.vx, y: a.y + a.vy}
-        let b1 = {x: b.x + b.vx, y: b.y + b.vy}
+        let a1 = {x: a.x + a.vx, y: a.y + a.vy};
+        let b1 = {x: b.x + b.vx, y: b.y + b.vy};
         if (G.dist(a1, b1) >= d )
             return;
 
