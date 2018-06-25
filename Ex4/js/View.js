@@ -1,14 +1,13 @@
 function draw() {
     const ctx = canvas.getContext("2d");
-    // ctx.lineWidth = 1;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    let k = 20;
 
-    // draw box
+    // --- box
     ctx.strokeStyle = "black";
     ctx.strokeRect(box.x, box.y, box.width, box.height);
 
-    // draw balls
+    // --- balls
+    let k = 20;
     for (let b of box.balls) {
         ctx.beginPath();
         ctx.strokeStyle = b.color;
@@ -21,7 +20,7 @@ function draw() {
         ctx.stroke();
     }
 
-    // draw lines
+    // --- lines
     ctx.strokeStyle = "blue";
     ctx.beginPath();
     for (let l of box.lines) {
@@ -30,7 +29,7 @@ function draw() {
     }
     ctx.stroke();
 
-    // draw links
+    // --- links
     ctx.strokeStyle = "gray";
     ctx.beginPath();
     for (let l of box.links) {
@@ -39,8 +38,39 @@ function draw() {
     }
     ctx.stroke();
 
-    // print info
+    // --- print info
     ctx.fillText("t = " + khronos, 20, 20);
     ctx.fillText("Energy = " + box.SumEnergy, 120, 20);
+
+    // --- selected
+    ctx.save();
+    ctx.beginPath();
+    if (box.selected instanceof Ball) {
+        let b = box.selected;
+        ctx.strokeStyle = 'gray';
+        ctx.setLineDash([20, 10]);
+        let x = box.x + b.x, y = box.y + b.y;
+        ctx.arc(x, y, b.radius, 0, Math.PI * 2);
+        ctx.arc(x, y, b.radius + 5, 0, Math.PI * 2);
+    } else if (box.selected instanceof Line) {
+        let l = box.selected;
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = 'gray';
+        ctx.setLineDash([15, 20]);
+        ctx.moveTo(box.x + l.x1, box.y + l.y1);
+        ctx.lineTo(box.x + l.x2, box.y + l.y2);
+    } else if (box.selected instanceof Link) {
+        let l = box.selected;
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = 'white';
+        ctx.setLineDash([15, 20]);
+        ctx.moveTo(box.x + l.x1, box.y + l.y1);
+        ctx.lineTo(box.x + l.x2, box.y + l.y2);
+    }
+
+    ctx.stroke();
+    ctx.restore();
+
+    //
 
 }

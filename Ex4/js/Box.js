@@ -9,6 +9,7 @@ class Box {
         this.links = [];
         this.border = [new Line(0, 0, w, 0), new Line(0, 0, 0, h),
             new Line(0, h, w, h), new Line(w, 0, w, h), ];
+        this.selected = null;
     }
 
     get SumEnergy() {
@@ -20,15 +21,18 @@ class Box {
     addBall(b) {
         b.box = this;
         this.balls.push(b);
+        this.selected = b;
     }
 
     addLine(l) {
         this.lines.push(l);
+        this.selected = l;
     }
 
     addLink(l) {
         l.box = this;
         this.links.push(l);
+        this.selected = l;
     }
 
     start(draw) {
