@@ -4,8 +4,8 @@ let timer;
 let INTERVAL = 30;
 
 // world constants
-const W = 1;   //0.9;
-const g = 0.05;  // 0.05;
+const W = 0.4;   //0.9;
+const g = 0.25;  // 0.05;
 
 
 const G = function () {

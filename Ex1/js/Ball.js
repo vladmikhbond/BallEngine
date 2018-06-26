@@ -9,7 +9,7 @@ class Ball {
         this.box = b;
     }
 
-    move() {
+    step() {
         // изменение скорости при ударе о стенки
         if (this.x < this.radius || this.x > this.box.width - this.radius)
             this.vx = -this.vx;

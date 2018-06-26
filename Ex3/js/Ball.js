@@ -1,13 +1,13 @@
 
 class Ball {
-    constructor(x, y, r, c, vx, vy) {
+    constructor(x, y, r, c, vx, vy, m) {
         this.x = x;
         this.y = y;
         this.radius = r;
         this.color = c;
         this.vx = vx;
         this.vy = vy;
-        this.m = r * r;
+        this.m = m ? m * m : r * r;
         this.box = null;
     }
 
@@ -19,7 +19,7 @@ class Ball {
 
     move() {
         // тяготение (шар подпрыгивает)
-        this.vy += g;
+        //this.vy += g;
 
         // изменение скорости при столновении с линиями
         let ls = this.box.lines;
@@ -41,7 +41,7 @@ class Ball {
         }
 
         // тяготение (шар проваливается)
-        //this.vy += g/2;
+        this.vy += g;
 
         // изменение координат
         this.x += this.vx;

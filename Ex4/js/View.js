@@ -13,7 +13,6 @@ function draw() {
         ctx.strokeStyle = b.color;
         let x = box.x + b.x, y = box.y + b.y;
         ctx.arc(x, y, b.radius, 0, Math.PI * 2);
-        ctx.arc(x, y, b.radius + 1, 0, Math.PI * 2);
         // velo
         ctx.moveTo(x, y);
         ctx.lineTo(x + b.vx * k, y + b.vy * k );
@@ -41,29 +40,26 @@ function draw() {
     // --- print info
     ctx.fillText("t = " + khronos, 20, 20);
     ctx.fillText("Energy = " + box.SumEnergy, 120, 20);
-
+    if (box.selected)
+        ctx.fillText("Sel = " + box.selected.toString(), 220, 20);
     // --- selected
     ctx.save();
     ctx.beginPath();
     if (box.selected instanceof Ball) {
         let b = box.selected;
-        ctx.strokeStyle = 'gray';
-        ctx.setLineDash([20, 10]);
+        ctx.strokeStyle = b.color;
         let x = box.x + b.x, y = box.y + b.y;
-        ctx.arc(x, y, b.radius, 0, Math.PI * 2);
-        ctx.arc(x, y, b.radius + 5, 0, Math.PI * 2);
+        ctx.arc(x, y, b.radius + 1, 0, Math.PI * 2);
     } else if (box.selected instanceof Line) {
         let l = box.selected;
-        ctx.lineWidth = 3;
-        ctx.strokeStyle = 'gray';
-        ctx.setLineDash([15, 20]);
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = 'blue';
         ctx.moveTo(box.x + l.x1, box.y + l.y1);
         ctx.lineTo(box.x + l.x2, box.y + l.y2);
     } else if (box.selected instanceof Link) {
         let l = box.selected;
-        ctx.lineWidth = 3;
-        ctx.strokeStyle = 'white';
-        ctx.setLineDash([15, 20]);
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = 'gray';
         ctx.moveTo(box.x + l.x1, box.y + l.y1);
         ctx.lineTo(box.x + l.x2, box.y + l.y2);
     }

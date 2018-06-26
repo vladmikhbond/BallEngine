@@ -1,26 +1,26 @@
 
 class Ball {
-    constructor(x, y, r, c, vx, vy) {
+    constructor(x, y, r, c, vx, vy, m) {
         this.x = x;
         this.y = y;
         this.radius = r;
         this.color = c;
         this.vx = vx;
         this.vy = vy;
-        this.m = r * r;
+        this.m = m ? m * m : r * r;
         this.box = null;
     }
 
     get Energy() {
-        let kin = this.m * (this.vx * this.vx + this.vy * this.vy) / 2;
-        let pot = this.m * g * this.y;
-        return kin - pot;
+        let kinetic = this.m * (this.vx * this.vx + this.vy * this.vy) / 2;
+        let potential = this.m * g * this.y;
+        return kinetic - potential;
     }
 
-    move() {
+    step() {
 
         // тяготение (шар подпрыгивает)
-        this.vy += g;
+        //this.vy += g;
 
         // изменение скорости при столновении с др.шарами
         let bs = this.box.balls;
@@ -29,35 +29,19 @@ class Ball {
             Ball.strike(this, bs[j]);
 
         // изменение скорости при ударе о стенки
-        if (this.x < this.radius && this.vx < 0)
+        if (this.x < this.radius || this.x > this.box.width - this.radius)
             this.vx = -this.vx * W;
-        if (this.x > this.box.width - this.radius && this.vx > 0)
-            this.vx = -this.vx * W;
-
-        if (this.y < this.radius && this.vy < 0)
-            this.vy = -this.vy * W;
-        if (this.y > this.box.height - this.radius && this.vy > 0)
+        if (this.y < this.radius || this.y > this.box.height - this.radius)
             this.vy = -this.vy * W;
 
         // тяготение (шар проваливается)
-        //this.vy += g/2;
+        this.vy += g;
 
         // изменение координат
         this.x += this.vx;
         this.y += this.vy;
     }
 
-
-    // static strike(a, b) {
-    //     if (G.dist(a, b) < a.radius + b.radius ) {
-    //         // stub
-    //         const K = 1;
-    //         a.vx = -a.vx  * K;
-    //         a.vy = -a.vy * K;
-    //         b.vx = -b.vx * K;
-    //         b.vy = -b.vy * K;
-    //     }
-    // }
 
     static strike(a, b) {
         // шары далеко
@@ -77,10 +61,8 @@ class Ball {
         G.turnV(b, alpha);
 
          // обмен скоростей вдоль Оx
-        let ma = a.radius * a.radius;
-        let mb = b.radius * b.radius;
-        let avx = ((ma - mb) * a.vx + 2 * mb * b.vx) / (ma + mb);
-        let bvx = ((mb - ma) * b.vx + 2 * ma * a.vx) / (ma + mb);
+        let avx = ((a.m - b.m) * a.vx + 2 * b.m* b.vx) / (a.m + b.m);
+        let bvx = ((b.m - a.m) * b.vx + 2 * a.m * a.vx) / (a.m + b.m);
         a.vx = avx * W;
         b.vx = bvx * W;
         // обратный поворот скоростей

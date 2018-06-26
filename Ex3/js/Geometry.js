@@ -5,7 +5,7 @@ let INTERVAL = 30
 
 // world constants
 const W = 0.9;   //0.9;
-const g = 0.05;  // 0.05;
+const g = 0.15;  // 0.05;
 
 
 

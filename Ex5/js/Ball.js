@@ -1,51 +1,47 @@
 
 class Ball {
-    constructor(x, y, r, c, vx, vy) {
+    constructor(x, y, r, c, vx, vy, m) {
         this.x = x;
         this.y = y;
         this.radius = r;
         this.color = c;
         this.vx = vx;
         this.vy = vy;
-        this.m = r * r;
+        this.m = m ? m * m : r * r;
         this.box = null;
     }
 
     get Energy() {
-        let kin = this.m * (this.vx * this.vx + this.vy * this.vy) / 2;
-        let pot = this.m * g * this.y;
-        return kin - pot;
+        let kinetic = this.m * (this.vx * this.vx + this.vy * this.vy) / 2;
+        let potential = this.m * g * this.y;
+        return kinetic - potential;
     }
 
-
-    forses() {
+    step() {
         let b = this;
 
-        // фиксируем точку останова
-        if (b.x < b.radius || b.x > b.box.width - b.radius ||
-            b.y < b.radius || b.y > b.box.height - b.radius)
-        {
-            if (!b.dot) b.dot = {x: b.x, y: b.y};
-        } else {
-            b.dot = null;
+        b.fx = 0;
+        b.fy = b.m * g;  // тяготение
+
+        // реакция нижней стенки
+        let x = b.box.height - b.y;
+        let k = b.vy > 0 ? K : K * W;
+        if (x < b.radius) {
+            b.fy += k * (x - b.radius);
         }
 
+        // // изменение скорости при столновении с др.шарами
+        // let bs = this.box.balls;
+        // let i = bs.indexOf(this);
+        // for (let j = i + 1; j < bs.length; j++ )
+        //     Ball.strike(this, bs[j]);
 
-        b.fx = b.fy = 0;
-        // сила деформации
-        if (b.dot) {
-            let defX = b.dot.x - b.x;
-            let defY = b.dot.y - b.y;
-            b.fx += defX * K;
-            b.fy += defY * K;
-        }
-
-        // сила тяжести
-        b.fy += g * b.m;
-
-        // потери на сопротивление воздуха
-        b.fx -= b.vx * AIR;
-        b.fy -= b.vy * AIR;
+        // изменение скорости
+        b.vx += b.fx / b.m;
+        b.vy += b.fy / b.m;
+        // изменение координат
+        b.x += b.vx;
+        b.y += b.vy;
     }
 
 
@@ -67,14 +63,10 @@ class Ball {
         G.turnV(b, alpha);
 
          // обмен скоростей вдоль Оx
-        let ma = a.radius * a.radius;
-        let mb = b.radius * b.radius;
-        let avx = ((ma - mb) * a.vx + 2 * mb * b.vx) / (ma + mb);
-        let bvx = ((mb - ma) * b.vx + 2 * ma * a.vx) / (ma + mb);
-        avx = b.vx;
-        bvx = a.vx;
-        a.vx = avx;
-        b.vx = bvx;
+        let avx = ((a.m - b.m) * a.vx + 2 * b.m* b.vx) / (a.m + b.m);
+        let bvx = ((b.m - a.m) * b.vx + 2 * a.m * a.vx) / (a.m + b.m);
+        a.vx = avx * W;
+        b.vx = bvx * W;
         // обратный поворот скоростей
         G.turnV(a, -alpha);
         G.turnV(b, -alpha);

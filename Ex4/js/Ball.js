@@ -11,6 +11,10 @@ class Ball {
         this.box = null;
     }
 
+    toString() {
+       return `{"name": "Ball", "x": ${this.x.toFixed(2)}, "y": ${this.y.toFixed(2)}, "vx": ${this.vx.toFixed(2)}, "vy": ${this.vy.toFixed(2)} }`
+    }
+
     get Energy() {
         let kin = this.m * (this.vx * this.vx + this.vy * this.vy) / 2;
         let pot = this.m * g * this.y;
@@ -124,11 +128,12 @@ class Ball {
         let M = a.m + b.m, m = a.m - b.m;
         let avx = ( m * a.vx + 2 * b.m * b.vx) / M;
         let bvx = (-m * b.vx + 2 * a.m * a.vx) / M;
-        a.vx = avx ;
-        b.vx = bvx ;
+        a.vx = avx;
+        b.vx = bvx;
 
         // обратный поворот скоростей
         G.turnV(a, -alpha);
         G.turnV(b, -alpha);
+
     }
 }
