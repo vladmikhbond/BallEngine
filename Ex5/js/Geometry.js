@@ -1,7 +1,7 @@
 const W = 0.8;  // потеря энергии при соударении
 const K = 1000;  // модуль упругости
 
-const g = 0.05;
+const g = 0.00;  // 0.05;
 const INTERVAL = 30;
 
 const G = function () {
@@ -43,18 +43,27 @@ const G = function () {
         angle: _angle,
         turn: _turn,
 
-        // поворот скорости шара a на угол alpha
-        turnV(a, alpha) {
-            let va = _turn(a.vx, a.vy, alpha)
-            a.vx = va.x;
-            a.vy = va.y;
+        // расстояние от точки до бесконечной прямой
+        //
+        distToInfiniteLine(p, line) {
+            let a = line.A, b = line.B, c = line.C;
+            return Math.abs(a * p.x + b * p.y + c) /  Math.sqrt(a * a + b * b);
         },
 
+
+
+        // // поворот скорости шара a на угол alpha
+        // turnV(a, alpha) {
+        //     let va = _turn(a.vx, a.vy, alpha)
+        //     a.vx = va.x;
+        //     a.vy = va.y;
+        // },
         //
-        scalarV(a, b)
-        {
-            return a.vx * b.vx + a.vy * b.vy;
-        },
+        // //
+        // scalarV(a, b)
+        // {
+        //     return a.vx * b.vx + a.vy * b.vy;
+        // },
 
 
     }

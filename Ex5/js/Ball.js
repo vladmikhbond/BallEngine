@@ -24,17 +24,15 @@ class Ball {
         b.fy = b.m * g;  // тяготение
 
         // реакция нижней стенки
-        let x = b.box.height - b.y;
-        let k = b.vy > 0 ? K : K * W;
-        if (x < b.radius) {
-            b.fy += k * (x - b.radius);
-        }
+        // let x = b.box.height - b.y;
+        // let k = b.vy > 0 ? K : K * W;
+        //
+        // if (x < b.radius) {
+        //     b.fy += k * (x - b.radius);
+        // }
 
-        // // изменение скорости при столновении с др.шарами
-        // let bs = this.box.balls;
-        // let i = bs.indexOf(this);
-        // for (let j = i + 1; j < bs.length; j++ )
-        //     Ball.strike(this, bs[j]);
+
+        Ball.strikeBorders(b);
 
         // изменение скорости
         b.vx += b.fx / b.m;
@@ -44,6 +42,28 @@ class Ball {
         b.y += b.vy;
     }
 
+
+    static strikeBorders(b) {
+        for (let i = 0; i < 4; i++) {
+            let f = Ball.strikeLine(b, box.border[i]);
+            if (f) {
+                b.fx += f.x;
+                b.fy += f.y;
+            }
+        }
+    }
+
+    static strikeLine(b, l) {
+        // шар далеко от линии
+        let dist = G.distToInfiniteLine(b, l);
+        if ( dist >= b.radius)
+            return;
+
+        let alpha = G.angle(l.p1, l.p2);
+        let fy = K * (b.radius - dist);
+        let f = G.turn(0, fy, -alpha);
+        return f;
+    }
 
     static strike(a, b) {
         // шары далеко
