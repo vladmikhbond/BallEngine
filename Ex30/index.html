@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html>
+<body>
+    <h3> Ex3. Линии</h3>
+    <canvas id="canvas" width="800" height="600" style="border: thin solid blue"></canvas>
+
+    <script src="js/Geometry.js"></script>
+    <script src="js/Ball.js"></script>
+    <script src="js/Line.js"></script>
+    <script src="js/Box.js"></script>
+    <script src="js/View.js"></script>
+    <script>
+        const box = new Box(50, 50, canvas.width - 100, canvas.height - 100 );
+
+        box.addBall(new Ball(25, 100, 25, 'black', 1, 0));
+        box.addBall(new Ball(200, 10, 50, 'red', 3.3, 10 ));
+        box.addBall(new Ball(300, 100, 25, 'black', 0, 0));
+
+        box.addLine(new Line(0, 0, 350, 350));
+        box.addLine(new Line(400, 0, 350, 350));
+
+        box.start(draw);
+    </script>
+</body>
+</html>

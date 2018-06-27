@@ -1,8 +1,13 @@
-const W = 0.8;  // потеря энергии при соударении
-const K = 1000;  // модуль упругости
+// time
+let khronos;
+let timer;
+let INTERVAL = 30
 
-const g = 0.00;  // 0.05;
-const INTERVAL = 30;
+// world constants
+const W = 0.9;   //0.9;
+const g = 0.15;  // 0.05;
+
+
 
 const G = function () {
     // ------------- закрытые члены --------------------------------------
@@ -43,6 +48,15 @@ const G = function () {
         angle: _angle,
         turn: _turn,
 
+        // поворот скорости шара a на угол alpha
+        //
+        turnV(a, alpha) {
+            let va = _turn(a.vx, a.vy, alpha)
+            a.vx = va.x;
+            a.vy = va.y;
+        },
+
+
         // расстояние от точки до бесконечной прямой
         //
         distToInfiniteLine(p, line) {
@@ -50,16 +64,40 @@ const G = function () {
             return Math.abs(a * p.x + b * p.y + c) /  Math.sqrt(a * a + b * b);
         },
 
-
-
-        // // поворот скорости шара a на угол alpha
-        // turnV(a, alpha) {
-        //     let va = _turn(a.vx, a.vy, alpha)
-        //     a.vx = va.x;
-        //     a.vy = va.y;
-        // },
+        // точка пересечения прямой line и перпендикуляра к ней, опущенного из точки p
         //
-        // //
+        crossPerpen(p, line) {
+            let k = line.k;
+            let b = line.b;
+            let p1 = line.p1;
+            let p2 = line.p2;
+
+            // прямая вертикальна
+            if (line.x1 === line.x2)
+                return { x: line.x1, y: p.y };
+            // прямая горизонтальна
+            if (line.y1 === line.y2)
+                return { x: p.x, y: line.y1 };
+            // уравнение перпендикуляра, проходящего через точку p: y = k1 * x + b1
+            let k1 = -1 / k;
+            let b1 = p.y - k1 * p.x;
+            // уравнение прямой: y = k2 * x + b2
+            let k2 = k;
+            let b2 = b;
+
+            // точка пересечения перепендикуляра и прямой
+            let dot = { x: (b1 - b2) / (k2 - k1), y: (k2 * b1 - k1 * b2) / (k2 - k1) };
+
+            // точка пересечения лежит в пределах отрезка
+            if ((p1.x <= dot.x && dot.x <= p2.x || p2.x <= dot.x && dot.x <= p1.x) &&
+                (p1.y <= dot.y && dot.y <= p2.y || p2.y <= dot.y && dot.y <= p1.y) )
+                return dot;
+            return null;
+        },
+
+
+
+    //
         // scalarV(a, b)
         // {
         //     return a.vx * b.vx + a.vy * b.vy;

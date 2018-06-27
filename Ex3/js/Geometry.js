@@ -1,13 +1,8 @@
-// time
-let khronos;
-let timer;
-let INTERVAL = 30
+const W = 0.8;  // потеря энергии при соударении
+const K = 1000;  // модуль упругости
 
-// world constants
-const W = 0.9;   //0.9;
-const g = 0.15;  // 0.05;
-
-
+const g = 0.5;  // 0.05;
+const INTERVAL = 30;
 
 const G = function () {
     // ------------- закрытые члены --------------------------------------
@@ -47,15 +42,7 @@ const G = function () {
         dist: _distance,
         angle: _angle,
         turn: _turn,
-
-        // поворот скорости шара a на угол alpha
-        //
-        turnV(a, alpha) {
-            let va = _turn(a.vx, a.vy, alpha)
-            a.vx = va.x;
-            a.vy = va.y;
-        },
-
+        scalar: _scalar,
 
         // расстояние от точки до бесконечной прямой
         //
@@ -64,13 +51,18 @@ const G = function () {
             return Math.abs(a * p.x + b * p.y + c) /  Math.sqrt(a * a + b * b);
         },
 
-        // точка пересечения прямой line и перпендикуляра к ней, опущенного из точки p
+        // Точка пересечения прямой line и перпендикуляра к ней, опущенного из точки p.
         //
-        crossPerpen(p, line) {
+        cross(p, line) {
+            // if (line instanceof Link) {
+            //     line.x1 = line.b1.x;
+            //     line.y1 = line.b1.y;
+            //     line.x2 = line.b2.x;
+            //     line.y2 = line.b2.y;
+            // }
+
             let k = line.k;
             let b = line.b;
-            let p1 = line.p1;
-            let p2 = line.p2;
 
             // прямая вертикальна
             if (line.x1 === line.x2)
@@ -85,19 +77,19 @@ const G = function () {
             let k2 = k;
             let b2 = b;
 
-            // точка пересечения перепендикуляра и прямой
-            let dot = { x: (b1 - b2) / (k2 - k1), y: (k2 * b1 - k1 * b2) / (k2 - k1) };
-
-            // точка пересечения лежит в пределах отрезка
-            if ((p1.x <= dot.x && dot.x <= p2.x || p2.x <= dot.x && dot.x <= p1.x) &&
-                (p1.y <= dot.y && dot.y <= p2.y || p2.y <= dot.y && dot.y <= p1.y) )
-                return dot;
-            return null;
+            // точка пересечения перепендикуляра и прямой.
+            return { x: (b1 - b2) / (k2 - k1), y: (k2 * b1 - k1 * b2) / (k2 - k1) };
         },
 
 
-
-    //
+        // // поворот скорости шара a на угол alpha
+        // turnV(a, alpha) {
+        //     let va = _turn(a.vx, a.vy, alpha)
+        //     a.vx = va.x;
+        //     a.vy = va.y;
+        // },
+        //
+        // //
         // scalarV(a, b)
         // {
         //     return a.vx * b.vx + a.vy * b.vy;
