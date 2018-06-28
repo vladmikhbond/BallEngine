@@ -1,6 +1,6 @@
 
 class Ball {
-    constructor(x, y, r, c, vx, vy, m) {
+    constructor(x, y, r, c='red', vx=0, vy=0, m=0) {
         this.x = x;
         this.y = y;
         this.radius = r;
@@ -32,11 +32,12 @@ class Ball {
             let r = b.radius - d;
             let u = {x: (b.x - p.x) / d, y: (b.y - p.y) / d }; // ед.вектор
             // модуль упругости зависит от фазы - сжатие или расжатие шара
-            let k = G.scalar({x: b.vx, y: b.vy}, u) > 0 ? K * W: K;
+            let scalar = G.scalar({x: b.vx, y: b.vy}, u);
+            let k = scalar > 0 ? K * W: K;
             let fx = k * r * u.x;
             let fy = k * r * u.y;
-            b.fx += fx;
             b.fy += fy;
+            b.fx += fx;
         }
 
         // изменение скорости

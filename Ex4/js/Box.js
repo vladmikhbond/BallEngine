@@ -42,7 +42,7 @@ class Box {
         box.balls.forEach( b => b.move() )
     }
 
-    // собирает на шары точки касания с отрезками (в т.ч. с границами)
+    // собирает на шары точки касания с  (в т.ч. с границами)
     touchLines() {
         for (let b of this.balls) {
             b.dots = [];

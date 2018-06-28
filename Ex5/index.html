@@ -2,7 +2,8 @@
 <html>
 <body>
     <h3> Ex5. Построение сцен</h3>
-    <button id="modeButton">Start</button> <br />
+    <button id="modeButton">Start</button>
+    <button id="createButton">None</button> <br />
 
     <canvas id="canvas" width="800" height="600" style="border: thin solid blue"></canvas>
 
@@ -15,15 +16,17 @@
     <script>
         const box = new Box(100, 100, 600, 400);
 
-        box.addBall(new Ball(100, 100, 30, 'red', 0, -4));
-        box.addBall(new Ball(200, 150, 50, 'black', 4, 0));
-        box.addBall(new Ball(200, 250, 30, 'red', -4, 0));
-        box.addLine(new Line(0, 0, 100, 400));
-        box.addLine(new Line(150, 200, 600, 0));
+//        box.addBall(new Ball(100, 100, 30, 'red', 0, -4));
+//        box.addBall(new Ball(200, 150, 50, 'black', 4, 0));
+//        box.addBall(new Ball(200, 250, 30, 'red', -4, 0));
+
+//        box.addLine(new Line(0, 0, 100, 400));
+//        box.addLine(new Line(150, 200, 600, 0));
 
 
-        setListeners(box);
         drawAll();
+        setListeners(box);
+
 
     </script>
 

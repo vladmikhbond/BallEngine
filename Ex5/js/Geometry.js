@@ -1,5 +1,5 @@
-const W = 0.8;  // потеря энергии при соударении
-const K = 2000;  // модуль упругости
+const W = 0.5;  // потеря энергии при соударении
+const K = 100;  // модуль упругости
 
 const g = 0.05;  // 0.05;
 const INTERVAL = 30;
@@ -84,6 +84,12 @@ const G = function () {
             return null;
         },
 
+        calcDot(b, p) {
+            let d = _distance(b, p), r = b.radius;
+            let x = (p.x - b.x) * r / d;
+            let y = (p.y - b.y) * r / d;
+            return {x, y};
+        }
 
 
     }

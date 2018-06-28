@@ -13,7 +13,7 @@ class Box {
             new Line(w, h, 0, h), // bottom
             new Line(0, h, 0, 0), // left
         ];
-
+        this.createMode = 0;  // 0-create ball, 1-create line,
     }
 
     set mode(v) {
