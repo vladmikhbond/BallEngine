@@ -1,7 +1,7 @@
 const W = 0.8;  // потеря энергии при соударении
-const K = 1000;  // модуль упругости
+const K = 2000;  // модуль упругости
 
-const g = 0.5;  // 0.05;
+const g = 0.05;  // 0.05;
 const INTERVAL = 30;
 
 const G = function () {
@@ -54,7 +54,6 @@ const G = function () {
         // Точка пересечения прямой line и перпендикуляра к ней, опущенного из точки p.
         //
         cross(p, line) {
-
             let k = line.k;
             let b = line.b;
 
@@ -71,23 +70,19 @@ const G = function () {
             let k2 = k;
             let b2 = b;
 
-            // точка пересечения перепендикуляра и прямой.
-            return { x: (b1 - b2) / (k2 - k1), y: (k2 * b1 - k1 * b2) / (k2 - k1) };
+             // точка пересечения перепендикуляра и прямой
+            let dot = { x: (b1 - b2) / (k2 - k1), y: (k2 * b1 - k1 * b2) / (k2 - k1) };
+
+            // точка пересечения лежит в пределах отрезка
+            let p1 = line.p1, p2 = line.p2;
+
+            if ((p1.x <= dot.x && dot.x <= p2.x || p2.x <= dot.x && dot.x <= p1.x) &&
+                (p1.y <= dot.y && dot.y <= p2.y || p2.y <= dot.y && dot.y <= p1.y) )
+                return dot;
+
+            return null;
         },
 
-
-        // // поворот скорости шара a на угол alpha
-        // turnV(a, alpha) {
-        //     let va = _turn(a.vx, a.vy, alpha)
-        //     a.vx = va.x;
-        //     a.vy = va.y;
-        // },
-        //
-        // //
-        // scalarV(a, b)
-        // {
-        //     return a.vx * b.vx + a.vy * b.vy;
-        // },
 
 
     }

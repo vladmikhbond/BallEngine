@@ -18,22 +18,15 @@ class Ball {
         return kinetic + potential;
     }
 
-    step() {
+    // вызывается, когда собраны точки касания
+    move() {
         let b = this;
 
+        // вычисляем равнодействующую силу
         b.fx = 0;
         b.fy = b.m * g;  // тяготение
 
-        // собираем на шар точки касания с линиями
-        b.dots = [];
-        for (let l of b.box.lines.concat(b.box.border) ) {
-            let p = G.cross(b, l);
-            if (G.dist(p, b) < b.radius) {
-                b.dots.push(p);
-            }
-        }
-
-        // вычисляем силу
+        // сила реакции точек касания
         for (let p of b.dots) {
             let d = G.dist(b, p);
             let r = b.radius - d;
@@ -46,13 +39,30 @@ class Ball {
             b.fy += fy;
         }
 
-
         // изменение скорости
         b.vx += b.fx / b.m;
         b.vy += b.fy / b.m;
+
         // изменение координат
         b.x += b.vx;
         b.y += b.vy;
+    }
+
+
+
+    dotWith(b2) {
+        let b1 = this;
+        let d = G.dist(b1, b2);
+        // шары далеко
+        if (d > b1.radius + b2.radius )
+            return;
+        // отношение расстояние от b1 до точки касания к расстоянию между шарами
+        let k = (d + b1.radius - b2.radius) / (2 * d);
+        // координаты точки касания
+        let x = b1.x + (b2.x - b1.x) * k;
+        let y = b1.y + (b2.y - b1.y) * k;
+        return {x, y};
+
     }
 
 }
