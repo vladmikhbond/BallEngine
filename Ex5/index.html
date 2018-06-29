@@ -3,7 +3,7 @@
 <body>
     <h3> Ex5. Построение сцен</h3>
     <button id="modeButton">Start</button>
-    <button id="createButton">None</button> <br />
+    <button id="createButton">None</button> <b>s</b> - step<br />
 
     <canvas id="canvas" width="800" height="600" style="border: thin solid blue"></canvas>
 
@@ -26,6 +26,7 @@
 
         drawAll();
         setListeners(box);
+        createButton.dispatchEvent(new Event("click"));
 
 
     </script>

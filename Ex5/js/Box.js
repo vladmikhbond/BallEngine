@@ -48,10 +48,11 @@ class Box {
     static step(box) {
         let event = new Event("drawAll");
         canvas.dispatchEvent(event);
-        box.touchLines();
-        box.touchBalls();
-
-        box.balls.forEach( b => b.move() )
+        for (let i = 0; i < REPEAT; i++) {
+            box.touchLines();
+            box.touchBalls();
+            box.balls.forEach( b => b.move() )
+        }
     }
 
     // собирает на шары точки касания с отрезками (в т.ч. с границами)
