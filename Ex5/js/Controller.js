@@ -71,7 +71,7 @@ function setListeners(box) {
         let p = {x: e.pageX - this.offsetLeft - box.x,
             y: e.pageY - this.offsetTop - box.y };
         let r = G.dist(p0, p);
-        if (r > 5) {
+        if (r > 2) {
             box.addBall(new Ball(p0.x, p0.y, r));
         }
         p0 = null;
@@ -98,7 +98,7 @@ function setListeners(box) {
             return;
         let p = {x: e.pageX - this.offsetLeft - box.x,
             y: e.pageY - this.offsetTop - box.y };
-        if (G.dist(p0, p) > 5) {
+        if (G.dist(p0, p) > 2) {
             box.addLine(new Line(p0.x, p0.y, p.x, p.y));
         }
         p0 = null;

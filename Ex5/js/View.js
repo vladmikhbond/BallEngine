@@ -3,7 +3,7 @@
 function drawAll() {
     const ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    let k = 10;
+    let k = 50;
 
     // draw box
     ctx.lineWidth = 0.5;
@@ -40,9 +40,12 @@ function drawCircle(p0, p) {
     ctx.strokeStyle = "gray";
     ctx.beginPath();
     let x = box.x + p0.x, y = box.y + p0.y;
-    let r = G.dist(p0, p);
+    let r = Math.round(G.dist(p0, p));
     ctx.arc(x, y, r, 0, Math.PI * 2);
     ctx.stroke();
+    // print sum energy
+    ctx.fillText("R = " + r, box.x + p.x, box.y + p.y );
+
 }
 
 function drawLine(p0, p) {
