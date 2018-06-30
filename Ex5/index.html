@@ -2,8 +2,14 @@
 <html>
 <body>
     <h3> Ex5. Построение сцен</h3>
-    <button id="modeButton">Start</button>
-    <button id="createButton">None</button> <b>s</b> - step<br />
+    <div>
+      <button id="modeButton">Start</button>
+      <button id="createButton">None</button>
+      <input type="text" id="ballDefinition" style="width: 500px">
+      <button id="updateButton">Update</button>
+      <button id="saveSceneButton">Scene</button>
+      <button id="loadSceneButton">Load</button>
+    </div>
 
     <canvas id="canvas" width="800" height="600" style="border: thin solid blue"></canvas>
 
@@ -15,14 +21,11 @@
     <script src="js/Controller.js"></script>
     <script>
         const box = new Box(100, 100, 600, 400);
-
-        box.addBall(new Ball(100, 100, 30, 'red', 0, -4));
-        box.addBall(new Ball(200, 150, 50, 'black', 4, 0));
-        box.addBall(new Ball(200, 250, 30, 'red', -4, 0));
-        box.addLine(new Line(0, 0, 100, 400));
-        box.addLine(new Line(150, 200, 600, 0));
-
-
+//        box.addBall(new Ball(100, 100, 30, 'red', 0, -4));
+//        box.addBall(new Ball(200, 150, 50, 'black', 4, 0));
+//        box.addBall(new Ball(200, 250, 30, 'red', -4, 0));
+//        box.addLine(new Line(0, 0, 100, 400));
+//        box.addLine(new Line(150, 200, 600, 0));
         drawAll();
         setListeners(box);
         createButton.dispatchEvent(new Event("click"));

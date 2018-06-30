@@ -13,9 +13,10 @@ class Box {
             new Line(w, h, 0, h), // bottom
             new Line(0, h, 0, 0), // left
         ];
-        this.createMode = 0;  // 0-create ball, 1-create line,
+        this.createMode = 0;  // 0-none, 1-create ball, 2-create line,
     }
 
+    // 0-stop, 1-play
     set mode(v) {
         if (v) {
             intervalId = setInterval(Box.step, INTERVAL, this);
@@ -40,8 +41,35 @@ class Box {
         this.balls.push(b);
     }
 
+    deleteBall(b) {
+        let idx = this.balls.indexOf(b);
+        if (idx !== -1)
+            this.balls.splice(idx, 1);
+    }
+
+    deleteSelectedBall() {
+        if (this.balls.selected) {
+            this.deleteBall(this.balls.selected);
+            this.balls.selected = null;
+        }
+    }
+
+
     addLine(l) {
         this.lines.push(l);
+    }
+
+    deleteLine(l) {
+        let idx = this.lines.indexOf(l);
+        if (idx !== -1)
+            this.lines.splice(idx, 1);
+    }
+
+    deleteSelectedLine() {
+        if (this.lines.selected) {
+            this.deleteLine(this.lines.selected);
+            this.lines.selected = null;
+        }
     }
 
 

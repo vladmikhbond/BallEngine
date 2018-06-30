@@ -30,15 +30,15 @@ function setListeners(box) {
         }
 
         if (!sel) {
-            let o = JSON.parse(prompt("", box.selected.toString()));
-            if (o.name === "Ball") {
-                let b = box.selected;
-                b.x = o.x; b.y = o.y; b.vx = o.vx; b.vy = o.vy;
-            }
-
-
-        } else
+            // let o = JSON.parse(prompt("", box.selected.toString()));
+            // if (o.name === "Ball") {
+            //     let b = box.selected;
+            //     b.x = o.x; b.y = o.y; b.vx = o.vx; b.vy = o.vy;
+            // }
+        } else {
             box.selected = sel;
+            drawAll();
+        }
 
     })
 

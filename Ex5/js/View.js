@@ -33,7 +33,36 @@ function drawAll() {
     // print sum energy
     ctx.fillText("E = " + box.SumEnergy, 20, 20 );
 
+    if (box.balls.selected)
+        drawSelectedBall(ctx);
+    if (box.lines.selected)
+        drawSelectedLine(ctx);
+
 }
+
+function drawSelectedBall(ctx) {
+    ctx.save();
+    ctx.beginPath();
+        let b = box.balls.selected;
+        ctx.strokeStyle = b.color;
+        let x = box.x + b.x, y = box.y + b.y;
+        ctx.arc(x, y, b.radius + 1, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.restore();
+}
+
+function drawSelectedLine(ctx) {
+    ctx.save();
+    ctx.beginPath();
+    let l = box.lines.selected;
+    //ctx.lineWidth = 2;
+    ctx.strokeStyle = 'blue';
+    ctx.moveTo(box.x + l.x1, box.y + l.y1);
+    ctx.lineTo(box.x + l.x2, box.y + l.y2);
+    ctx.stroke();
+    ctx.restore();
+}
+
 
 function drawCircle(p0, p) {
     const ctx = canvas.getContext("2d");
