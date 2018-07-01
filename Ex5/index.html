@@ -28,19 +28,21 @@
     <script src="js/Line.js"></script>
     <script src="js/Box.js"></script>
     <script src="js/View.js"></script>
+    <script src="js/Storage.js"></script>
     <script src="js/Controller.js"></script>
     <script>
-        const box = new Box(100, 100, 600, 400);
+        const box = new Box(50, 50, canvas.width - 100, canvas.height - 100 );
 //        box.addBall(new Ball(100, 100, 30, 'red', 0, -4));
 //        box.addBall(new Ball(200, 150, 50, 'black', 4, 0));
 //        box.addBall(new Ball(200, 250, 30, 'red', -4, 0));
 //        box.addLine(new Line(0, 0, 100, 400));
 //        box.addLine(new Line(150, 200, 600, 0));
-        drawAll();
-        setListeners(box);
+        setListeners();
         createButton.dispatchEvent(new Event("click"));
 
+        restoreScenes();
 
+        drawAll();
     </script>
 
 </body>

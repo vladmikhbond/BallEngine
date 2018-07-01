@@ -1,4 +1,4 @@
-function setListeners(box) {
+function setListeners() {
 
     //---------------------------------------------------------
     canvas.addEventListener("drawAll", function (e) {
@@ -35,24 +35,6 @@ function setListeners(box) {
         drawAll();
     });
 
-
-    saveSceneButton.addEventListener("click", function ()
-    {
-        let scene = {
-            balls: box.balls.map(b => b.toString(), box),
-            lines: box.lines.map(l => l.toString()),
-        };
-
-        let img = new Image();
-        img.id = scenes.length;
-        drawAll(5);
-        img.src = canvas.toDataURL();
-        drawAll();
-        img.setAttribute("onclick", `restoreImg(${img.id})`);
-        scenesDiv.appendChild(img);
-        scenes.push(scene);
-
-    });
 
     //----------------------------- keyboard ----------------------------
 
@@ -182,15 +164,3 @@ function setListeners(box) {
     }
 
 }
-let scenes = [];
-
-function restoreImg(n)
-{
-    let saved = scenes[n];
-    box.balls = [];
-    saved.balls.forEach(s => box.addBall(Ball.fromString(s)));
-    box.lines = [];
-    saved.lines.forEach(s => box.addLine(Line.fromString(s)));
-    drawAll();
-}
-

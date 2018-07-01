@@ -86,3 +86,17 @@ function drawLine(p0, p) {
     ctx.stroke();
 }
 
+// "кнопка" удаления на уменьшенном изображении
+//
+function drawDeleteCross() {
+    const ctx = canvas.getContext("2d");
+    ctx.lineWidth = 10;
+    ctx.strokeStyle = "red";
+    ctx.beginPath();
+    ctx.moveTo(canvas.width, 10);
+    ctx.lineTo(canvas.width - 100, 100);
+    ctx.moveTo(canvas.width - 100, 10);
+    ctx.lineTo(canvas.width, 100);
+    ctx.stroke();
+}
+
