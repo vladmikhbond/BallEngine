@@ -35,23 +35,23 @@ function setListeners(box) {
         drawAll();
     });
 
-    let saved;
 
     saveSceneButton.addEventListener("click", function ()
     {
-        saved = {
+        let scene = {
             balls: box.balls.map(b => b.toString(), box),
             lines: box.lines.map(l => l.toString()),
         };
-    });
 
-    loadSceneButton.addEventListener("click", function ()
-    {
-        box.balls = [];
-        saved.balls.forEach(s => box.addBall(Ball.fromString(s)));
-        box.lines = [];
-        saved.lines.forEach(s => box.addLine(Line.fromString(s)));
+        let img = new Image();
+        img.id = scenes.length;
+        drawAll(5);
+        img.src = canvas.toDataURL();
         drawAll();
+        img.setAttribute("onclick", `restoreImg(${img.id})`);
+        scenesDiv.appendChild(img);
+        scenes.push(scene);
+
     });
 
     //----------------------------- keyboard ----------------------------
@@ -114,7 +114,6 @@ function setListeners(box) {
 
 
     });
-
 
     function ballHandlers() {
         let p0 = null;
@@ -183,3 +182,15 @@ function setListeners(box) {
     }
 
 }
+let scenes = [];
+
+function restoreImg(n)
+{
+    let saved = scenes[n];
+    box.balls = [];
+    saved.balls.forEach(s => box.addBall(Ball.fromString(s)));
+    box.lines = [];
+    saved.lines.forEach(s => box.addLine(Line.fromString(s)));
+    drawAll();
+}
+

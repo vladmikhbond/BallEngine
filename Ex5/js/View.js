@@ -1,12 +1,12 @@
 
 
-function drawAll() {
+function drawAll(lineWidth=0.5) {
     const ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    let k = 50;
+    ctx.lineWidth = lineWidth;
+    let velo = 50;
 
     // draw box
-    ctx.lineWidth = 0.5;
     ctx.strokeStyle = "black";
     ctx.strokeRect(box.x, box.y, box.width, box.height);
 
@@ -17,7 +17,7 @@ function drawAll() {
         let x = box.x + b.x, y = box.y + b.y;
         ctx.arc(x, y, b.radius, 0, Math.PI * 2);
         ctx.moveTo(x, y);
-        ctx.lineTo(x + b.vx * k, y + b.vy * k );
+        ctx.lineTo(x + b.vx * velo, y + b.vy * velo );
         ctx.stroke();
     }
 
