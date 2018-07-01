@@ -1,5 +1,3 @@
-
-
 function drawAll(lineWidth=0.5) {
     const ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -64,7 +62,7 @@ function drawSelectedLine(ctx) {
 }
 
 
-function drawCircle(p0, p) {
+function drawGrayCircle(p0, p) {
     const ctx = canvas.getContext("2d");
     ctx.strokeStyle = "gray";
     ctx.beginPath();
@@ -77,7 +75,7 @@ function drawCircle(p0, p) {
 
 }
 
-function drawLine(p0, p) {
+function drawGrayLine(p0, p) {
     const ctx = canvas.getContext("2d");
     ctx.strokeStyle = "gray";
     ctx.beginPath();
@@ -86,9 +84,8 @@ function drawLine(p0, p) {
     ctx.stroke();
 }
 
-// "кнопка" удаления на уменьшенном изображении
-//
-function drawDeleteCross() {
+// иконка удаления на уменьшенном изображении
+function drawRedCross() {
     const ctx = canvas.getContext("2d");
     ctx.lineWidth = 10;
     ctx.strokeStyle = "red";

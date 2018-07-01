@@ -16,7 +16,7 @@ function restoreScenes() {
          let img = new Image();
          img.id = id;
          drawAll(5);
-         drawDeleteCross();
+         drawRedCross();
          img.src = canvas.toDataURL();
          drawAll();
          img.setAttribute("onclick", `restoreScene("${img.id}", this)`);
@@ -31,7 +31,7 @@ saveSceneButton.addEventListener("click", function ()
     let img = new Image();
     img.id = Date.now().toString();
     drawAll(5);
-    drawDeleteCross();
+    drawRedCross();
     img.src = canvas.toDataURL();
     drawAll();
     img.setAttribute("onclick", `restoreScene("${img.id}", this)`);

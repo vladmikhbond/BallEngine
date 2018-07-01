@@ -1,6 +1,9 @@
 function setListeners() {
+    const CREATE_MODE_BALL = 0;
+    const CREATE_MODE_LINE = 1;
 
-     canvas.addEventListener("drawAll", function (e) {
+
+    canvas.addEventListener("drawAll", function (e) {
         drawAll();
     });
 
@@ -23,9 +26,9 @@ function setListeners() {
         this.innerHTML = names[box.createMode];
 
         // mouse handlers
-        if (box.createMode === 0) {
+        if (box.createMode === CREATE_MODE_BALL) {
             ballHandlers();
-        } else if (box.createMode === 1) {
+        } else if (box.createMode === CREATE_MODE_LINE) {
             lineHandlers();
         }
     });
@@ -52,9 +55,9 @@ function setListeners() {
                 }
                 break;
             case 'Delete':
-                if (box.createMode === 1) {
+                if (box.createMode === CREATE_MODE_BALL) {
                     box.deleteSelectedBall();
-                } else if (box.createMode === 2) {
+                } else if (box.createMode === CREATE_MODE_LINE) {
                     box.deleteSelectedLine();
                 }
                 drawAll();
@@ -113,7 +116,7 @@ function setListeners() {
             let p = {x: e.pageX - this.offsetLeft - box.x,
                 y: e.pageY - this.offsetTop - box.y };
             drawAll();
-            drawCircle(p0, p);
+            drawGrayCircle(p0, p);
         }
 
         canvas.onmouseup = function(e) {
@@ -147,7 +150,7 @@ function setListeners() {
             let p = {x: e.pageX - this.offsetLeft - box.x,
                 y: e.pageY - this.offsetTop - box.y };
             drawAll();
-            drawLine(p0, p);
+            drawGrayLine(p0, p);
         }
 
         canvas.onmouseup = function(e) {
