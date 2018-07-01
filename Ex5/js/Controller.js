@@ -1,11 +1,12 @@
 function setListeners() {
 
-    //---------------------------------------------------------
-    canvas.addEventListener("drawAll", function (e) {
+     canvas.addEventListener("drawAll", function (e) {
         drawAll();
     });
 
     //------------------- buttons --------------------------------------
+
+    // play mode toggle
     modeButton.addEventListener("click", function ()
     {
         const names = ["Stop", "Start"];
@@ -14,20 +15,22 @@ function setListeners() {
         drawAll();
     });
 
+    // create mode toggle
     createButton.addEventListener("click", function ()
     {
-        const names = ["None", "Ball", "Line"];
+        const names = ["Ball", "Line"];
         box.createMode = (box.createMode + 1) % names.length;
         this.innerHTML = names[box.createMode];
 
         // mouse handlers
-        if (box.createMode === 1) {
+        if (box.createMode === 0) {
             ballHandlers();
-        } else if (box.createMode === 2) {
+        } else if (box.createMode === 1) {
             lineHandlers();
         }
     });
 
+    // update selected ball
     updateButton.addEventListener("click", function ()
     {
         let o = JSON.parse(ballDefinition.value);
@@ -62,12 +65,12 @@ function setListeners() {
 
     //------------------------------ mouse ---------------------------
 
+    // select object
     canvas.addEventListener("click", function (e) {
         let p = {x: e.pageX - this.offsetLeft - box.x,
             y: e.pageY - this.offsetTop - box.y };
 
         // select ball
-        //box.balls.selected = null;
         for (let b of box.balls) {
             if (G.dist(p, b ) < b.radius) {
                 box.balls.selected = b;
@@ -77,7 +80,6 @@ function setListeners() {
             }
         }
         // select line
-        //box.lines.selected = null;
         for (let l of box.lines) {
             if (G.distToInfiniteLine(p, l) < 5) {
                 box.lines.selected = l;
@@ -124,6 +126,7 @@ function setListeners() {
                 let b = new Ball(p0.x, p0.y, r);
                 box.addBall(b);
                 box.balls.selected = b;
+                ballDefinition.value = b.toString();
             }
             p0 = null;
             drawAll();
@@ -163,4 +166,5 @@ function setListeners() {
         }
     }
 
+    ballHandlers();
 }
