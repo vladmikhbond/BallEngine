@@ -1,3 +1,10 @@
+const MODE_STOP = 0;
+const MODE_PLAY = 1;
+
+const CREATE_MODE_BALL = 0;
+const CREATE_MODE_LINE = 1;
+
+
 class Box {
 
     constructor(x, y, w, h) {
@@ -13,7 +20,7 @@ class Box {
             new Line(w, h, 0, h), // bottom
             new Line(0, h, 0, 0), // left
         ];
-        this.createMode = 0;  // 0-create ball, 1-create line,
+        this.createMode = CREATE_MODE_BALL;  // 0-create ball, 1-create line,
     }
 
     // 0-stop, 1-play
@@ -27,7 +34,7 @@ class Box {
     }
 
     get mode() {
-        return intervalId ? 1 : 0;
+        return intervalId ? MODE_PLAY : MODE_STOP;
     }
 
     get SumEnergy() {
@@ -111,13 +118,35 @@ class Box {
         for (let i = 0; i < this.balls.length - 1; i++ ) {
             for (let j = i + 1; j < this.balls.length; j++ ) {
                 let b1 = this.balls[i], b2 = this.balls[j];
-                let dot = b1.dotWith(b2);
+                let dot = touch(b1, b2);
                 if (dot) {
                     b1.dots.push(dot);
                     b2.dots.push(dot);
                 }
             }
         }
+
+        // деформация шара (т.е. сила реакции) пропорциональна массе
+        // (компенсирует обратную пропорциональность массе модуля упругости)
+        function touch(b1, b2) {
+            let d = G.dist(b1, b2);
+            // шары далеко
+            if (d > b1.radius + b2.radius )
+                return;
+            // ширина области деформации (области пересечения окружностей)
+            let delta = b1.radius + b2.radius - d;
+            // доля деформации для шара b1
+            let delta1 = delta * b1.m / (b1.m + b2.m);
+
+            // отношение расстояние от b1 до точки касания к расстоянию между шарами
+            let k = (d - b2.radius + delta1) / d;
+
+            // координаты точки касания
+            let x = b1.x + (b2.x - b1.x) * k;
+            let y = b1.y + (b2.y - b1.y) * k;
+            return {x, y};
+        }
+
     }
 
 

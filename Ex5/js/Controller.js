@@ -1,7 +1,4 @@
 function setListeners() {
-    const CREATE_MODE_BALL = 0;
-    const CREATE_MODE_LINE = 1;
-
 
     canvas.addEventListener("drawAll", function (e) {
         drawAll();
@@ -9,10 +6,10 @@ function setListeners() {
 
     //------------------- buttons --------------------------------------
 
-    // play mode toggle
+    // mode toggle
     modeButton.addEventListener("click", function ()
     {
-        const names = ["Stop", "Start"];
+        const names = ["Stop", "Play"];
         this.innerHTML = names[box.mode];
         box.mode = (box.mode + 1) % names.length;
         drawAll();
@@ -51,7 +48,8 @@ function setListeners() {
                 if (box.mode === 0) {
                     Box.step(box);
                 } else {
-                    box.mode = 0
+                    // to toggle mode
+                    modeButton.dispatchEvent(new Event("click"));
                 }
                 break;
             case 'Delete':

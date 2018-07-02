@@ -62,21 +62,4 @@ class Ball {
         b.y += b.vy;
     }
 
-
-
-    dotWith(b2) {
-        let b1 = this;
-        let d = G.dist(b1, b2);
-        // шары далеко
-        if (d > b1.radius + b2.radius )
-            return;
-        // отношение расстояние от b1 до точки касания к расстоянию между шарами
-        let k = (d + b1.radius - b2.radius) / (2 * d);
-        // координаты точки касания
-        let x = b1.x + (b2.x - b1.x) * k;
-        let y = b1.y + (b2.y - b1.y) * k;
-        return {x, y};
-
-    }
-
 }
