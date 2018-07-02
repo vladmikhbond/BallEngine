@@ -40,11 +40,11 @@ function restoreScene(id, img)
     // реконструкция
     let scene = scenes[id];
     box.balls = [];
-    scene.balls.forEach(s => box.addBall(Ball.fromString(s)));
+    scene.balls.forEach(o => box.addBall(Ball.fromString(o)));
     box.lines = [];
-    scene.lines.forEach(l => box.addLine(Line.fromString(l)));
+    scene.lines.forEach(o => box.addLine(Line.fromString(o)));
     box.links = [];
-    scene.links.forEach(l => box.addLink(Link.fromString(l)));
+    scene.links.forEach(o => box.addLink(Link.fromString(o, box.balls)));
     drawAll();
 }
 
@@ -57,9 +57,11 @@ function restoreScenes() {
     for(let id in scenes) {
         let scene = scenes[id];
         box.balls = [];
-        scene.balls.forEach(s => box.addBall(Ball.fromString(s)));
+        scene.balls.forEach(o => box.addBall(Ball.fromString(o)));
         box.lines = [];
-        scene.lines.forEach(s => box.addLine(Line.fromString(s)));
+        scene.lines.forEach(o => box.addLine(Line.fromString(o)));
+        box.links = [];
+        scene.links.forEach(o => box.addLink(Link.fromString(o, box.balls)));
         //
         let img = new Image();
         img.id = id;

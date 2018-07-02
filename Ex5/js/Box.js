@@ -84,8 +84,8 @@ class Box {
         let event = new Event("drawAll");
         canvas.dispatchEvent(event);
         for (let i = 0; i < REPEAT; i++) {
-            box.touchLines();
-            box.touchBalls();
+            box.dotsFromLines();
+            box.dotsFromBalls();
             box.balls.forEach( b => b.move() )
         }
     }

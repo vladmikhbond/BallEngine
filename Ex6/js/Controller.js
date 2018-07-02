@@ -181,7 +181,7 @@ function setListeners() {
             let p = {x: e.pageX - this.offsetLeft - box.x,
                 y: e.pageY - this.offsetTop - box.y };
 
-            let b = ballUnderMouse(p);
+            let b = box.ballUnderPoint(p);
             if (!b)
                 return;
             if (!b0) {
@@ -191,15 +191,15 @@ function setListeners() {
                 b0 = null;
             }
 
-            // find a ball under mouse
-            function ballUnderMouse(p) {
-                for (let b of box.balls) {
-                    if (G.dist(p, b ) < b.radius) {
-                        return b;
-                    }
-                }
-                return null;
-            }
+            // // find a ball under mouse
+            // function ballUnderPoint(p) {
+            //     for (let b of box.balls) {
+            //         if (G.dist(p, b ) < b.radius) {
+            //             return b;
+            //         }
+            //     }
+            //     return null;
+            // }
         }
 
         canvas.onmousemove = function(e) {

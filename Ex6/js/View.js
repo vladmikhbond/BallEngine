@@ -19,6 +19,17 @@ function drawAll(lineWidth=0.5) {
         ctx.stroke();
     }
 
+    // draw dots (for debug)
+    for (let b of box.balls) {
+        if (!b.dots) continue;
+        for (let d of b.dots) {
+            if (!d) continue;
+            ctx.strokeStyle = 'black';
+            let x = box.x + d.x, y = box.y + d.y;
+            ctx.strokeRect(x-1, y-1, 3, 3);
+        }
+    }
+
     // draw lines
     ctx.strokeStyle = "blue";
     ctx.beginPath();

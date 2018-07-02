@@ -36,8 +36,8 @@ class Box {
 
     static step(box, draw) {
         draw();
-        box.touchLines();
-        box.touchBalls();
+        box.dotsFromLines();
+        box.dotsFromBalls();
 
         box.balls.forEach( b => b.move() )
     }

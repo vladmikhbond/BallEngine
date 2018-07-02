@@ -18,9 +18,11 @@ class Link {
             x2: +(l.x2.toFixed(2)), y2: +(l.y2.toFixed(2)) });
     }
 
-    static fromString(s) {
+    static fromString(s, balls) {
         let o = JSON.parse(s);
-        return new Line(o.x1, o.y1,o.x2, o.y2);
+        let b1 = box.ballUnderPoint({x: o.x1, y: o.y1})
+        let b2 = box.ballUnderPoint({x: o.x2, y: o.y2})
+        return new Link(b1, b2);
     }
 
 
