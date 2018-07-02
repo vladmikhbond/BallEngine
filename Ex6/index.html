@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html>
+<body>
+    <style>
+      img {
+        width: 100px;
+        height: 80px;
+        border: solid thin gray;
+        margin-right: 10px;
+      }
+    </style>
+
+    <h3> Ex6. Связи</h3>
+    <div>
+      <button id="modeButton">Start</button>
+      <button id="createButton">Ball</button>
+      <input type="text" id="ballDefinition" style="width: 500px">
+      <button id="updateButton">Update</button>
+      <button id="saveSceneButton">Scene</button>
+    </div>
+    <canvas id="canvas" width="800" height="600" style="border: thin solid blue"></canvas>
+    <div id="scenesDiv">
+
+    </div>
+
+    <script src="js/Geometry.js"></script>
+    <script src="js/Ball.js"></script>
+    <script src="js/Line.js"></script>
+    <script src="js/Link.js"></script>
+    <script src="js/Box.js"></script>
+    <script src="js/View.js"></script>
+    <script src="js/Storage.js"></script>
+    <script src="js/Controller.js"></script>
+    <script>
+        const box = new Box(50, 50, canvas.width - 100, canvas.height - 100 );
+        setListeners();
+        restoreScenes();
+        drawAll();
+    </script>
+
+</body>
+</html>
