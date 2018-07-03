@@ -5,7 +5,7 @@ let g = 0.05;  // 0.05;
 let INTERVAL = 30;
 let intervalId;
 
-let REPEAT = 10;
+let REPEATER = 10;
 
 
 const G = function () {

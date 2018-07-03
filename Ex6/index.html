@@ -43,7 +43,7 @@
     <script src="js/Storage.js"></script>
     <script src="js/Controller.js"></script>
     <script>
-        const box = new Box(50, 50, canvas.width - 100, canvas.height - 100 );
+        let box = new Box(50, 50, canvas.width - 100, canvas.height - 100 );
         setListeners();
         restoreScenes();
         worldDefinition.value = Box.worldToString();

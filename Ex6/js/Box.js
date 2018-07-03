@@ -46,8 +46,8 @@ class Box {
 
     //<editor-fold desc="World suit">
     static worldToString() {
-        let w = {W, K, g, INTERVAL, REPEAT};
-        return JSON.stringify(w, null, ' ');
+        let w = {W, K, g, INTERVAL, REPEATER};
+        return JSON.stringify(w, null, '  ');
     }
 
     static worldFromString(s) {
@@ -56,9 +56,8 @@ class Box {
         K = w.K;
         g = w.g;
         INTERVAL = w.INTERVAL;
-        REPEAT = w.REPEAT;
+        REPEATER = w.REPEATER;
     }
-
 
     //</editor-fold>
     //<editor-fold desc="Ball suit">
@@ -146,7 +145,7 @@ class Box {
     static step(box) {
         let event = new Event("drawAll");
         canvas.dispatchEvent(event);
-        for (let i = 0; i < REPEAT; i++) {
+        for (let i = 0; i < REPEATER; i++) {
             box.dotsFromLines();
             box.dotsFromBalls();
             box.dotsFromLinks();
