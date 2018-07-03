@@ -148,6 +148,7 @@ class Box {
         for (let i = 0; i < REPEATER; i++) {
             box.dotsFromLines();
             box.dotsFromBalls();
+            box.dotsAboutLinks();
             box.dotsFromLinks();
             box.balls.forEach( b => b.move() )
         }
@@ -174,7 +175,6 @@ class Box {
              }
         }
     }
-
 
     // собирает на шары точки касания с шарами
     dotsFromBalls() {
@@ -252,6 +252,46 @@ class Box {
         }
 
     }
+
+    // собирает на шары виртуальные точки касания от ударов о связи
+    dotsAboutLinks() {
+        for (let b of this.balls) {
+            for (let l of this.links ) {
+                if (b === l.b1 || b === l.b2 )
+                    continue;
+                let line = new Line(l.x1, l.y1, l.x2, l.y2);
+                let d = G.distToInfiniteLine(b, line);
+                if (d > b.radius)
+                    continue;
+                let p = G.cross(b, line);  // на самом деле отрезок короче !!!
+                if (!p) continue;  // точка пересечения за пределами связи
+
+                // общий размер области деформации
+                let delta = b.radius - d;
+                // доля деформации для шара и для гантели (dumbbell)
+                let M = l.b1.m + l.b2.m;
+                let deltaB = delta * M / (b.m + M);
+                let deltaD = delta - deltaB;
+                let len1 = G.dist(l.b1, p), len2 = l.len0 - len1;
+                let delta1 = deltaD * len2 / l.len0;
+                let delta2 = deltaD * len1 / l.len0;
+                // точка касания для шара
+                let k = d / (b.radius - deltaB);
+                let x = (p.x - b.x) / k + b.x;
+                let y = (p.y - b.y) / k + b.y;
+                b.dots.push({x, y});
+
+                // точки касания для шаров гантели
+
+            }
+        }
+
+
+
+
+
+    }
+
 
 
 
