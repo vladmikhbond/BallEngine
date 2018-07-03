@@ -42,9 +42,11 @@ function setListeners() {
     // update selected ball
     updateButton.addEventListener("click", function ()
     {
-        let o = JSON.parse(ballDefinition.value);
-        Object.assign(box.balls.selected, o);
-        drawAll();
+        if (box.balls.selected) {
+            let o = JSON.parse(ballDefinition.value);
+            Object.assign(box.balls.selected, o);
+            drawAll();
+        }
     });
 
 

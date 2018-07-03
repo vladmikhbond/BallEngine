@@ -256,8 +256,8 @@ class Box {
     // собирает на шары виртуальные точки касания от ударов о связи
     dotsAboutLinks() {
         for (let b of this.balls) {
-            for (let l of this.links ) {
-                if (b === l.b1 || b === l.b2 )
+            for (let l of this.links) {
+                if (b === l.b1 || b === l.b2)
                     continue;
                 let line = new Line(l.x1, l.y1, l.x2, l.y2);
                 let d = G.distToInfiniteLine(b, line);
@@ -273,6 +273,7 @@ class Box {
                 let deltaB = delta * M / (b.m + M);
                 let deltaD = delta - deltaB;
                 let len1 = G.dist(l.b1, p), len2 = l.len0 - len1;
+                // распределение деформации гантели по шарам
                 let delta1 = deltaD * len2 / l.len0;
                 let delta2 = deltaD * len1 / l.len0;
                 // точка касания для шара
@@ -282,17 +283,20 @@ class Box {
                 b.dots.push({x, y});
 
                 // точки касания для шаров гантели
-
+                // u - единичный векор перпедикуляра к связи
+                let u = {x: (b.x - p.x) / d, y: (b.y - p.y) / d};
+                // b1
+                let r1 = l.b1.radius - delta1;
+                let dot = {x: l.b1.x + r1 * u.x, y: l.b1.y + r1 * u.y};
+                l.b1.dots.push(dot);
+                // b2
+                let r2 = l.b2.radius - delta2;
+                dot = {x: l.b2.x + r2 * u.x, y: l.b2.y + r2 * u.y};
+                l.b2.dots.push(dot);
             }
+
         }
-
-
-
-
-
     }
-
-
 
 
 }
