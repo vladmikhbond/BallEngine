@@ -8,20 +8,31 @@
         border: solid thin gray;
         margin-right: 10px;
       }
+      button {
+          width: 60px;
+      }
+      #worldDefinition {
+          width: 600px;
+      }
+      #ballDefinition {
+          width: 600px;
+      }
     </style>
 
     <h3> Ex6. Прозрачные связи</h3>
     <div>
-      <button id="modeButton">Play</button>
-      <button id="createButton">Ball</button>
-      <input type="text" id="ballDefinition" style="width: 500px">
-      <button id="updateButton">Update</button>
-      <button id="saveSceneButton">Scene</button>
+        <button id="modeButton">Play</button>
+        <input type="text" id="worldDefinition" >
+        <button id="updateWorldButton">Update</button>
+        <button id="saveSceneButton">Scene</button>
+    </div>
+    <div>
+        <button id="createButton">Ball</button>
+        <input type="text" id="ballDefinition">
+        <button id="updateButton">Update</button>
     </div>
     <canvas id="canvas" width="800" height="600" style="border: thin solid blue"></canvas>
-    <div id="scenesDiv">
-
-    </div>
+    <div id="scenesDiv"> </div>
 
     <script src="js/Geometry.js"></script>
     <script src="js/Ball.js"></script>
@@ -35,6 +46,7 @@
         const box = new Box(50, 50, canvas.width - 100, canvas.height - 100 );
         setListeners();
         restoreScenes();
+        worldDefinition.value = Box.worldToString();
         drawAll();
     </script>
 

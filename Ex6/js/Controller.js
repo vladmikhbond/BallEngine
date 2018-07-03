@@ -32,7 +32,12 @@ function setListeners() {
         }
     });
 
-
+    // update world constants
+    updateWorldButton.addEventListener("click", function ()
+    {
+        Box.worldFromString(worldDefinition.value);
+        drawAll();
+    });
 
     // update selected ball
     updateButton.addEventListener("click", function ()

@@ -16,7 +16,8 @@ saveSceneButton.addEventListener("click", function ()
     let scene = {
         balls: box.balls.map(b => b.toString(), box),
         lines: box.lines.map(l => l.toString()),
-        links: box.links.map(l => l.toString())
+        links: box.links.map(l => l.toString()),
+        world: Box.worldToString(),
     };
     scenes[img.id] = scene;
     localStorage.setItem("BallEngine-scenes", JSON.stringify(scenes));
@@ -45,6 +46,7 @@ function restoreScene(id, img)
     scene.lines.forEach(o => box.addLine(Line.fromString(o)));
     box.links = [];
     scene.links.forEach(o => box.addLink(Link.fromString(o, box.balls)));
+    Box.worldFromString(scene.world);
     drawAll();
 }
 
@@ -62,6 +64,8 @@ function restoreScenes() {
         scene.lines.forEach(o => box.addLine(Line.fromString(o)));
         box.links = [];
         scene.links.forEach(o => box.addLink(Link.fromString(o, box.balls)));
+        Box.worldFromString(scene.world);
+
         //
         let img = new Image();
         img.id = id;

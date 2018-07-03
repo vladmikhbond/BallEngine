@@ -1,11 +1,11 @@
-const W = 0.5;  // потеря энергии при соударении  0.5
-const K = 0.1;  // модуль упругости
+let W = 0.5;  // потеря энергии при соударении  0.5
+let K = 0.1;  // модуль упругости
 
-const g = 0.05;  // 0.05;
-const INTERVAL = 30;
+let g = 0.05;  // 0.05;
+let INTERVAL = 30;
 let intervalId;
 
-const REPEAT = 10  ;
+let REPEAT = 10;
 
 
 const G = function () {

@@ -34,7 +34,6 @@ class Box {
             intervalId = null;
         }
     }
-
     get mode() {
         return intervalId ? MODE_PLAY : MODE_STOP;
     }
@@ -45,6 +44,23 @@ class Box {
         return e | 0;
     }
 
+    //<editor-fold desc="World suit">
+    static worldToString() {
+        let w = {W, K, g, INTERVAL, REPEAT};
+        return JSON.stringify(w, null, ' ');
+    }
+
+    static worldFromString(s) {
+        let w = JSON.parse(s);
+        W = w.W;
+        K = w.K;
+        g = w.g;
+        INTERVAL = w.INTERVAL;
+        REPEAT = w.REPEAT;
+    }
+
+
+    //</editor-fold>
     //<editor-fold desc="Ball suit">
 
     addBall(b) {
