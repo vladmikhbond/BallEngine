@@ -43,6 +43,8 @@ class Box {
         return e | 0;
     }
 
+    //<editor-fold desc="Ball suit">
+
     addBall(b) {
         b.box = this;
         this.balls.push(b);
@@ -50,8 +52,11 @@ class Box {
 
     deleteBall(b) {
         let idx = this.balls.indexOf(b);
-        if (idx !== -1)
-            this.balls.splice(idx, 1);
+        if (idx === -1)
+            return;
+        this.balls.splice(idx, 1);
+        if (this.balls.selected === b)
+            this.balls.selected = null;
     }
 
     deleteSelectedBall() {
@@ -62,22 +67,39 @@ class Box {
     }
 
 
+    // find a ball under a point
+    ballUnderPoint(p) {
+        for (let b of this.balls) {
+            if (G.dist(p, b ) < b.radius) {
+                return b;
+            }
+        }
+        return null;
+    }
+
+    //</editor-fold>
+
+    //<editor-fold desc="Line suit">
+
     addLine(l) {
         this.lines.push(l);
     }
 
     deleteLine(l) {
         let idx = this.lines.indexOf(l);
-        if (idx !== -1)
-            this.lines.splice(idx, 1);
+        if (idx === -1)
+            return;
+        this.lines.splice(idx, 1);
+        if (this.lines.selected === l)
+            this.lines.selected = null;
     }
 
     deleteSelectedLine() {
-        if (this.lines.selected) {
-            this.deleteLine(this.lines.selected);
-            this.lines.selected = null;
-        }
+        this.deleteLine(this.lines.selected);
     }
+
+    //</editor-fold>
+
 
 
     static step(box) {
@@ -126,8 +148,9 @@ class Box {
             }
         }
 
-        // деформация шара (т.е. сила реакции) пропорциональна массе
-        // (компенсирует обратную пропорциональность массе модуля упругости)
+
+        // деформация  шара тем больше, чем больше масса противоположного шара
+        // деформации задают не силы (они равны), а ускорения шаров
         function touch(b1, b2) {
             let d = G.dist(b1, b2);
             // шары далеко

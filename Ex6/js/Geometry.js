@@ -6,6 +6,7 @@ let INTERVAL = 30;
 let intervalId;
 
 let REPEATER = 10;
+let PRETTY = false;
 
 
 const G = function () {
@@ -87,12 +88,16 @@ const G = function () {
             return null;
         },
 
-        calcDot(b, p) {
-            let d = _distance(b, p), r = b.radius;
-            let x = (p.x - b.x) * r / d;
-            let y = (p.y - b.y) * r / d;
-            return {x, y};
-        }
+        // Единичный вектор из p1 в p2
+        //
+        unit(p1, p2, dist)
+        {
+            let dx = p2.x - p1.x, dy = p2.y - p1.y;
+            if (!dist)
+                dist = Math.sqrt(dx * dx + dy * dy);
+            return { x: dx / dist, y: dy / dist };
+        },
+
 
 
     }

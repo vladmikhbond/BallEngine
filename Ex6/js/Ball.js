@@ -34,29 +34,29 @@ class Ball {
     move() {
         let b = this;
 
-        // вычисляем равнодействующую силу
-        b.fx = 0;
-        b.fy = b.m * g;  // тяготение
+        // вычисляем равнодействующее ускорение
+        let ax = 0;
+        let ay = g;    // тяготение
 
-        // сила реакции точек касания
+        // суммируем ускорения от реакций точек касания
         for (let p of b.dots) {
             let d = G.dist(b, p);
             let r = b.radius - d;
-            let u = {x: (b.x - p.x) / d, y: (b.y - p.y) / d }; // ед.вектор
+            // единичный вектор
+            let u = G.unit(p, b, d);
+            //{x: (b.x - p.x) / d, y: (b.y - p.y) / d };
+
             // модуль упругости зависит от фазы - сжатие или расжатие шара
             let scalar = G.scalar({x: b.vx, y: b.vy}, u);
             let k = scalar > 0 ? K * W: K;
-            k *= b.m;  // чем шар массивнее, тем он жестче!
-            let fx = k * r * u.x;
-            let fy = k * r * u.y;
-            b.fy += fy;
-            b.fx += fx;
+
+            ax += k * r * u.x;
+            ay += k * r * u.y;
         }
 
         // изменение скорости
-        b.vx += b.fx / b.m;
-        b.vy += b.fy / b.m;
-
+        b.vx += ax;
+        b.vy += ay;
         // изменение координат
         b.x += b.vx;
         b.y += b.vy;

@@ -46,7 +46,7 @@ class Box {
 
     //<editor-fold desc="World suit">
     static worldToString() {
-        let w = {W, K, g, INTERVAL, REPEATER};
+        let w = {W, K, g, INTERVAL, REPEATER, PRETTY};
         return JSON.stringify(w, null, '  ');
     }
 
@@ -57,9 +57,10 @@ class Box {
         g = w.g;
         INTERVAL = w.INTERVAL;
         REPEATER = w.REPEATER;
+        PRETTY = w.PRETTY;
     }
-
     //</editor-fold>
+
     //<editor-fold desc="Ball suit">
 
     addBall(b) {
@@ -69,13 +70,15 @@ class Box {
 
     deleteBall(b) {
         let idx = this.balls.indexOf(b);
-        if (idx !== -1) {
-            this.balls.splice(idx, 1);
-            // delete link
-            for (let link of this.links.slice()) {
-                if (link.b1 === b || link.b2 === b)
-                    this.deleteLink(link);
-            }
+        if (idx === -1)
+            return;
+        this.balls.splice(idx, 1);
+        if (this.balls.selected === b)
+            this.balls.selected = null;
+        // delete links
+        for (let link of this.links.slice()) {
+            if (link.b1 === b || link.b2 === b)
+                this.deleteLink(link);
         }
     }
 
@@ -107,15 +110,15 @@ class Box {
 
     deleteLine(l) {
         let idx = this.lines.indexOf(l);
-        if (idx !== -1)
-            this.lines.splice(idx, 1);
+        if (idx === -1)
+            return;
+        this.lines.splice(idx, 1);
+        if (this.lines.selected === l)
+            this.lines.selected = null;
     }
 
     deleteSelectedLine() {
-        if (this.lines.selected) {
-            this.deleteLine(this.lines.selected);
-            this.lines.selected = null;
-        }
+        this.deleteLine(this.lines.selected);
     }
 
     //</editor-fold>
@@ -128,15 +131,15 @@ class Box {
 
     deleteLink(l) {
         let idx = this.links.indexOf(l);
-        if (idx !== -1)
-            this.links.splice(idx, 1);
+        if (idx === -1)
+            return;
+        this.links.splice(idx, 1);
+        if (this.links.selected === l)
+            this.links.selected = null;
     }
 
     deleteSelectedLink() {
-        if (this.links.selected) {
-            this.deleteLink(this.links.selected);
-            this.links.selected = null;
-        }
+        this.deleteLink(this.links.selected);
     }
 
     //</editor-fold>
@@ -189,8 +192,9 @@ class Box {
             }
         }
 
-        // деформация шара (т.е. сила реакции) пропорциональна массе
-        // (компенсирует обратную пропорциональность массе модуля упругости)
+
+        // деформация  шара тем больше, чем больше масса противоположного шара
+        // деформации задают не силы (они равны), а ускорения шаров
         function touch(b1, b2) {
             let d = G.dist(b1, b2);
             // шары далеко
@@ -263,8 +267,10 @@ class Box {
                 let d = G.distToInfiniteLine(b, line);
                 if (d > b.radius)
                     continue;
-                let p = G.cross(b, line);  // на самом деле отрезок короче !!!
-                if (!p) continue;  // точка пересечения за пределами связи
+                let p = G.cross(b, line);  // на самом деле отрезок короче
+                // точка пересечения за пределами связи
+                if (!p)
+                    continue;
 
                 // общий размер области деформации
                 let delta = b.radius - d;
@@ -284,7 +290,7 @@ class Box {
 
                 // точки касания для шаров гантели
                 // u - единичный векор перпедикуляра к связи
-                let u = {x: (b.x - p.x) / d, y: (b.y - p.y) / d};
+                let u = G.unit(p, b, d);
                 // b1
                 let r1 = l.b1.radius - delta1;
                 let dot = {x: l.b1.x + r1 * u.x, y: l.b1.y + r1 * u.y};
@@ -297,6 +303,5 @@ class Box {
 
         }
     }
-
 
 }
