@@ -44,6 +44,12 @@ class Box {
         return e | 0;
     }
 
+    get SumMomentum() {
+        let e = 0;
+        this.balls.forEach( b => e += b.Momentum);
+        return e | 0;
+    }
+
     //<editor-fold desc="World suit">
     static worldToString() {
         let w = {W, K, g, INTERVAL, REPEATER, PRETTY};

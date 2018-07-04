@@ -30,7 +30,7 @@ function drawAll(lineWidth=0.5)
             if (!d) continue;
             ctx.strokeStyle = 'black';
             let x = box.x + d.x, y = box.y + d.y;
-            ctx.strokeRect(x-1, y-1, 3, 3);
+            ctx.strokeRect(x-0.5, y-0.5, 1, 1);
         }
     }
 
@@ -55,6 +55,7 @@ function drawAll(lineWidth=0.5)
 
     // print sum energy
     ctx.fillText("E = " + box.SumEnergy, 20, 20 );
+    ctx.fillText("MV = " + box.SumMomentum, 120, 20 );
 
     // draw selected objects
     if (box.balls.selected)

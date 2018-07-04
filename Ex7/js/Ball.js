@@ -18,6 +18,11 @@ class Ball {
         return kinetic + potential;
     }
 
+    get Momentum() {
+        let b = this;
+        return b.m * Math.sqrt(b.vx * b.vx + b.vy * b.vy);
+    }
+
     toString() {
         let b = this;
         return JSON.stringify({ x: +(b.x.toFixed(2)), y: +(b.y.toFixed(2)),

@@ -1,6 +1,6 @@
 function setListeners() {
 
-    canvas.addEventListener("drawAll", function (e) {
+    canvas.addEventListener("drawAll", function () {
         drawAll();
     });
 
@@ -58,6 +58,8 @@ function setListeners() {
             case 'ArrowRight':
                 if (box.mode === MODE_STOP) {
                     Box.step(box);
+                    if (box.balls.selected)
+                        ballDefinition.value = box.balls.selected.toString();
                 } else {
                     // to toggle mode
                     modeButton.dispatchEvent(new Event("click"));

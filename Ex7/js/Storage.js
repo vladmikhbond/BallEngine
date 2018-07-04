@@ -2,6 +2,7 @@ let scenes;
 //localStorage.removeItem("BallEngine-scenes");
 
 // добавление макета сцены в массив и сохранение массива в локальном хранилище
+//
 saveSceneButton.addEventListener("click", function ()
 {
     let img = new Image();
@@ -28,6 +29,7 @@ saveSceneButton.addEventListener("click", function ()
 
 
 // реконструкция сцены с заданным id или удаление макета
+//
 function restoreScene(id, img)
 {
     let p = {x: event.pageX - img.offsetLeft, y: event.pageY - img.offsetTop};
@@ -47,10 +49,14 @@ function restoreScene(id, img)
     box.links = [];
     scene.links.forEach(o => box.addLink(Link.fromString(o, box.balls)));
     Box.worldFromString(scene.world);
+
+    if (box.mode == MODE_PLAY)
+        modeButton.dispatchEvent(new Event('click'));
     drawAll();
 }
 
 // извлечение макетов из локального хранилища
+//
 function restoreScenes() {
     let item = localStorage.getItem("BallEngine-scenes");
     scenes = JSON.parse(item);
