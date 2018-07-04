@@ -1,5 +1,8 @@
 function drawAll(lineWidth=0.5)
 {
+    if (PRETTY)
+        return drawPretty();
+
     const ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.lineWidth = lineWidth;
@@ -61,6 +64,43 @@ function drawAll(lineWidth=0.5)
     if (box.links.selected)
         drawSelectedLink(ctx);
 
+}
+
+function drawPretty() {
+    const ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.lineWidth = 2;
+
+    // draw box
+    ctx.strokeStyle = "black";
+    ctx.strokeRect(box.x, box.y, box.width, box.height);
+
+    // draw balls
+    for (let b of box.balls) {
+        ctx.beginPath();
+        ctx.strokeStyle = b.color;
+        let x = box.x + b.x, y = box.y + b.y;
+        ctx.arc(x, y, b.radius, 0, Math.PI * 2);
+        ctx.stroke();
+    }
+
+    // draw lines
+    ctx.strokeStyle = "blue";
+    ctx.beginPath();
+    for (let l of box.lines) {
+        ctx.moveTo(box.x + l.x1, box.y + l.y1);
+        ctx.lineTo(box.x + l.x2, box.y + l.y2);
+    }
+    ctx.stroke();
+
+    // draw links
+    ctx.strokeStyle = "gray";
+    ctx.beginPath();
+    for (let l of box.links) {
+        ctx.moveTo(box.x + l.x1, box.y + l.y1);
+        ctx.lineTo(box.x + l.x2, box.y + l.y2);
+    }
+    ctx.stroke();
 }
 
 

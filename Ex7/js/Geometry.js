@@ -6,6 +6,7 @@ let INTERVAL = 30;
 let intervalId;
 
 let REPEATER = 10;
+let PRETTY = false;
 
 
 const G = function () {

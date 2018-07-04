@@ -46,7 +46,7 @@ class Box {
 
     //<editor-fold desc="World suit">
     static worldToString() {
-        let w = {W, K, g, INTERVAL, REPEATER};
+        let w = {W, K, g, INTERVAL, REPEATER, PRETTY};
         return JSON.stringify(w, null, '  ');
     }
 
@@ -57,6 +57,7 @@ class Box {
         g = w.g;
         INTERVAL = w.INTERVAL;
         REPEATER = w.REPEATER;
+        PRETTY = w.PRETTY;
     }
     //</editor-fold>
 
