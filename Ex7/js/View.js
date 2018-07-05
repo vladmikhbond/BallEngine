@@ -14,32 +14,29 @@ function drawAll(lineWidth=0.5)
 
     // draw balls
     for (let b of box.balls) {
-        if (box.balls.selected === b) {
-            ctx.strokeStyle = "orange";
-        } else {
-            ctx.strokeStyle = b.color;
-
-        }
+        ctx.lineWidth = box.balls.selected === b ? 3 * lineWidth : lineWidth;
+        ctx.strokeStyle = b.color;
         ctx.beginPath();
-        ctx.save();
         let x = box.x + b.x, y = box.y + b.y;
         if (b.dots && b.dots.length > 0) {
             let dot = b.dots[0];
             // показываем деформацию
             let alpha = Math.atan2(dot.y - b.y, dot.x - b.x);
             let kr = G.dist(dot, b) / b.radius;
-
+            ctx.save();
             ctx.translate(x, y);
             ctx.rotate(alpha);
             ctx.scale(kr, 1/kr);
             ctx.rotate(-alpha);
             ctx.arc(0, 0, b.radius, 0, Math.PI * 2);
-        }
+            ctx.restore();        }
         else
         {
             ctx.arc(x, y, b.radius, 0, Math.PI * 2);
         }
-        ctx.restore();
+        // draw velocity
+        ctx.moveTo(x, y);
+        ctx.lineTo(x + b.vx * velo, y + b.vy * velo );
         ctx.stroke();
     }
 
@@ -56,36 +53,29 @@ function drawAll(lineWidth=0.5)
 
     // draw lines
     ctx.strokeStyle = "blue";
-    ctx.beginPath();
     for (let l of box.lines) {
+        ctx.beginPath();
+        ctx.lineWidth = box.lines.selected === l ? 3 * lineWidth : lineWidth;
         ctx.moveTo(box.x + l.x1, box.y + l.y1);
         ctx.lineTo(box.x + l.x2, box.y + l.y2);
+        ctx.stroke();
     }
-    ctx.stroke();
 
     // draw links
     ctx.strokeStyle = "gray";
-    ctx.beginPath();
     for (let l of box.links) {
+        ctx.beginPath();
+        ctx.lineWidth = box.links.selected === l ? 3 * lineWidth : lineWidth;
         ctx.moveTo(box.x + l.x1, box.y + l.y1);
         ctx.lineTo(box.x + l.x2, box.y + l.y2);
+        ctx.stroke();
     }
-    ctx.stroke();
-
 
     // print sum energy
     ctx.fillText("E = " + box.SumEnergy, 20, 20 );
     ctx.fillText("MV = " + box.SumMomentum, 120, 20 );
-
-    // draw selected objects
-    // if (box.balls.selected)
-    //     drawSelectedBall(ctx);
-    if (box.lines.selected)
-        drawSelectedLine(ctx);
-    if (box.links.selected)
-        drawSelectedLink(ctx);
-
 }
+
 
 function drawPretty() {
     const ctx = canvas.getContext("2d");
@@ -124,40 +114,7 @@ function drawPretty() {
     ctx.stroke();
 }
 
-
-function drawSelectedBall(ctx) {
-    ctx.save();
-    ctx.beginPath();
-        let b = box.balls.selected;
-        ctx.strokeStyle = b.color;
-        let x = box.x + b.x, y = box.y + b.y;
-        ctx.arc(x, y, b.radius + 1, 0, Math.PI * 2);
-    ctx.stroke();
-    ctx.restore();
-}
-
-function drawSelectedLine(ctx) {
-    ctx.save();
-    ctx.beginPath();
-    let l = box.lines.selected;
-    ctx.strokeStyle = 'blue';
-    ctx.moveTo(box.x + l.x1, box.y + l.y1);
-    ctx.lineTo(box.x + l.x2, box.y + l.y2);
-    ctx.stroke();
-    ctx.restore();
-}
-
-function drawSelectedLink(ctx) {
-    ctx.save();
-    ctx.beginPath();
-    let l = box.links.selected;
-    ctx.strokeStyle = 'gray';
-    ctx.moveTo(box.x + l.x1, box.y + l.y1);
-    ctx.lineTo(box.x + l.x2, box.y + l.y2);
-    ctx.stroke();
-    ctx.restore();
-}
-
+//<editor-fold desc="Gray objects drawing">
 
 function drawGrayCircle(p0, p) {
     const ctx = canvas.getContext("2d");
@@ -181,7 +138,10 @@ function drawGrayLine(p0, p) {
     ctx.stroke();
 }
 
+//</editor-fold>
+
 // иконка удаления на уменьшенном изображении
+//
 function drawRedCross() {
     const ctx = canvas.getContext("2d");
     ctx.lineWidth = 10;

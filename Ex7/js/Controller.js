@@ -195,20 +195,11 @@ function setListeners() {
                 return;
             if (!b0) {
                 b0 = b;
-            } else {
+            } else if (b0 !== b){
                 box.addLink(new Link(b0, b));
                 b0 = null;
             }
 
-            // // find a ball under mouse
-            // function ballUnderPoint(p) {
-            //     for (let b of box.balls) {
-            //         if (G.dist(p, b ) < b.radius) {
-            //             return b;
-            //         }
-            //     }
-            //     return null;
-            // }
         }
 
         canvas.onmousemove = function(e) {

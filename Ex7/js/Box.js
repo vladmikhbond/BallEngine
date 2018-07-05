@@ -50,24 +50,24 @@ class Box {
         return e | 0;
     }
 
-    //<editor-fold desc="World suit">
+    //<editor-fold desc="World to & from string">
     static worldToString() {
         let w = {W, K, g, INTERVAL, REPEATER, PRETTY};
         return JSON.stringify(w, null, '  ');
     }
 
     static worldFromString(s) {
-        let w = JSON.parse(s);
-        W = w.W;
-        K = w.K;
-        g = w.g;
-        INTERVAL = w.INTERVAL;
-        REPEATER = w.REPEATER;
-        PRETTY = w.PRETTY;
+        let o = JSON.parse(s);
+        W = o.W;
+        K = o.K;
+        g = o.g;
+        INTERVAL = o.INTERVAL;
+        REPEATER = o.REPEATER;
+        PRETTY = o.PRETTY;
     }
     //</editor-fold>
 
-    //<editor-fold desc="Ball suit">
+    //<editor-fold desc="Ball add & delete">
 
     addBall(b) {
         b.box = this;
@@ -108,7 +108,7 @@ class Box {
 
     //</editor-fold>
 
-    //<editor-fold desc="Line suit">
+    //<editor-fold desc="Line add & delete">
 
     addLine(l) {
         this.lines.push(l);
@@ -129,7 +129,7 @@ class Box {
 
     //</editor-fold>
 
-    //<editor-fold desc="Link suit">
+    //<editor-fold desc="Link add & delete">
 
     addLink(l) {
         this.links.push(l);
@@ -164,6 +164,7 @@ class Box {
     }
 
     // собирает на шары точки касания с отрезками (в т.ч. с границами)
+    //
     dotsFromLines() {
         for (let b of this.balls) {
             b.dots = [];
@@ -171,7 +172,7 @@ class Box {
                 if (G.distToInfiniteLine(b, l) < b.radius) {
                     let p = G.cross(b, l);
                     if (p) {
-                        // точка пересечения перпендикуляра в пределах отрезка
+                        // p - точка пересечения перпендикуляра в пределах отрезка
                         b.dots.push(p);
                     } else {
                         // точка пересечения за пределами отрезка
@@ -186,6 +187,7 @@ class Box {
     }
 
     // собирает на шары точки касания с шарами
+    //
     dotsFromBalls() {
         for (let i = 0; i < this.balls.length - 1; i++ ) {
             for (let j = i + 1; j < this.balls.length; j++ ) {
@@ -198,9 +200,9 @@ class Box {
             }
         }
 
-
         // деформация  шара тем больше, чем больше масса противоположного шара
-        // деформации задают не силы (они равны), а ускорения шаров
+        // деформации задают не силы (силы должны быть равны), а ускорения шаров
+        //
         function touch(b1, b2) {
             let d = G.dist(b1, b2);
             // шары далеко
@@ -222,7 +224,8 @@ class Box {
 
     }
 
-    // собирает на шары виртуальные точки касания, обусловленные связью
+    // собирает на шары виртуальные точки касания, обусловленные своей связью
+    //
     dotsFromLinks() {
         for (let link of box.links)
         {
@@ -263,7 +266,8 @@ class Box {
 
     }
 
-    // собирает на шары виртуальные точки касания от ударов о связи
+    // собирает на шары виртуальные точки касания от ударов о чужие связи
+    //
     dotsAboutLinks() {
         for (let b of this.balls) {
             for (let l of this.links) {
