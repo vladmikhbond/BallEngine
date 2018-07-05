@@ -14,12 +14,32 @@ function drawAll(lineWidth=0.5)
 
     // draw balls
     for (let b of box.balls) {
+        if (box.balls.selected === b) {
+            ctx.strokeStyle = "orange";
+        } else {
+            ctx.strokeStyle = b.color;
+
+        }
         ctx.beginPath();
-        ctx.strokeStyle = b.color;
+        ctx.save();
         let x = box.x + b.x, y = box.y + b.y;
-        ctx.arc(x, y, b.radius, 0, Math.PI * 2);
-        ctx.moveTo(x, y);
-        ctx.lineTo(x + b.vx * velo, y + b.vy * velo );
+        if (b.dots && b.dots.length > 0) {
+            let dot = b.dots[0];
+            // показываем деформацию
+            let alpha = Math.atan2(dot.y - b.y, dot.x - b.x);
+            let kr = G.dist(dot, b) / b.radius;
+
+            ctx.translate(x, y);
+            ctx.rotate(alpha);
+            ctx.scale(kr, 1/kr);
+            ctx.rotate(-alpha);
+            ctx.arc(0, 0, b.radius, 0, Math.PI * 2);
+        }
+        else
+        {
+            ctx.arc(x, y, b.radius, 0, Math.PI * 2);
+        }
+        ctx.restore();
         ctx.stroke();
     }
 
@@ -58,8 +78,8 @@ function drawAll(lineWidth=0.5)
     ctx.fillText("MV = " + box.SumMomentum, 120, 20 );
 
     // draw selected objects
-    if (box.balls.selected)
-        drawSelectedBall(ctx);
+    // if (box.balls.selected)
+    //     drawSelectedBall(ctx);
     if (box.lines.selected)
         drawSelectedLine(ctx);
     if (box.links.selected)
