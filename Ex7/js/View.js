@@ -80,22 +80,56 @@ function drawAll(lineWidth=0.5)
 function drawPretty() {
     const ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.lineWidth = 2;
 
     // draw box
+    ctx.lineWidth = 0.5;
     ctx.strokeStyle = "black";
     ctx.strokeRect(box.x, box.y, box.width, box.height);
 
+    // draw links
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = "gray";
+    ctx.beginPath();
+    for (let l of box.links) {
+        ctx.moveTo(box.x + l.x1, box.y + l.y1);
+        ctx.lineTo(box.x + l.x2, box.y + l.y2);
+    }
+    ctx.stroke();
+
+
     // draw balls
     for (let b of box.balls) {
-        ctx.beginPath();
-        ctx.strokeStyle = b.color;
+        ctx.save();
+        let img = redBallImg;
         let x = box.x + b.x, y = box.y + b.y;
-        ctx.arc(x, y, b.radius, 0, Math.PI * 2);
-        ctx.stroke();
+
+        if (b.dots && b.dots.length > 0) {
+            let dot = b.dots[0];
+            // показываем деформацию
+            let alpha = Math.atan2(dot.y - b.y, dot.x - b.x);
+            let kr = G.dist(dot, b) / b.radius;
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.rotate(alpha);
+            ctx.scale(kr, 1 / kr);
+            ctx.rotate(-alpha);
+
+            ctx.translate(-b.radius, -b.radius);
+            let k = 2 * b.radius / img.width;
+            ctx.scale(k, k);
+        }
+        else
+        {
+            ctx.translate(x - b.radius, y - b.radius);
+            let k = 2 * b.radius / img.height;
+            ctx.scale(k, k);
+        }
+        ctx.drawImage(img, 0, 0);
+        ctx.restore();
     }
 
     // draw lines
+    ctx.lineWidth = 2;
     ctx.strokeStyle = "blue";
     ctx.beginPath();
     for (let l of box.lines) {
@@ -104,14 +138,6 @@ function drawPretty() {
     }
     ctx.stroke();
 
-    // draw links
-    ctx.strokeStyle = "gray";
-    ctx.beginPath();
-    for (let l of box.links) {
-        ctx.moveTo(box.x + l.x1, box.y + l.y1);
-        ctx.lineTo(box.x + l.x2, box.y + l.y2);
-    }
-    ctx.stroke();
 }
 
 //<editor-fold desc="Gray objects drawing">

@@ -12,7 +12,21 @@ function setListeners() {
         const names = ["Stop", "Play"];
         this.innerHTML = names[box.mode];
         box.mode = (box.mode + 1) % names.length;
+        if (box.mode == 1)
+            curentScene = new Scene();
         drawAll();
+    });
+
+    // start button
+    startButton.addEventListener("click", function ()
+    {
+        if (curentScene) {
+            curentScene.restore();
+            // if playing then stop
+            if (box.mode == MODE_PLAY)
+                modeButton.dispatchEvent(new Event('click'));
+            drawAll();
+        }
     });
 
     // create mode toggle
@@ -32,10 +46,21 @@ function setListeners() {
         }
     });
 
+
+    // pretty toggle
+    prettyButton.addEventListener("click", function ()
+    {
+        const names = ["Ugly", "Pretty"];
+        this.innerHTML = names[PRETTY];
+        PRETTY = (PRETTY + 1)  % names.length;
+        drawAll();
+    });
+
+
     // update world constants
     updateWorldButton.addEventListener("click", function ()
     {
-        Box.worldFromString(worldDefinition.value);
+        world.fromString(worldDefinition.value);
         drawAll();
     });
 

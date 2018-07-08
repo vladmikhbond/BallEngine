@@ -50,23 +50,6 @@ class Box {
         return e | 0;
     }
 
-    //<editor-fold desc="World to & from string">
-    static worldToString() {
-        let w = {W, K, g, INTERVAL, REPEATER, PRETTY};
-        return JSON.stringify(w, null, '  ');
-    }
-
-    static worldFromString(s) {
-        let o = JSON.parse(s);
-        W = o.W;
-        K = o.K;
-        g = o.g;
-        INTERVAL = o.INTERVAL;
-        REPEATER = o.REPEATER;
-        PRETTY = o.PRETTY;
-    }
-    //</editor-fold>
-
     //<editor-fold desc="Ball add & delete">
 
     addBall(b) {

@@ -1,5 +1,24 @@
 let scenes;
-//localStorage.removeItem("BallEngine-scenes");
+let curentScene;
+
+class Scene {
+    constructor() {
+        this.balls = box.balls.map(b => b.toString(), box);
+        this.lines = box.lines.map(l => l.toString());
+        this.links = box.links.map(l => l.toString());
+        this.world = world.toString();
+    }
+
+    restore() {
+        box.balls = [];
+        this.balls.forEach(o => box.addBall(Ball.fromString(o)));
+        box.lines = [];
+        this.lines.forEach(o => box.addLine(Line.fromString(o)));
+        box.links = [];
+        this.links.forEach(o => box.addLink(Link.fromString(o, box.balls)));
+        world.fromString(this.world);
+    }
+}
 
 // добавление макета сцены в массив и сохранение массива в локальном хранилище
 //
@@ -14,18 +33,9 @@ saveSceneButton.addEventListener("click", function ()
     img.setAttribute("onclick", `restoreScene("${img.id}", this)`);
     scenesDiv.appendChild(img);
 
-    let scene = {
-        balls: box.balls.map(b => b.toString(), box),
-        lines: box.lines.map(l => l.toString()),
-        links: box.links.map(l => l.toString()),
-        world: Box.worldToString(),
-    };
-    scenes[img.id] = scene;
+    scenes[img.id] = new Scene();
     localStorage.setItem("BallEngine-scenes", JSON.stringify(scenes));
-
-
 });
-
 
 
 // реконструкция сцены с заданным id или удаление макета
@@ -33,7 +43,7 @@ saveSceneButton.addEventListener("click", function ()
 function restoreScene(id, img)
 {
     let p = {x: event.pageX - img.offsetLeft, y: event.pageY - img.offsetTop};
-    // удаление и пересохранение массива
+    // удаление
     if (100 - p.x < 10 && p.y < 10) {
         delete scenes[id];
         scenesDiv.removeChild(img);
@@ -41,15 +51,8 @@ function restoreScene(id, img)
         return;
     }
     // реконструкция
-    let scene = scenes[id];
-    box.balls = [];
-    scene.balls.forEach(o => box.addBall(Ball.fromString(o)));
-    box.lines = [];
-    scene.lines.forEach(o => box.addLine(Line.fromString(o)));
-    box.links = [];
-    scene.links.forEach(o => box.addLink(Link.fromString(o, box.balls)));
-    Box.worldFromString(scene.world);
-
+    scenes[id].restore();
+    // if playing then stop
     if (box.mode == MODE_PLAY)
         modeButton.dispatchEvent(new Event('click'));
     drawAll();
@@ -63,14 +66,8 @@ function restoreScenes() {
     if (!scenes)
         scenes = {};
     for(let id in scenes) {
-        let scene = scenes[id];
-        box.balls = [];
-        scene.balls.forEach(o => box.addBall(Ball.fromString(o)));
-        box.lines = [];
-        scene.lines.forEach(o => box.addLine(Line.fromString(o)));
-        box.links = [];
-        scene.links.forEach(o => box.addLink(Link.fromString(o, box.balls)));
-        Box.worldFromString(scene.world);
+        scenes[id].__proto__ = Scene.prototype;
+        scenes[id].restore();
 
         //
         let img = new Image();

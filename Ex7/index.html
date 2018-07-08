@@ -21,18 +21,30 @@
 
     <h3> Ex7. Pretty</h3>
     <div>
-        <button id="modeButton">Play</button>
+      <button id="modeButton">Play</button>
+      <span style="margin: 0px 10px 0px 10px">
+        <button id="startButton">Start</button>
+        <button id="saveSceneButton">Scene</button>
+      </span>
+      <button id="createButton">Ball</button>
+      <button id="prettyButton">Pretty</button>
+    </div>
+    <div id="dashboard">
+      <div>
         <input type="text" id="worldDefinition" >
         <button id="updateWorldButton">Update</button>
-        <button id="saveSceneButton">Scene</button>
-    </div>
-    <div>
-        <button id="createButton">Ball</button>
+      </div>
+      <div>
         <input type="text" id="ballDefinition">
         <button id="updateButton">Update</button>
+      </div>
     </div>
     <canvas id="canvas" width="800" height="600" style="border: thin solid blue"></canvas>
     <div id="scenesDiv"> </div>
+
+
+    <img src="pic/redBall.png" id="redBallImg" style="display: none;" width="523" height="520" />
+
 
     <script src="js/Globals.js"></script>
     <script src="js/Geometry.js"></script>
@@ -44,10 +56,10 @@
     <script src="js/Storage.js"></script>
     <script src="js/Controller.js"></script>
     <script>
-        let box = new Box(50, 50, canvas.width - 100, canvas.height - 100 );
+        let box = new Box(10, 25, canvas.width - 20, canvas.height - 35 );
         setListeners();
         restoreScenes();
-        worldDefinition.value = Box.worldToString();
+        worldDefinition.value = world.toString();
         drawAll();
     </script>
 
