@@ -9,7 +9,7 @@ function setListeners() {
     // mode toggle
     modeButton.addEventListener("click", function ()
     {
-        const names = ["Stop", "Play"];
+        const names = ["►", "║"];
         this.innerHTML = names[box.mode];
         box.mode = (box.mode + 1) % names.length;
         if (box.mode == 1)
@@ -32,7 +32,7 @@ function setListeners() {
     // create mode toggle
     createButton.addEventListener("click", function ()
     {
-        const names = ["Ball", "Line", "Link"];
+        const names = ["O", "─", "~"];
         box.createMode = (box.createMode + 1) % names.length;
         this.innerHTML = names[box.createMode];
 
@@ -56,14 +56,6 @@ function setListeners() {
         drawAll();
     });
 
-
-    // update world constants
-    updateWorldButton.addEventListener("click", function ()
-    {
-        world.fromString(worldDefinition.value);
-        drawAll();
-    });
-
     // update selected ball
     updateButton.addEventListener("click", function ()
     {
@@ -74,6 +66,25 @@ function setListeners() {
         }
     });
 
+    //------------------- input-range --------------------------------------
+
+    graviRange.addEventListener("mousemove", function ()
+    {
+        g = +this.value;
+        graviValue.innerHTML = "G = " + this.value;
+    });
+
+    waistRange.addEventListener("mousemove", function ()
+    {
+        W = +this.value;
+        waistValue.innerHTML = "W = " + this.value;
+    });
+
+    rigidRange.addEventListener("mousemove", function ()
+    {
+        K = +this.value;
+        rigidValue.innerHTML = "K = " + this.value;
+    });
 
     //----------------------------- keyboard ----------------------------
 

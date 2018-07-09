@@ -1,40 +1,35 @@
 ﻿<!DOCTYPE html>
 <html>
+<head>
+    <!--<link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/css/bootstrap.min.css" />-->
+    <link rel="stylesheet" href="site.css" />
+</head>
 <body>
-    <style>
-      img {
-        width: 100px;
-        height: 80px;
-        border: solid thin gray;
-        margin-right: 10px;
-      }
-      button {
-          width: 60px;
-      }
-      #worldDefinition {
-          width: 600px;
-      }
-      #ballDefinition {
-          width: 600px;
-      }
-    </style>
+
 
     <h3> Ex7. Pretty</h3>
+
+    <div id="worldDiv">
+        <input type="range" id="graviRange" step="0.001" min="-0.10" max="0.1" value="0.0" />
+        <span id="graviValue">G = 0</span>
+        <input type="range" id="waistRange" step="0.01" min="0" max="1" value="0.5" />
+        <span id="waistValue">W = 0.5</span>
+        <input type="range" id="rigidRange" step="0.01" min="0" max="1" value="0.1" />
+        <span id="rigidValue">K = 0.1</span>
+    </div>
+
     <div>
-      <button id="modeButton">Play</button>
-      <span style="margin: 0px 10px 0px 10px">
-        <button id="startButton">Start</button>
+        <button id="modeButton">║</button>
+        <button id="startButton">■</button>
+
+        <button id="createButton" style="font-weight: bold">O</button>
+
+        <button id="prettyButton">Pretty</button>
         <button id="saveSceneButton">Scene</button>
-      </span>
-      <button id="createButton">Ball</button>
-      <button id="prettyButton">Pretty</button>
     </div>
     <div id="dashboard">
-      <div>
-        <input type="text" id="worldDefinition" >
-        <button id="updateWorldButton">Update</button>
-      </div>
-      <div>
+
+        <div>
         <input type="text" id="ballDefinition">
         <button id="updateButton">Update</button>
       </div>
@@ -45,6 +40,9 @@
 
     <img src="pic/redBall.png" id="redBallImg" style="display: none;" width="523" height="520" />
 
+
+    <!--<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.min.js"></script>-->
+    <!--<script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/bootstrap.min.js"></script>-->
 
     <script src="js/Globals.js"></script>
     <script src="js/Geometry.js"></script>
@@ -59,7 +57,7 @@
         let box = new Box(10, 25, canvas.width - 20, canvas.height - 35 );
         setListeners();
         restoreScenes();
-        worldDefinition.value = world.toString();
+        //worldDefinition.value = world.toString();
         drawAll();
     </script>
 

@@ -1,0 +1,24 @@
+#worldDiv {
+    border: blue solid thin;
+    width: 800px;
+}
+
+img {
+    width: 100px;
+    height: 80px;
+    border: solid thin gray;
+    margin-right: 10px;
+}
+#worldDefinition {
+    width: 600px;
+}
+#ballDefinition {
+    width: 600px;
+}
+
+input[type=range]
+{
+    /*-webkit-appearance: none;*/
+    width: 100px;
+}
+
