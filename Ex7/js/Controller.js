@@ -153,32 +153,52 @@ function setListeners() {
 
     function ballHandlers() {
         let p0 = null;
+        let draggedBall = null;
 
         canvas.onmousedown = function(e) {
             p0 = {x: e.pageX - this.offsetLeft - box.x,
-                y: e.pageY - this.offsetTop - box.y };
+                  y: e.pageY - this.offsetTop - box.y };
+            draggedBall = box.ballUnderPoint(p0);
+            if (draggedBall) {
+                p0 = {x: draggedBall.x - p0.x, y: draggedBall.y - p0.y}
+            }
         }
 
         canvas.onmousemove = function(e) {
             if (!p0)
                 return;
             let p = {x: e.pageX - this.offsetLeft - box.x,
-                y: e.pageY - this.offsetTop - box.y };
-            drawAll();
-            drawGrayCircle(p0, p);
+                     y: e.pageY - this.offsetTop - box.y };
+            if (draggedBall) {
+                // drag ball
+                draggedBall.x = p.x + p0.x;
+                draggedBall.y = p.y + p0.y;
+                drawAll();
+            } else {
+                // create ball
+                drawAll();
+                drawGrayCircle(p0, p);
+            }
         }
 
         canvas.onmouseup = function(e) {
             if (p0 === null)
                 return;
-            let p = {x: e.pageX - this.offsetLeft - box.x,
-                y: e.pageY - this.offsetTop - box.y };
-            let r = G.dist(p0, p);
-            if (r > 2) {
-                let b = new Ball(p0.x, p0.y, r);
-                box.addBall(b);
-                box.balls.selected = b;
-                ballDefinition.value = b.toString();
+            if (draggedBall) {
+                // drag ball
+                draggedBall = null;
+            } else {
+                // create ball
+                let p = {x: e.pageX - this.offsetLeft - box.x,
+                    y: e.pageY - this.offsetTop - box.y };
+                let r = G.dist(p0, p);
+                if (r > 2) {
+                    let b = new Ball(p0.x, p0.y, r);
+                    box.addBall(b);
+                    box.balls.selected = b;
+                    ballDefinition.value = b.toString();
+                }
+
             }
             p0 = null;
             drawAll();
