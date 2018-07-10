@@ -88,8 +88,6 @@ const G = function () {
             return { x: dx / dist, y: dy / dist };
         },
 
-
-
     }
 }();
 

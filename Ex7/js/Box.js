@@ -14,7 +14,6 @@ class Box {
             new Line(w, h, 0, h), // bottom
             new Line(0, h, 0, 0), // left
         ];
-        this.createMode = CREATE_MODE_BALL;  // 0-create ball, 1-create line,
     }
 
     // 0-stop, 1-play
@@ -81,6 +80,17 @@ class Box {
         return null;
     }
 
+    // find a ball which velocity is under a point
+    ballVeloUnderPoint(p) {
+        for (let b of this.balls) {
+            let q = {x: b.x + b.vx * Kvelo, y: b.y + b.vy * Kvelo};
+            if (G.dist(p, q ) < 3) {
+                return b;
+            }
+        }
+        return null;
+    }
+
     //</editor-fold>
 
     //<editor-fold desc="Line add & delete">
@@ -127,8 +137,6 @@ class Box {
 
 
     static step(box) {
-        let event = new Event("drawAll");
-        canvas.dispatchEvent(event);
         for (let i = 0; i < REPEATER; i++) {
             box.dotsFromLines();
             box.dotsFromBalls();
@@ -136,6 +144,7 @@ class Box {
             box.dotsFromLinks();
             box.balls.forEach( b => b.move() )
         }
+        canvas.dispatchEvent(new Event("drawAll"));
     }
 
     // собирает на шары точки касания с отрезками (в т.ч. с границами)

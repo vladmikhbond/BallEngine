@@ -17,6 +17,9 @@ class Scene {
         box.links = [];
         this.links.forEach(o => box.addLink(Link.fromString(o, box.balls)));
         world.fromString(this.world);
+        controller.g = g;
+        controller.W = W;
+        controller.K = K;
     }
 }
 
@@ -30,7 +33,7 @@ saveSceneButton.addEventListener("click", function ()
     drawRedCross();
     img.src = canvas.toDataURL();
     drawAll();
-    img.setAttribute("onclick", `restoreScene("${img.id}", this)`);
+    img.setAttribute("onclick", `restoreScene('${img.id}', this)`);
     img.className = "thumbnail";
     scenesDiv.appendChild(img);
 
@@ -54,14 +57,14 @@ function restoreScene(id, img)
     // реконструкция
     scenes[id].restore();
     // if playing then stop
-    if (Box.mode == MODE_PLAY)
+    if (Box.mode === MODE_PLAY)
         modeButton.dispatchEvent(new Event('click'));
     drawAll();
 }
 
 // извлечение макетов из локального хранилища
 //
-function restoreScenes() {
+function loadGalery() {
     let item = localStorage.getItem("BallEngine-scenes");
     scenes = JSON.parse(item);
     if (!scenes)
@@ -78,6 +81,8 @@ function restoreScenes() {
         img.src = canvas.toDataURL();
         drawAll();
         img.setAttribute("onclick", `restoreScene("${img.id}", this)`);
+        img.className = "thumbnail";
+
         scenesDiv.appendChild(img);
     }
 

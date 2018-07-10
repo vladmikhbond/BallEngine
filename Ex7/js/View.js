@@ -6,7 +6,6 @@ function drawAll(lineWidth=0.5)
     const ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.lineWidth = lineWidth;
-    let velo = 50;
 
     // draw box
     ctx.strokeStyle = "black";
@@ -35,8 +34,9 @@ function drawAll(lineWidth=0.5)
             ctx.arc(x, y, b.radius, 0, Math.PI * 2);
         }
         // draw velocity
+        ctx.strokeRect(x + b.vx * Kvelo - 0.5, y + b.vy * Kvelo - 0.5, 1, 1)
         ctx.moveTo(x, y);
-        ctx.lineTo(x + b.vx * velo, y + b.vy * velo );
+        ctx.lineTo(x + b.vx * Kvelo, y + b.vy * Kvelo );
         ctx.stroke();
     }
 
