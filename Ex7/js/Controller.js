@@ -10,17 +10,18 @@ class Controller {
 
     set createMode(v) {
         this._createMode = v;
+        ballButton.className = lineButton.className = linkButton.className = "btn btn-default";
         // mouse handlers
         if (v === CREATE_MODE_BALL) {
             setBallHandlers();
+            ballButton.className = "btn btn-info";
         } else if (v === CREATE_MODE_LINE) {
             setLneHandlers();
+            lineButton.className = "btn btn-info";
         }  else if (v === CREATE_MODE_LINK) {
             setLinkHandlers();
+            linkButton.className = "btn btn-info";
         }
-        const names = ["O", "─", "~"];
-        createButton.innerHTML = names[v];
-        //drawAll();
     }
 
     get createMode() {
@@ -81,12 +82,6 @@ function setListeners() {
             curentScene.restore();
             controller.mode = MODE_STOP;
         }
-    });
-
-    // create mode toggle
-    createButton.addEventListener("click", function ()
-    {
-        controller.createMode = (controller.createMode + 1) % 3;
     });
 
 

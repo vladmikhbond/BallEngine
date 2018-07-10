@@ -56,9 +56,8 @@ function restoreScene(id, img)
     }
     // реконструкция
     scenes[id].restore();
-    // if playing then stop
-    if (Box.mode === MODE_PLAY)
-        modeButton.dispatchEvent(new Event('click'));
+    controller.mode === MODE_STOP;
+
     drawAll();
 }
 

@@ -1,25 +1,31 @@
-#worldDiv {
-    border: blue solid thin;
-    width: 800px;
-}
-
 .thumbnail {
     width: 100px;
     height: 80px;
     border: solid thin gray;
     margin-right: 10px;
+    display: inline;
 }
 
 #ballDefinition {
-    width: 600px;
+    width: 500px;
 }
 
 input[type=range]
 {
     /*-webkit-appearance: none;*/
     width: 100px;
+    display: inline;
+    margin-top: 5px;
+}
+input[type=range]+label
+{
+    width: 100px;
 }
 
 #redBallImg {
     display: none
+}
+
+.btn-group {
+    margin-left: 20px;
 }
