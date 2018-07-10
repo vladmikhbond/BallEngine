@@ -3,15 +3,13 @@
     width: 800px;
 }
 
-img {
+.thumbnail {
     width: 100px;
     height: 80px;
     border: solid thin gray;
     margin-right: 10px;
 }
-#worldDefinition {
-    width: 600px;
-}
+
 #ballDefinition {
     width: 600px;
 }
@@ -22,3 +20,6 @@ input[type=range]
     width: 100px;
 }
 
+#redBallImg {
+    display: none
+}

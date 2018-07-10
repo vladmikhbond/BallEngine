@@ -10,9 +10,9 @@ function setListeners() {
     modeButton.addEventListener("click", function ()
     {
         const names = ["►", "║"];
-        this.innerHTML = names[box.mode];
-        box.mode = (box.mode + 1) % names.length;
-        if (box.mode == 1)
+        this.innerHTML = names[Box.mode];
+        box.mode = (Box.mode + 1) % names.length;
+        if (Box.mode === MODE_PLAY)
             curentScene = new Scene();
         drawAll();
     });
@@ -23,7 +23,7 @@ function setListeners() {
         if (curentScene) {
             curentScene.restore();
             // if playing then stop
-            if (box.mode == MODE_PLAY)
+            if (Box.mode === MODE_PLAY)
                 modeButton.dispatchEvent(new Event('click'));
             drawAll();
         }
@@ -92,7 +92,7 @@ function setListeners() {
         switch(e.key) {
             case 'ArrowDown':
             case 'ArrowRight':
-                if (box.mode === MODE_STOP) {
+                if (Box.mode === MODE_STOP) {
                     Box.step(box);
                     if (box.balls.selected)
                         ballDefinition.value = box.balls.selected.toString();
@@ -162,7 +162,7 @@ function setListeners() {
             if (draggedBall) {
                 p0 = {x: draggedBall.x - p0.x, y: draggedBall.y - p0.y}
             }
-        }
+        };
 
         canvas.onmousemove = function(e) {
             if (!p0)
@@ -179,7 +179,7 @@ function setListeners() {
                 drawAll();
                 drawGrayCircle(p0, p);
             }
-        }
+        };
 
         canvas.onmouseup = function(e) {
             if (p0 === null)
@@ -211,7 +211,7 @@ function setListeners() {
         canvas.onmousedown = function(e) {
             p0 = {x: e.pageX - this.offsetLeft - box.x,
                 y: e.pageY - this.offsetTop - box.y };
-        }
+        };
 
         canvas.onmousemove = function(e) {
             if (!p0)
@@ -220,7 +220,7 @@ function setListeners() {
                 y: e.pageY - this.offsetTop - box.y };
             drawAll();
             drawGrayLine(p0, p);
-        }
+        };
 
         canvas.onmouseup = function(e) {
             if (p0 === null)
@@ -235,7 +235,7 @@ function setListeners() {
             }
             p0 = null;
             drawAll();
-        }
+        };
     }
 
     function linkHandlers() {
@@ -256,10 +256,10 @@ function setListeners() {
                 b0 = null;
             }
 
-        }
+        };
 
         canvas.onmousemove = function(e) {
-        }
+        };
 
         canvas.onmouseup = function(e) {
         }

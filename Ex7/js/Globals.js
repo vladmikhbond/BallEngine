@@ -1,3 +1,12 @@
+const MODE_STOP = 0;
+const MODE_PLAY = 1;
+
+const CREATE_MODE_BALL = 0;
+const CREATE_MODE_LINE = 1;
+const CREATE_MODE_LINK = 2;
+
+
+
 let W = 0.5;  // потеря энергии при соударении  0.5
 let K = 0.1;  // модуль упругости
 
@@ -22,5 +31,18 @@ let world = {
         INTERVAL = o.INTERVAL;
         REPEATER = o.REPEATER;
     }
-}
+};
 
+let canvas = document.getElementById("canvas");
+let modeButton = document.getElementById("modeButton");
+let startButton = document.getElementById("startButton");
+let createButton = document.getElementById("createButton");
+let prettyButton = document.getElementById("prettyButton");
+let updateButton = document.getElementById("updateButton");
+let graviRange = document.getElementById("graviRange");
+let waistRange = document.getElementById("waistRange");
+let rigidRange = document.getElementById("rigidRange");
+let graviValue = document.getElementById("graviValue");
+let waistValue = document.getElementById("waistValue");
+let rigidValue = document.getElementById("rigidValue");
+let ballDefinition = document.getElementById("ballDefinition");

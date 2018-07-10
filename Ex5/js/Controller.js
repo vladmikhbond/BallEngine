@@ -10,8 +10,8 @@ function setListeners() {
     modeButton.addEventListener("click", function ()
     {
         const names = ["Stop", "Play"];
-        this.innerHTML = names[box.mode];
-        box.mode = (box.mode + 1) % names.length;
+        this.innerHTML = names[Box.mode];
+        box.mode = (Box.mode + 1) % names.length;
         drawAll();
     });
 
@@ -45,7 +45,7 @@ function setListeners() {
         switch(e.key) {
             case 'ArrowDown':
             case 'ArrowRight':
-                if (box.mode === 0) {
+                if (Box.mode === 0) {
                     Box.step(box);
                 } else {
                     // to toggle mode

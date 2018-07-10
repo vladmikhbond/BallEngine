@@ -31,6 +31,7 @@ saveSceneButton.addEventListener("click", function ()
     img.src = canvas.toDataURL();
     drawAll();
     img.setAttribute("onclick", `restoreScene("${img.id}", this)`);
+    img.className = "thumbnail";
     scenesDiv.appendChild(img);
 
     scenes[img.id] = new Scene();
@@ -53,7 +54,7 @@ function restoreScene(id, img)
     // реконструкция
     scenes[id].restore();
     // if playing then stop
-    if (box.mode == MODE_PLAY)
+    if (Box.mode == MODE_PLAY)
         modeButton.dispatchEvent(new Event('click'));
     drawAll();
 }

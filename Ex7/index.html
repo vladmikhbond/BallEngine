@@ -5,10 +5,7 @@
     <link rel="stylesheet" href="site.css" />
 </head>
 <body>
-
-
     <h3> Ex7. Pretty</h3>
-
     <div id="worldDiv">
         <input type="range" id="graviRange" step="0.001" min="-0.10" max="0.1" value="0.0" />
         <span id="graviValue">G = 0</span>
@@ -16,29 +13,26 @@
         <span id="waistValue">W = 0.5</span>
         <input type="range" id="rigidRange" step="0.01" min="0" max="1" value="0.1" />
         <span id="rigidValue">K = 0.1</span>
+        <button id="createButton" style="font-size: 16px; margin-left: 30px">O</button>
     </div>
 
     <div>
         <button id="modeButton">║</button>
         <button id="startButton">■</button>
-
-        <button id="createButton" style="font-weight: bold">O</button>
-
-        <button id="prettyButton">Pretty</button>
+        <button id="prettyButton" style="margin-left: 30px">Pretty</button>
         <button id="saveSceneButton">Scene</button>
     </div>
     <div id="dashboard">
-
-        <div>
         <input type="text" id="ballDefinition">
         <button id="updateButton">Update</button>
-      </div>
     </div>
+
     <canvas id="canvas" width="800" height="600" style="border: thin solid blue"></canvas>
+
     <div id="scenesDiv"> </div>
 
 
-    <img src="pic/redBall.png" id="redBallImg" style="display: none;" width="523" height="520" />
+    <img src="pic/redBall.png" id="redBallImg" width="523" height="520" />
 
 
     <!--<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.min.js"></script>-->
@@ -57,7 +51,6 @@
         let box = new Box(10, 25, canvas.width - 20, canvas.height - 35 );
         setListeners();
         restoreScenes();
-        //worldDefinition.value = world.toString();
         drawAll();
     </script>
 
