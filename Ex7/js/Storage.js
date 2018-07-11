@@ -56,7 +56,7 @@ function restoreScene(id, img)
     }
     // реконструкция
     scenes[id].restore();
-    controller.mode === MODE_STOP;
+    controller.mode = MODE_STOP;
 
     drawAll();
 }

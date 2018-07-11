@@ -137,30 +137,30 @@ class Box {
 
 
     static step(box) {
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < REPEATER; i++) {
 
-            //Box.step1(box);
+            Box.dotsFromLinksMulty(box, 4);
 
             box.balls.forEach(b => b.dots = []);
 
-            box.dotsFromLinks();
+            //box.dotsFromLinks();
             box.dotsFromLines();
-            //box.dotsFromBalls();
-            //box.dotsAboutLinks();
+            box.dotsFromBalls();
+            box.dotsAboutLinks();
 
 
-            box.balls.forEach( b => b.move() )
+            box.balls.forEach( b => b.move(0, g) )
 
 
         }
         canvas.dispatchEvent(new Event("drawAll"));
     }
 
-    static step1(box) {
-        for (let i = 0; i < 1; i++) {
+    static dotsFromLinksMulty(box, n) {
+        for (let i = 0; i < n; i++) {
             box.balls.forEach(b => b.dots = []);
             box.dotsFromLinks();
-            box.balls.forEach( b => b.move1() )
+            box.balls.forEach( b => b.move(0, 0) )
         }
     }
 

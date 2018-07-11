@@ -16,13 +16,13 @@ let REPEATER = 10;
 let PRETTY = 0;  // false
 
 // for velocity drawing
-const Kvelo = 40;
+const Kvelo = 100;
 
 //-------------------------------------------------------------------
 
 let world = {
     toString() {
-        let w = {W, K, g, INTERVAL, REPEATER};
+        let w = {W, K, g}; //, INTERVAL, REPEATER};
         return JSON.stringify(w);
     },
 
@@ -31,8 +31,8 @@ let world = {
         W = o.W;
         K = o.K;
         g = o.g;
-        INTERVAL = o.INTERVAL;
-        REPEATER = o.REPEATER;
+        // INTERVAL = o.INTERVAL;
+        // REPEATER = o.REPEATER;
     }
 };
 
