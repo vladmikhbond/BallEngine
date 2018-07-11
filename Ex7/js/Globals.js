@@ -9,10 +9,10 @@ let W = 0.5;  // к.п.д. при соударении (1 - без потерь)
 let K = 0.1;  // модуль упругости (1 - твердый)
 let g = 0.05;  // 0.05;
 
-let INTERVAL = 30;
+let INTERVAL = 20;
 let intervalId;
 
-let REPEATER = 10;
+let REPEATER = 100;
 let PRETTY = 0;  // false
 
 // for velocity drawing

@@ -8,6 +8,18 @@ class Controller {
         this.createMode = CREATE_MODE_BALL;
     }
 
+
+    // 0-stop, 1-play
+    set mode(v) {
+        box.mode = v;
+        const classNames = ["glyphicon glyphicon-pause", "glyphicon glyphicon-play"];
+        modeGlif.className = classNames[v];
+        drawAll();
+    }
+    get mode() {
+        return box.mode;
+    }
+
     set createMode(v) {
         this._createMode = v;
         ballButton.className = lineButton.className = linkButton.className = "btn btn-default";
@@ -23,26 +35,15 @@ class Controller {
             linkButton.className = "btn btn-info";
         }
     }
-
     get createMode() {
         return this._createMode;
     }
 
 
-    // 0-stop, 1-play
-    set mode(v) {
-        box.mode = v;
-        const names = ["║", "►"];
-        modeButton.innerHTML = names[v];
-        drawAll();
-    }
-    get mode() {
-        return box.mode;
-    }
-
     set g(v) {
         g = +v;
-        graviValue.innerHTML = "G = " + v;
+        graviValue.innerHTML = "G = " + (v / 0.002).toFixed(2) + "g";
+        //graviValue.innerHTML = "G = " + v;
         graviRange.value = v;
     }
     set W(v) {
@@ -88,9 +89,9 @@ function setListeners() {
     // pretty toggle
     prettyButton.addEventListener("click", function ()
     {
-        const names = ["Ugly", "Pretty"];
-        this.innerHTML = names[PRETTY];
-        PRETTY = (PRETTY + 1)  % names.length;
+        // const names = ["Ugly", "Pretty"];
+        // this.innerHTML = names[PRETTY];
+        PRETTY = (PRETTY + 1)  % 2;
         drawAll();
     });
 
