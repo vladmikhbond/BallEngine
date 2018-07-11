@@ -12,7 +12,7 @@ let g = 0.05;  // 0.05;
 let INTERVAL = 20;
 let intervalId;
 
-let REPEATER = 100;
+let REPEATER = 10;
 let PRETTY = 0;  // false
 
 // for velocity drawing

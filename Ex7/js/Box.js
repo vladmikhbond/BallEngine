@@ -137,21 +137,40 @@ class Box {
 
 
     static step(box) {
-        for (let i = 0; i < REPEATER; i++) {
-            box.dotsFromLines();
-            box.dotsFromBalls();
-            box.dotsAboutLinks();
+        for (let i = 0; i < 10; i++) {
+
+            //Box.step1(box);
+
+            box.balls.forEach(b => b.dots = []);
+
             box.dotsFromLinks();
+            box.dotsFromLines();
+            //box.dotsFromBalls();
+            //box.dotsAboutLinks();
+
+
             box.balls.forEach( b => b.move() )
+
+
         }
         canvas.dispatchEvent(new Event("drawAll"));
     }
+
+    static step1(box) {
+        for (let i = 0; i < 1; i++) {
+            box.balls.forEach(b => b.dots = []);
+            box.dotsFromLinks();
+            box.balls.forEach( b => b.move1() )
+        }
+    }
+
+
+
 
     // собирает на шары точки касания с отрезками (в т.ч. с границами)
     //
     dotsFromLines() {
         for (let b of this.balls) {
-            b.dots = [];
             for (let l of this.lines.concat(this.border) ) {
                 if (G.distToInfiniteLine(b, l) < b.radius) {
                     let p = G.cross(b, l);

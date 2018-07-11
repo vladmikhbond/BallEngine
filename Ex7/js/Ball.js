@@ -67,4 +67,35 @@ class Ball {
         b.y += b.vy;
     }
 
+    move1() {
+        let b = this;
+
+        // вычисляем равнодействующее ускорение
+        let ax = 0;
+        let ay = 0;    // тяготение
+
+        // суммируем ускорения от реакций точек касания
+        for (let p of b.dots) {
+            let d = G.dist(b, p);
+            let r = b.radius - d;
+            // единичный вектор
+            let u = G.unit(p, b, d);
+            //{x: (b.x - p.x) / d, y: (b.y - p.y) / d };
+
+            // модуль упругости зависит от фазы - сжатие или расжатие шара
+            let scalar = G.scalar({x: b.vx, y: b.vy}, u);
+            let k = scalar > 0 ? K * W: K;
+
+            ax += k * r * u.x;
+            ay += k * r * u.y;
+        }
+
+        // изменение скорости
+        b.vx += ax;
+        b.vy += ay;
+        // изменение координат
+        b.x += b.vx;
+        b.y += b.vy;
+    }
+
 }
