@@ -139,14 +139,14 @@ class Box {
     static step(box) {
         for (let i = 0; i < REPEATER; i++) {
 
-            Box.dotsFromLinksMulty(box, 4);
+            //Box.dotsFromLinksMulty(box, 10);
 
             box.balls.forEach(b => b.dots = []);
 
-            //box.dotsFromLinks();
             box.dotsFromLines();
             box.dotsFromBalls();
             box.dotsAboutLinks();
+            box.dotsFromLinks();
 
 
             box.balls.forEach( b => b.move(0, g) )
@@ -155,16 +155,6 @@ class Box {
         }
         canvas.dispatchEvent(new Event("drawAll"));
     }
-
-    static dotsFromLinksMulty(box, n) {
-        for (let i = 0; i < n; i++) {
-            box.balls.forEach(b => b.dots = []);
-            box.dotsFromLinks();
-            box.balls.forEach( b => b.move(0, 0) )
-        }
-    }
-
-
 
 
     // собирает на шары точки касания с отрезками (в т.ч. с границами)
@@ -262,11 +252,9 @@ class Box {
                 x2 = 2 * b2.x - x2;
                 y2 = 2 * b2.y - y2;
             }
-
-            b1.dots.push({x: x1, y: y1});
-            b2.dots.push({x: x2, y: y2});
+            b1.dots.push({x: x1, y: y1, z: 1});  /////
+            b2.dots.push({x: x2, y: y2, z: 1});  /////
         }
-
     }
 
     // собирает на шары виртуальные точки касания от ударов о чужие связи

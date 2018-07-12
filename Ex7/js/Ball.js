@@ -49,7 +49,13 @@ class Ball {
 
             // модуль упругости зависит от фазы - сжатие или расжатие шара
             let scalar = G.scalar({x: b.vx, y: b.vy}, u);
-            let k = scalar > 0 ? K * W: K;
+
+            let w = p.z ? 0.95 : W;   /////
+
+            let k = scalar > 0 ? K * w: K;
+
+
+
 
             ax += k * r * u.x;
             ay += k * r * u.y;
