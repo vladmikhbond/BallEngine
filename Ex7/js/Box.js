@@ -169,10 +169,14 @@ class Box {
                         b.dots.push(p);
                     } else {
                         // точка пересечения за пределами отрезка
-                        if (G.dist(b, l.p1) < b.radius)
+                        if (G.dist(b, l.p1) < b.radius) {
+                            // касание 1-го конца отрезка
                             b.dots.push(l.p1);
-                        if (G.dist(b, l.p2) < b.radius)
+                        }
+                        if (G.dist(b, l.p2) < b.radius) {
+                            // касание 2-го конца отрезка
                             b.dots.push(l.p2);
+                        }
                     }
                 }
              }
@@ -185,7 +189,7 @@ class Box {
         for (let i = 0; i < this.balls.length - 1; i++ ) {
             for (let j = i + 1; j < this.balls.length; j++ ) {
                 let b1 = this.balls[i], b2 = this.balls[j];
-                let dot = touch(b1, b2);
+                let dot = this.touch(b1, b2);
                 if (dot) {
                     b1.dots.push(dot);
                     b2.dots.push(dot);
@@ -193,67 +197,69 @@ class Box {
             }
         }
 
-        // деформация  шара тем больше, чем больше масса противоположного шара
-        // деформации задают не силы (силы должны быть равны), а ускорения шаров
-        //
-        function touch(b1, b2) {
-            let d = G.dist(b1, b2);
-            // шары далеко
-            if (d > b1.radius + b2.radius )
-                return;
-            // ширина области деформации (области пересечения окружностей)
-            let delta = b1.radius + b2.radius - d;
-            // доля деформации для шара b2
-            let delta2 = delta * b1.m / (b1.m + b2.m);
-
-            // отношение расстояние от b1 до точки касания к расстоянию между шарами
-            let k = (d - b2.radius + delta2) / d;
-
-            // координаты точки касания
-            let x = b1.x + (b2.x - b1.x) * k;
-            let y = b1.y + (b2.y - b1.y) * k;
-            return {x, y};
-        }
 
     }
+
+    // деформация  шара тем больше, чем больше масса противоположного шара
+    // деформации задают не силы (силы должны быть равны), а ускорения шаров
+    //
+    touch(b1, b2) {
+        let d = G.dist(b1, b2);
+        // шары далеко
+        if (d > b1.radius + b2.radius )
+            return;
+        // ширина области деформации (области пересечения окружностей)
+        let delta = b1.radius + b2.radius - d;
+        // доля деформации для шара b2
+        let delta2 = delta * b1.m / (b1.m + b2.m);
+
+        // отношение расстояние от b1 до точки касания к расстоянию между шарами
+        let k = (d - b2.radius + delta2) / d;
+
+        // координаты точки касания
+        let x = b1.x + (b2.x - b1.x) * k;
+        let y = b1.y + (b2.y - b1.y) * k;
+        return {x, y};
+    }
+
+
 
     // собирает на шары виртуальные точки касания, обусловленные своей связью
     //
     dotsFromLinks() {
-        for (let link of box.links)
-        {
-            let b1 = link.b1, b2 = link.b2;
+        for (let link of box.links) {
+            let b1 = link.b1, b2 = link.b2, deX, deY;
+            // придвинуть второй шар к первому
             let len = G.dist(b1, b2);
+            let alpha = Math.atan2(b2.y - b1.y, b2.x - b1.x);
 
-            // общий размер области деформации
-            let delta = Math.abs(len - link.len0);
-            // доля деформации для каждого шара
-            let delta1 = delta * b2.m / (b1.m + b2.m);
-            let delta2 = delta - delta1;
-
-            // отношение расстояние от b1 до точки касания к расстоянию между шарами
-            let k1 = (b1.radius - delta1) / len;
-            // координаты точки касания
-            let x1 = b1.x + (b2.x - b1.x) * k1;
-            let y1 = b1.y + (b2.y - b1.y) * k1;
-
-            // то же для b2
-            let k2 = (b2.radius - delta2) / len;
-
-            // координаты точки касания
-            let x2 = b2.x - (b2.x - b1.x) * k2;
-            let y2 = b2.y - (b2.y - b1.y) * k2;
-
-
-            // если связь растянута, повернуь точки касания на 180
-            if (len > link.len0) {
-                x1 = 2 * b1.x - x1;
-                y1 = 2 * b1.y - y1;
-                x2 = 2 * b2.x - x2;
-                y2 = 2 * b2.y - y2;
+            let r = b1.radius + b2.radius;
+            if (len < link.len0) {
+                // compression
+                deX = (link.len0 - r) * Math.cos(alpha);
+                deY = (link.len0 - r) * Math.sin(alpha);
+            } else if (len > link.len0){
+                // extension
+                deX = (link.len0 + r) * Math.cos(alpha);
+                deY = (link.len0 + r) * Math.sin(alpha);
+            } else {
+                continue;
             }
-            b1.dots.push({x: x1, y: y1, z: 1});  /////
-            b2.dots.push({x: x2, y: y2, z: 1});  /////
+            b2.x -= deX;
+            b2.y -= deY;
+            // найти точку касания
+            let dot = this.touch(b1, b2);
+            // вернуть на место второй шар
+            b2.x += deX;
+            b2.y += deY;
+            if (dot) {
+                dot.w = 1;
+                // поместить точку касания на 1 шар
+                b1.dots.push(dot);
+                // отодвинуть точку касания и поместить на 2 шар
+                let dot2 = {x: dot.x + deX, y: dot.y + deY, w: 1};
+                b2.dots.push(dot2);
+            }
         }
     }
 
