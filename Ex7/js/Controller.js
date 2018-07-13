@@ -174,7 +174,7 @@ function setListeners() {
         // select link
         for (let link of box.links) {
             let l = new Line(link.x1, link.y1, link.x2, link.y2 );
-            if (G.distToInfiniteLine(p, l) < 5) {
+            if (G.distToInfiniteLine(p, l) < 5 && G.cross(p, l)) {
                 box.links.selected = link;
                 drawAll();
                 break;
