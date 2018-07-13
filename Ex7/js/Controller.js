@@ -131,7 +131,7 @@ function setListeners() {
     document.addEventListener("keydown", function (e) {
         switch(e.key) {
             case 's': case 'S': case 'ы': case 'Ы':
-                Box.step(box);
+                box.mech.step(box);
                 controller.mode = MODE_STOP;
                 break;
             case 'Delete':
