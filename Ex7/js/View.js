@@ -11,6 +11,14 @@ function drawAll(lineWidth=0.5)
     ctx.strokeStyle = "black";
     ctx.strokeRect(box.x, box.y, box.width, box.height);
 
+    // draw scale
+    ctx.beginPath();
+    for (let y = 0, n = 0; y < box.height; y += pixInMeter) {
+        ctx.moveTo(1, y + box.y);
+        ctx.lineTo(5, y + box.y );
+    }
+    ctx.stroke();
+
     // draw balls
     for (let b of box.balls) {
         ctx.lineWidth = box.balls.selected === b ? 3 * lineWidth : lineWidth;

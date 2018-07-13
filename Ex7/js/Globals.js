@@ -7,7 +7,7 @@ const CREATE_MODE_LINK = 2;
 
 let W = 0.5;  // к.п.д. при соударении (1 - без потерь)
 let K = 0.1;  // модуль упругости (1 - твердый)
-let g = 0.05;  // 0.05;
+let g = 0.002;  // 0.002 = 1g;
 
 let INTERVAL = 20;
 let intervalId;
@@ -17,12 +17,13 @@ let PRETTY = 0;  // false
 
 // for velocity drawing
 const Kvelo = 100;
+let pixInMeter = 10;
 
 //-------------------------------------------------------------------
 
 let world = {
     toString() {
-        let w = {W, K, g}; //, INTERVAL, REPEATER};
+        let w = {W, K, g};
         return JSON.stringify(w);
     },
 
@@ -31,9 +32,7 @@ let world = {
         W = o.W;
         K = o.K;
         g = o.g;
-        // INTERVAL = o.INTERVAL;
-        // REPEATER = o.REPEATER;
-    }
+     }
 };
 
 //-------------------------------------------------------------------

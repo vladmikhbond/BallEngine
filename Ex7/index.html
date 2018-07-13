@@ -10,9 +10,9 @@
     <div class="panel panel-default">
         <input type="range" id="graviRange" step="0.001" min="0" max="0.02" value="0.002" />
         <label id="graviValue">G = 0</label>
-        <input type="range" id="waistRange" step="0.01" min="0" max="1" value="0.5" />
+        <input type="range" id="waistRange" step="0.1" min="0" max="1" value="0.5" />
         <label id="waistValue">W = 0.5</label>
-        <input type="range" id="rigidRange" step="0.01" min="0" max="1" value="0.1" />
+        <input type="range" id="rigidRange" step="0.1" min="0" max="1" value="0.1" />
         <label id="rigidValue">K = 0.1</label>
 
         <div class="btn-group btn-group-sm" >
@@ -58,7 +58,8 @@
         let box = new Box(10, 25, canvas.width - 20, canvas.height - 35 );
         let controller = new Controller();
         loadGalery();
-        drawAll();
+        box.calibration();
+
     </script>
 </div>
 </body>

@@ -136,4 +136,28 @@ class Box {
 
     //</editor-fold>
 
+    
+    calibration() {
+        // создать шар вверху ящика
+        let b = new Ball(2, 10, 1, 0, 0, 1 );
+        this.addBall(b);
+
+        // запустить setInterval и засечь время
+        let me = this;
+        let t = Date.now();
+        controller.g = 0.002;
+        let id = setInterval(function () {
+            me.mech.step();
+            if (b.y > me.height - 10) {
+                t = Date.now() - t;
+                let h = b.y - 10;
+                pixInMeter = 1000 * h / t / 9.8;
+                clearInterval(id);
+                me.deleteBall(b);
+                drawAll();
+                alert(pixInMeter)
+            }
+            }, INTERVAL);
+    }
+
 }
