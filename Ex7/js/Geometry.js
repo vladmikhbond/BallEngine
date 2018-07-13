@@ -111,9 +111,9 @@ function near(a, b) {
 
 
 // turn tests
-res = G.turn(1, 0,  Math.PI / 2)
+res = G.turn(1, 0,  Math.PI / 2);
 console.log(near(res.x, 0) && near(res.y, -1));
-res = G.turn(1, 0,  Math.PI)
+res = G.turn(1, 0,  Math.PI);
 console.log(near(res.x, -1) && near(res.y, 0));
-res = G.turn(1, 0,  -Math.PI / 2)
+res = G.turn(1, 0,  -Math.PI / 2);
 console.log(near(res.x, 0) && near(res.y, 1));
