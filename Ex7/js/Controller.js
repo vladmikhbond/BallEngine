@@ -77,8 +77,8 @@ function setListeners(controller) {
             curentScene = new Scene();
     });
 
-    // start button
-    startButton.addEventListener("click", function ()
+    // restart button
+    restartButton.addEventListener("click", function ()
     {
         if (curentScene) {
             curentScene.restore();
@@ -106,12 +106,24 @@ function setListeners(controller) {
         }
     });
 
+    // clear screen
+    eraseButton.addEventListener("click", function ()
+    {
+        box.balls = [];
+        box.lines = [];
+        box.links = [];
+        controller.W = 0.5;    // к.п.д. при соударении (1 - без потерь)
+        controller.K = 0.1;    // модуль упругости (1 - твердый)
+        controller.g = 0.002;  // 0.002 = 1g;
+        controller.mode = MODE_STOP;
+        controller.createMode = CREATE_MODE_BALL;
+        drawAll();
+    });
+
     //------------------- input-range --------------------------------------
 
     graviRange.addEventListener("change", function ()
     {
-        // g = +this.value;
-        // graviValue.innerHTML = "G = " + this.value;
         controller.g = this.value;
     });
 

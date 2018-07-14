@@ -36,8 +36,14 @@ exportScenesButton.addEventListener("click", function ()
 //
 importScenesButton.addEventListener("click", function ()
 {
-    localStorage.setItem(KEY, scenesExport.value);
-    loadGalery();
+    //
+    try {
+        let o = JSON.parse(scenesExport.value);
+        localStorage.setItem(KEY, scenesExport.value);
+        loadGalery();
+    } catch (e) {
+       alert(e.message)
+    }
 });
 
 
@@ -82,6 +88,14 @@ function restoreScene(id, img)
 // извлечение макетов из локального хранилища
 //
 function loadGalery() {
+    try {
+        scenes = JSON.parse(localStorage.getItem(KEY));
+
+    } catch (e) {
+        alert(e.message)
+        return;
+    }
+
     scenes = JSON.parse(localStorage.getItem(KEY));
     if (!scenes)
         scenes = {};

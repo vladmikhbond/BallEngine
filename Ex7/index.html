@@ -24,21 +24,22 @@
             <button id="linkButton" type="button" class="btn" onclick="controller.createMode = 2" >
               <span class="glyphicon glyphicon-link" /> Link</button>
         </div>
+        <strong>S</strong>tep
+        <button id="modeButton" class="btn btn-sm btn-success" ><span id="modeGlif" class="glyphicon glyphicon-pause"> </span></button>
     </div>
 
     <div class="panel panel-default">
-        <button id="modeButton" class="btn btn-sm" ><span id="modeGlif" class="glyphicon glyphicon-pause"> </span></button>
         <input type="text" id="ballDefinition">
         <button id="updateButton" class="btn btn-sm"><span class="glyphicon glyphicon-record" /></button>
         <button id="prettyButton" class="btn btn-sm"><span class="glyphicon glyphicon-adjust" /></button>
-        <button id="startButton" class="btn btn-sm" ><span class="glyphicon glyphicon-stop"> </span></button>
-        <strong>S</strong>tep
+        <button id="restartButton" class="btn btn-sm" ><span class="glyphicon glyphicon-stop"> </span></button>
+        <button id="eraseButton" class="btn btn-sm" ><span class="glyphicon glyphicon-erase"> </span></button>
     </div>
 
     <canvas id="canvas" width="1150" height="600" ></canvas>
 
     <div class="panel panel-default">
-        <button id="saveSceneButton" class="btn btn-sm" ><span class="glyphicon glyphicon-save"> </span>Scene</button>
+        <button id="saveSceneButton" class="btn btn-sm" ><span class="glyphicon glyphicon-bookmark"> </span>Scene</button>
         <input type="text" id="scenesExport">
         <button id="exportScenesButton" class="btn btn-sm" title="Export"><span class="glyphicon glyphicon-export"> </span></button>
         <button id="importScenesButton" class="btn btn-sm" title="Import"><span class="glyphicon glyphicon-import"> </span></button>
@@ -66,7 +67,9 @@
     <script>
         let box = new Box(10, 25, canvas.width - 20, canvas.height - 35 );
         let controller = new Controller();
-        box.calibration(loadGalery);
+        //box.calibration(loadGalery);
+        loadGalery();
+        drawAll();
 
 
     </script>

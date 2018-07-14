@@ -40,10 +40,11 @@ let world = {
 
 let canvas = document.getElementById("canvas");
 let modeButton = document.getElementById("modeButton");
-let startButton = document.getElementById("startButton");
+let restartButton = document.getElementById("restartButton");
 let createButton = document.getElementById("createButton");
 let prettyButton = document.getElementById("prettyButton");
 let updateButton = document.getElementById("updateButton");
+let eraseButton = document.getElementById("eraseButton");
 let saveSceneButton = document.getElementById("saveSceneButton");
 let graviRange = document.getElementById("graviRange");
 let waistRange = document.getElementById("waistRange");
