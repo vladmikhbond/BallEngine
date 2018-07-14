@@ -40,7 +40,7 @@ function Mechanics(box)
 
                 box.balls.forEach( b => b.move(0, g) )
             }
-            canvas.dispatchEvent(new Event("drawAll"));
+            canvas.dispatchEvent(new Event("changed"));
         },
 
         // собирает на шары точки касания с отрезками (в т.ч. с границами)

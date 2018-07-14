@@ -12,32 +12,33 @@ function drawAll(lineWidth=0.5)
     ctx.strokeRect(box.x, box.y, box.width, box.height);
 
     // draw scale
-    ctx.beginPath();
-    for (let y = 0; y < box.height; y += pixInMeter) {
-        ctx.moveTo(1, y + box.y);
-        ctx.lineTo(5, y + box.y );
+    //ctx.beginPath();
+    for (let y = 0, n = 0; y < box.height; y += pixInMeter, n++) {
+        //ctx.moveTo(1, y + box.y);
+        //ctx.lineTo(5, y + box.y );
+        ctx.fillText(n.toString(), 0, y + box.y );
     }
-    ctx.stroke();
+    //ctx.stroke();
 
     // draw balls
     for (let b of box.balls) {
-        ctx.lineWidth = box.balls.selected === b ? 3 * lineWidth : lineWidth;
+        ctx.lineWidth = controller.selected === b ? 3 * lineWidth : lineWidth;
         ctx.strokeStyle = b.color;
         ctx.beginPath();
         let x = box.x + b.x, y = box.y + b.y;
-        // if (b.dots && b.dots.length > 0) {
-        //     let dot = b.dots[0];
-        //     // показываем деформацию
-        //     let alpha = Math.atan2(dot.y - b.y, dot.x - b.x);
-        //     let kr = G.dist(dot, b) / b.radius;
-        //     ctx.save();
-        //     ctx.translate(x, y);
-        //     ctx.rotate(alpha);
-        //     ctx.scale(kr, 1/kr);
-        //     ctx.rotate(-alpha);
-        //     ctx.arc(0, 0, b.radius, 0, Math.PI * 2);
-        //     ctx.restore();        }
-        // else
+        if (b.dots && b.dots.length > 0) {
+            let dot = b.dots[0];
+            // показываем деформацию
+            let alpha = Math.atan2(dot.y - b.y, dot.x - b.x);
+            let kr = G.dist(dot, b) / b.radius;
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.rotate(alpha);
+            ctx.scale(kr, 1/kr);
+            ctx.rotate(-alpha);
+            ctx.arc(0, 0, b.radius, 0, Math.PI * 2);
+            ctx.restore();        }
+        else
         {
             ctx.arc(x, y, b.radius, 0, Math.PI * 2);
         }
@@ -62,8 +63,8 @@ function drawAll(lineWidth=0.5)
     // draw lines
     ctx.strokeStyle = "blue";
     for (let l of box.lines) {
+        ctx.lineWidth = controller.selected === l ? 3 * lineWidth : lineWidth;
         ctx.beginPath();
-        ctx.lineWidth = box.lines.selected === l ? 3 * lineWidth : lineWidth;
         ctx.moveTo(box.x + l.x1, box.y + l.y1);
         ctx.lineTo(box.x + l.x2, box.y + l.y2);
         ctx.stroke();
@@ -72,8 +73,8 @@ function drawAll(lineWidth=0.5)
     // draw links
     ctx.strokeStyle = "gray";
     for (let l of box.links) {
+        ctx.lineWidth = controller.selected === l ? 3 * lineWidth : lineWidth;
         ctx.beginPath();
-        ctx.lineWidth = box.links.selected === l ? 3 * lineWidth : lineWidth;
         ctx.moveTo(box.x + l.x1, box.y + l.y1);
         ctx.lineTo(box.x + l.x2, box.y + l.y2);
         ctx.stroke();
@@ -108,7 +109,7 @@ function drawPretty() {
     // draw balls
     for (let b of box.balls) {
         ctx.save();
-        let img = redBallImg;
+        let img = b.color === "red" ? redBallImg : blueBallImg;
         let x = box.x + b.x, y = box.y + b.y;
 
         if (b.dots && b.dots.length > 0) {

@@ -38,6 +38,8 @@ class Ball {
     // вызывается, когда собраны точки касания
     move(ax, ay) {
         let b = this;
+        if (b.color !== "red")
+            return;
 
         // суммируем ускорения от реакций точек касания
         for (let p of b.dots) {
@@ -50,12 +52,9 @@ class Ball {
             // модуль упругости зависит от фазы - сжатие или расжатие шара
             let scalar = G.scalar({x: b.vx, y: b.vy}, u);
 
-            let w = p.w ? 0.96 : W;   /////
+            let w = p.w ? Wl : W;   //
 
             let k = scalar > 0 ? K * w: K;
-
-
-
 
             ax += k * r * u.x;
             ay += k * r * u.y;

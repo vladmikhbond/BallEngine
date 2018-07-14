@@ -14,7 +14,7 @@ input[type=range]+label
     width: 80px;
 }
 
-#redBallImg {
+#redBallImg, #blueBallImg {
     display: none
 }
 

@@ -63,14 +63,6 @@ class Box {
         }
     }
 
-    deleteSelectedBall() {
-        if (this.balls.selected) {
-            this.deleteBall(this.balls.selected);
-            this.balls.selected = null;
-        }
-    }
-
-
     // find a ball under a point
     ballUnderPoint(p) {
         for (let b of this.balls) {
@@ -109,10 +101,6 @@ class Box {
             this.lines.selected = null;
     }
 
-    deleteSelectedLine() {
-        this.deleteLine(this.lines.selected);
-    }
-
     //</editor-fold>
 
     //<editor-fold desc="Link add & delete">
@@ -130,32 +118,31 @@ class Box {
             this.links.selected = null;
     }
 
-    deleteSelectedLink() {
-        this.deleteLink(this.links.selected);
-    }
-
     //</editor-fold>
 
     
-    calibration() {
+    calibration(f) {
         // создать шар вверху ящика
-        let b = new Ball(2, 10, 1, 0, 0, 1 );
+        let b = new Ball(2, 10, 1, "red", 0, 0, 1 );
         this.addBall(b);
 
         // запустить setInterval и засечь время
         let me = this;
         let t = Date.now();
-        controller.g = 0.002;
+        controller.g = g;
         let id = setInterval(function () {
             me.mech.step();
             if (b.y > me.height - 10) {
                 t = Date.now() - t;
                 let h = b.y - 10;
-                pixInMeter = 1000 * h / t / 9.8;
+                let hm = t * t * 9.8 / 2000000
+
+                pixInMeter = h / hm;
                 clearInterval(id);
                 me.deleteBall(b);
                 drawAll();
-                alert(pixInMeter)
+                f();
+                //canvas.dispatchEvent(new Event("calibrated"));
             }
             }, INTERVAL);
     }

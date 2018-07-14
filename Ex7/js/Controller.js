@@ -1,11 +1,12 @@
 class Controller {
     constructor() {
-        setListeners();
+        setListeners(this);
         this.g = g;
         this.W = W;
         this.K = K;
         this._createMode = null;
         this.createMode = CREATE_MODE_BALL;
+        this.selected = null;
     }
 
 
@@ -60,9 +61,9 @@ class Controller {
 }
 
 
-function setListeners() {
+function setListeners(controller) {
 
-    canvas.addEventListener("drawAll", function () {
+    canvas.addEventListener("changed", function () {
         drawAll();
     });
 
@@ -98,9 +99,9 @@ function setListeners() {
     // update selected ball
     updateButton.addEventListener("click", function ()
     {
-        if (box.balls.selected) {
+        if (controller.selected && controller.selected.constructor === Ball) {
             let o = JSON.parse(ballDefinition.value);
-            Object.assign(box.balls.selected, o);
+            Object.assign(controller.selected, o);
             drawAll();
         }
     });
@@ -133,17 +134,19 @@ function setListeners() {
             case 's': case 'S': case 'ы': case 'Ы':
                 box.mech.step(box);
                 controller.mode = MODE_STOP;
-                if (box.balls.selected)
-                    ballDefinition.value = box.balls.selected.toString();
+                if (controller.selected)
+                    ballDefinition.value = controller.selected.toString();
                 break;
             case 'Delete':
-                if (controller.createMode === CREATE_MODE_BALL) {
-                    box.deleteSelectedBall();
-                } else if (controller.createMode === CREATE_MODE_LINE) {
-                    box.deleteSelectedLine();
-                } else if (controller.createMode === CREATE_MODE_LINK) {
-                    box.deleteSelectedLink();
-                }
+                if (!controller.selected)
+                    break;
+                if (controller.selected.constructor === Ball)
+                    box.deleteBall(controller.selected);
+                else if (controller.selected.constructor === Line)
+                    box.deleteLine(controller.selected);
+                else if (controller.selected.constructor === Link)
+                    box.deleteLink(controller.selected);
+                controller.selected = null;
                 drawAll();
                 break;
         }
@@ -159,7 +162,10 @@ function setListeners() {
         // select ball
         for (let b of box.balls) {
             if (G.dist(p, b ) < b.radius) {
-                box.balls.selected = b;
+                controller.selected = b;
+                if (controller.createMode !== CREATE_MODE_LINK) {
+                    controller.createMode = CREATE_MODE_BALL;
+                }
                 drawAll();
                 ballDefinition.value = b.toString();
                 break;
@@ -168,7 +174,8 @@ function setListeners() {
         // select line
         for (let l of box.lines) {
             if (G.distToInfiniteLine(p, l) < 5 && G.cross(p, l)) {
-                box.lines.selected = l;
+                controller.selected = l;
+                controller.createMode = CREATE_MODE_LINE;
                 drawAll();
                 break;
             }
@@ -177,7 +184,8 @@ function setListeners() {
         for (let link of box.links) {
             let l = new Line(link.x1, link.y1, link.x2, link.y2 );
             if (G.distToInfiniteLine(p, l) < 5 && G.cross(p, l)) {
-                box.links.selected = link;
+                controller.selected = link;
+                controller.createMode = CREATE_MODE_LINK;
                 drawAll();
                 break;
             }
@@ -238,7 +246,7 @@ function setBallHandlers() {
             if (r > 2) {
                 let b = new Ball(p0.x, p0.y, r);
                 box.addBall(b);
-                box.balls.selected = b;
+                controller.selected = b;
                 ballDefinition.value = b.toString();
             }
         }
@@ -273,7 +281,7 @@ function setLineHandlers() {
 
             let l = new Line(p0.x, p0.y, p.x, p.y);
             box.addLine(l);
-            box.lines.selected = l;
+            controller.selected = l;
         }
         p0 = null;
         drawAll();
@@ -294,7 +302,9 @@ function setLinkHandlers() {
         if (!b0) {
             b0 = b;
         } else if (b0 !== b){
-            box.addLink(new Link(b0, b));
+            let l = new Link(b0, b);
+            box.addLink(l);
+            controller.selected = l;
             b0 = null;
         }
 

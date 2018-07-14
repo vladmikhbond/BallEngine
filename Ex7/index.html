@@ -8,7 +8,7 @@
 <div class="container">
     <h3> Ex7. Presentation</h3>
     <div class="panel panel-default">
-        <input type="range" id="graviRange" step="0.001" min="0" max="0.02" value="0.002" />
+        <input type="range" id="graviRange" step="0.0005" min="0" max="0.02" value="0.001" />
         <label id="graviValue">G = 0</label>
         <input type="range" id="waistRange" step="0.1" min="0" max="1" value="0.5" />
         <label id="waistValue">W = 0.5</label>
@@ -38,7 +38,8 @@
 
     <div id="scenesDiv"> </div>
 
-    <img src="pic/redBall.png" id="redBallImg" width="523" height="520" />
+  <img src="pic/redBall.png" id="redBallImg" width="523" height="520" />
+  <img src="pic/blueBall.png" id="blueBallImg" width="523" height="520" />
 
 
     <!--<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.min.js"></script>-->
@@ -57,8 +58,8 @@
     <script>
         let box = new Box(10, 25, canvas.width - 20, canvas.height - 35 );
         let controller = new Controller();
-        loadGalery();
-        box.calibration();
+        box.calibration(loadGalery);
+
 
     </script>
 </div>
