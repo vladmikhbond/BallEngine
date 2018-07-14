@@ -1,5 +1,7 @@
+const KEY = "BallEngine-scenes";
 let scenes;
 let curentScene;
+
 
 class Scene {
     constructor() {
@@ -23,6 +25,22 @@ class Scene {
     }
 }
 
+
+//
+exportScenesButton.addEventListener("click", function ()
+{
+    scenesExport.value = localStorage.getItem(KEY);
+});
+
+
+//
+importScenesButton.addEventListener("click", function ()
+{
+    localStorage.setItem(KEY, scenesExport.value);
+    loadGalery();
+});
+
+
 // добавление макета сцены в массив и сохранение массива в локальном хранилище
 //
 saveSceneButton.addEventListener("click", function ()
@@ -38,11 +56,11 @@ saveSceneButton.addEventListener("click", function ()
     scenesDiv.appendChild(img);
 
     scenes[img.id] = new Scene();
-    localStorage.setItem("BallEngine-scenes", JSON.stringify(scenes));
+    localStorage.setItem(KEY, JSON.stringify(scenes));
 });
 
 
-// реконструкция сцены с заданным id или удаление макета
+// реконструкция сцены из макета с заданным id или удаление макета
 //
 function restoreScene(id, img)
 {
@@ -51,7 +69,7 @@ function restoreScene(id, img)
     if (100 - p.x < 10 && p.y < 10) {
         delete scenes[id];
         scenesDiv.removeChild(img);
-        localStorage.setItem("BallEngine-scenes", JSON.stringify(scenes));
+        localStorage.setItem(KEY, JSON.stringify(scenes));
         return;
     }
     // реконструкция
@@ -64,8 +82,7 @@ function restoreScene(id, img)
 // извлечение макетов из локального хранилища
 //
 function loadGalery() {
-    let item = localStorage.getItem("BallEngine-scenes");
-    scenes = JSON.parse(item);
+    scenes = JSON.parse(localStorage.getItem(KEY));
     if (!scenes)
         scenes = {};
     for(let id in scenes) {

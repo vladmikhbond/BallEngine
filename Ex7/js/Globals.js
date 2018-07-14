@@ -8,7 +8,7 @@ const CREATE_MODE_LINK = 2;
 let W = 0.5;    // к.п.д. при соударении (1 - без потерь)
 let K = 0.1;    // модуль упругости (1 - твердый)
 let g = 0.001;  // 0.002 = 1g;
-const Wl = 0.96;// потери на связях
+const Wl = 0.99;  // 0.96 потери на связях
 
 const INTERVAL = 20;
 let intervalId;
@@ -44,6 +44,7 @@ let startButton = document.getElementById("startButton");
 let createButton = document.getElementById("createButton");
 let prettyButton = document.getElementById("prettyButton");
 let updateButton = document.getElementById("updateButton");
+let saveSceneButton = document.getElementById("saveSceneButton");
 let graviRange = document.getElementById("graviRange");
 let waistRange = document.getElementById("waistRange");
 let rigidRange = document.getElementById("rigidRange");

@@ -7,6 +7,7 @@
 <body>
 <div class="container">
     <h3> Ex7. Presentation</h3>
+
     <div class="panel panel-default">
         <input type="range" id="graviRange" step="0.0005" min="0" max="0.02" value="0.001" />
         <label id="graviValue">G = 0</label>
@@ -16,25 +17,32 @@
         <label id="rigidValue">K = 0.1</label>
 
         <div class="btn-group btn-group-sm" >
-            <button id="ballButton" type="button" class="btn" onclick="controller.createMode = 0" ><span class="glyphicon glyphicon-record" /> Ball</button>
-            <button id="lineButton" type="button" class="btn" onclick="controller.createMode = 1" ><span class="glyphicon glyphicon-resize-horizontal" /> Line</button>
-            <button id="linkButton" type="button" class="btn" onclick="controller.createMode = 2" ><span class="glyphicon glyphicon-link" /> Link</button>
+            <button id="ballButton" type="button" class="btn" onclick="controller.createMode = 0" >
+              <span class="glyphicon glyphicon-record" /> Ball</button>
+            <button id="lineButton" type="button" class="btn" onclick="controller.createMode = 1" >
+              <span class="glyphicon glyphicon-resize-horizontal" /> Line</button>
+            <button id="linkButton" type="button" class="btn" onclick="controller.createMode = 2" >
+              <span class="glyphicon glyphicon-link" /> Link</button>
         </div>
     </div>
 
     <div class="panel panel-default">
         <button id="modeButton" class="btn btn-sm" ><span id="modeGlif" class="glyphicon glyphicon-pause"> </span></button>
-        <button id="startButton" class="btn btn-sm" ><span class="glyphicon glyphicon-stop"> </span></button>
-
         <input type="text" id="ballDefinition">
         <button id="updateButton" class="btn btn-sm"><span class="glyphicon glyphicon-record" /></button>
-
         <button id="prettyButton" class="btn btn-sm"><span class="glyphicon glyphicon-adjust" /></button>
-        <button id="saveSceneButton" class="btn btn-sm" ><span class="glyphicon glyphicon-save"> </span>Scene</button>
+        <button id="startButton" class="btn btn-sm" ><span class="glyphicon glyphicon-stop"> </span></button>
         <strong>S</strong>tep
     </div>
 
     <canvas id="canvas" width="1150" height="600" ></canvas>
+
+    <div class="panel panel-default">
+        <button id="saveSceneButton" class="btn btn-sm" ><span class="glyphicon glyphicon-save"> </span>Scene</button>
+        <input type="text" id="scenesExport">
+        <button id="exportScenesButton" class="btn btn-sm" title="Export"><span class="glyphicon glyphicon-export"> </span></button>
+        <button id="importScenesButton" class="btn btn-sm" title="Import"><span class="glyphicon glyphicon-import"> </span></button>
+    </div>
 
     <div id="scenesDiv"> </div>
 
