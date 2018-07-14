@@ -28,7 +28,7 @@ class Controller {
             setBallHandlers();
             ballButton.className = "btn btn-info";
         } else if (v === CREATE_MODE_LINE) {
-            setLneHandlers();
+            setLineHandlers();
             lineButton.className = "btn btn-info";
         }  else if (v === CREATE_MODE_LINK) {
             setLinkHandlers();
@@ -133,6 +133,8 @@ function setListeners() {
             case 's': case 'S': case 'ы': case 'Ы':
                 box.mech.step(box);
                 controller.mode = MODE_STOP;
+                if (box.balls.selected)
+                    ballDefinition.value = box.balls.selected.toString();
                 break;
             case 'Delete':
                 if (controller.createMode === CREATE_MODE_BALL) {
@@ -149,7 +151,7 @@ function setListeners() {
 
     //------------------------------ mouse ---------------------------
 
-    // select object
+        // select object
     canvas.addEventListener("click", function (e) {
         let p = {x: e.pageX - this.offsetLeft - box.x,
             y: e.pageY - this.offsetTop - box.y };
@@ -245,7 +247,7 @@ function setBallHandlers() {
     }
 }
 
-function setLneHandlers() {
+function setLineHandlers() {
     let p0 = null;
 
     canvas.onmousedown = function(e) {

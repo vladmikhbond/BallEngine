@@ -13,7 +13,7 @@ function drawAll(lineWidth=0.5)
 
     // draw scale
     ctx.beginPath();
-    for (let y = 0, n = 0; y < box.height; y += pixInMeter) {
+    for (let y = 0; y < box.height; y += pixInMeter) {
         ctx.moveTo(1, y + box.y);
         ctx.lineTo(5, y + box.y );
     }
@@ -25,24 +25,24 @@ function drawAll(lineWidth=0.5)
         ctx.strokeStyle = b.color;
         ctx.beginPath();
         let x = box.x + b.x, y = box.y + b.y;
-        if (b.dots && b.dots.length > 0) {
-            let dot = b.dots[0];
-            // показываем деформацию
-            let alpha = Math.atan2(dot.y - b.y, dot.x - b.x);
-            let kr = G.dist(dot, b) / b.radius;
-            ctx.save();
-            ctx.translate(x, y);
-            ctx.rotate(alpha);
-            ctx.scale(kr, 1/kr);
-            ctx.rotate(-alpha);
-            ctx.arc(0, 0, b.radius, 0, Math.PI * 2);
-            ctx.restore();        }
-        else
+        // if (b.dots && b.dots.length > 0) {
+        //     let dot = b.dots[0];
+        //     // показываем деформацию
+        //     let alpha = Math.atan2(dot.y - b.y, dot.x - b.x);
+        //     let kr = G.dist(dot, b) / b.radius;
+        //     ctx.save();
+        //     ctx.translate(x, y);
+        //     ctx.rotate(alpha);
+        //     ctx.scale(kr, 1/kr);
+        //     ctx.rotate(-alpha);
+        //     ctx.arc(0, 0, b.radius, 0, Math.PI * 2);
+        //     ctx.restore();        }
+        // else
         {
             ctx.arc(x, y, b.radius, 0, Math.PI * 2);
         }
         // draw velocity
-        ctx.strokeRect(x + b.vx * Kvelo - 0.5, y + b.vy * Kvelo - 0.5, 1, 1)
+        ctx.strokeRect(x + b.vx * Kvelo - 0.5, y + b.vy * Kvelo - 0.5, 1, 1);
         ctx.moveTo(x, y);
         ctx.lineTo(x + b.vx * Kvelo, y + b.vy * Kvelo );
         ctx.stroke();

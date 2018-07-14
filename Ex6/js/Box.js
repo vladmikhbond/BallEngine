@@ -1,11 +1,3 @@
-const MODE_STOP = 0;
-const MODE_PLAY = 1;
-
-const CREATE_MODE_BALL = 0;
-const CREATE_MODE_LINE = 1;
-const CREATE_MODE_LINK = 2;
-
-
 class Box {
 
     constructor(x, y, w, h) {

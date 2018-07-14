@@ -9,15 +9,15 @@ let W = 0.5;  // к.п.д. при соударении (1 - без потерь)
 let K = 0.1;  // модуль упругости (1 - твердый)
 let g = 0.002;  // 0.002 = 1g;
 
-let INTERVAL = 20;
+const INTERVAL = 20;
 let intervalId;
 
-let REPEATER = 10;
+const REPEATER = 10;
 let PRETTY = 0;  // false
 
 // for velocity drawing
 const Kvelo = 100;
-let pixInMeter = 10;
+let pixInMeter = 1;
 
 //-------------------------------------------------------------------
 
