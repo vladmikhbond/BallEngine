@@ -167,7 +167,7 @@ function setListeners(controller) {
                 if (controller.selected && controller.selected.constructor === Ball) {
                     let s = controller.selected;
                     let p = controller.mousePos;
-                    let b = new Ball(p.x, p.y, s.radius, s.color, 0, 0, s.m);
+                    let b = new Ball(p.x, p.y, s.radius, s.color, s.vx, s.vy, s.m);
                     box.addBall(b);
                     controller.selected = b;
                     drawAll();
