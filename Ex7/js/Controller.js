@@ -154,13 +154,15 @@ function setListeners(controller) {
 
     document.addEventListener("keydown", function (e) {
         switch(e.key) {
-            case 's': case 'S': case 'ы': case 'Ы':
-            box.mech.step(box);
-            controller.mode = MODE_STOP;
-            if (controller.selected)
-                ballDefinition.value = controller.selected.toString();
-            break;
+            // step execution
+            case 's': case 'S':
+                box.mech.step(box);
+                controller.mode = MODE_STOP;
+                if (controller.selected)
+                    ballDefinition.value = controller.selected.toString();
+                break;
 
+            // copy selected ball
             case 'c': case 'C':
                 if (controller.selected && controller.selected.constructor === Ball) {
                     let s = controller.selected;
@@ -172,6 +174,16 @@ function setListeners(controller) {
                 }
                 break;
 
+            // toggle ball color
+            case 'b': case 'B':
+                let b = controller.selected;
+                if (b && b.constructor === Ball) {
+                    b.color = b.color === "red" ? "blue" : "red";
+                    drawAll();
+                }
+                break;
+
+            // delete selected object
             case 'Delete':
                 if (!controller.selected)
                     break;
