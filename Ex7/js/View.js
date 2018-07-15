@@ -82,7 +82,6 @@ function drawAll(lineWidth=0.5)
 
     // print sum energy
     ctx.fillText("E = " + box.SumEnergy, 20, 20 );
-    ctx.fillText("MV = " + box.SumMomentum, 120, 20 );
 }
 
 

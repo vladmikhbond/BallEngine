@@ -4,13 +4,14 @@ class Controller {
         this.g = g;
         this.W = W;
         this.K = K;
-        this._createMode = null;
+        this._createMode = CREATE_MODE_BALL;
         this.createMode = CREATE_MODE_BALL;
         this.selected = null;
+        this._mousePos = {x: 0, y: 0}; // relative to the box
     }
 
 
-    // 0-stop, 1-play
+    // mode property
     set mode(v) {
         box.mode = v;
         const classNames = ["glyphicon glyphicon-pause", "glyphicon glyphicon-play"];
@@ -21,6 +22,7 @@ class Controller {
         return box.mode;
     }
 
+    // createMode property
     set createMode(v) {
         this._createMode = v;
         ballButton.className = lineButton.className = linkButton.className = "btn btn-default";
@@ -40,7 +42,16 @@ class Controller {
         return this._createMode;
     }
 
+    // mousePos property
+    set mousePos(v) {
+        this._mousePos = v;
+        mousePosSpan.innerHTML = `x=${v.x} y=${v.y}`;
+    }
+    get mousePos() {
+        return this._mousePos;
+    }
 
+    // g property
     set g(v) {
         g = +v;
         graviValue.innerHTML = "G = " + (v / 0.002).toFixed(2) + "g";
@@ -144,11 +155,23 @@ function setListeners(controller) {
     document.addEventListener("keydown", function (e) {
         switch(e.key) {
             case 's': case 'S': case 'ы': case 'Ы':
-                box.mech.step(box);
-                controller.mode = MODE_STOP;
-                if (controller.selected)
-                    ballDefinition.value = controller.selected.toString();
+            box.mech.step(box);
+            controller.mode = MODE_STOP;
+            if (controller.selected)
+                ballDefinition.value = controller.selected.toString();
+            break;
+
+            case 'c': case 'C':
+                if (controller.selected && controller.selected.constructor === Ball) {
+                    let s = controller.selected;
+                    let p = controller.mousePos;
+                    let b = new Ball(p.x, p.y, s.radius, s.color, 0, 0, s.m);
+                    box.addBall(b);
+                    controller.selected = b;
+                    drawAll();
+                }
                 break;
+
             case 'Delete':
                 if (!controller.selected)
                     break;
@@ -166,7 +189,7 @@ function setListeners(controller) {
 
     //------------------------------ mouse ---------------------------
 
-        // select object
+    // select object
     canvas.addEventListener("click", function (e) {
         let p = {x: e.pageX - this.offsetLeft - box.x,
             y: e.pageY - this.offsetTop - box.y };
@@ -247,6 +270,7 @@ function setBallHandlers() {
                 drawGrayCircle(p0, p);
                 break;
         }
+        controller.mousePos = p;
     };
 
     canvas.onmouseup = function(e) {
@@ -272,16 +296,17 @@ function setLineHandlers() {
 
     canvas.onmousedown = function(e) {
         p0 = {x: e.pageX - this.offsetLeft - box.x,
-            y: e.pageY - this.offsetTop - box.y };
+              y: e.pageY - this.offsetTop - box.y };
     };
 
     canvas.onmousemove = function(e) {
-        if (!p0)
-            return;
         let p = {x: e.pageX - this.offsetLeft - box.x,
             y: e.pageY - this.offsetTop - box.y };
-        drawAll();
-        drawGrayLine(p0, p);
+        if (p0) {
+            drawAll();
+            drawGrayLine(p0, p);
+        }
+        controller.mousePos = p;
     };
 
     canvas.onmouseup = function(e) {
@@ -323,6 +348,8 @@ function setLinkHandlers() {
     };
 
     canvas.onmousemove = function(e) {
+        controller.mousePos = {x: e.pageX - this.offsetLeft - box.x,
+            y: e.pageY - this.offsetTop - box.y };
     };
 
     canvas.onmouseup = function(e) {

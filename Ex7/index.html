@@ -24,7 +24,7 @@
             <button id="linkButton" type="button" class="btn" onclick="controller.createMode = 2" >
               <span class="glyphicon glyphicon-link" /> Link</button>
         </div>
-        <strong>S</strong>tep
+        <span title="s - step; c - copy selected ball; Del - delete selected">Info</span>
         <button id="modeButton" class="btn btn-sm btn-success" ><span id="modeGlif" class="glyphicon glyphicon-pause"> </span></button>
     </div>
 
@@ -34,6 +34,7 @@
         <button id="prettyButton" class="btn btn-sm"><span class="glyphicon glyphicon-adjust" /></button>
         <button id="restartButton" class="btn btn-sm" ><span class="glyphicon glyphicon-stop"> </span></button>
         <button id="eraseButton" class="btn btn-sm" ><span class="glyphicon glyphicon-erase"> </span></button>
+        <span id="mousePosSpan"></span>
     </div>
 
     <canvas id="canvas" width="1150" height="600" ></canvas>
