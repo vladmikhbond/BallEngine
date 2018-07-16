@@ -266,6 +266,10 @@ function setBallHandlers() {
 
     canvas.onmousemove = function(e) {
         let p = {x: e.pageX - this.offsetLeft - box.x, y: e.pageY - this.offsetTop - box.y };
+
+        // change mouse cursor
+        canvas.style.cursor = box.ballVeloUnderPoint(p) ? "pointer" : "auto";
+
         switch (mode) {
             case "velo":
                 ball.vx = (p.x - ball.x) / Kvelo;

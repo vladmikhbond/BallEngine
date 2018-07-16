@@ -9,41 +9,42 @@
     <h3> Ex7. Presentation</h3>
 
     <div class="panel panel-default">
-        <input type="range" id="graviRange" step="0.0005" min="0" max="0.02" value="0.001" />
+        <input type="range" id="graviRange" step="0.0005" min="0" max="0.02" value="0.001" title="гравитация"/>
         <label id="graviValue">G = 0</label>
-        <input type="range" id="waistRange" step="0.001" min="0" max="1" value="0.5" />
+        <input type="range" id="waistRange" step="0.001" min="0" max="1" value="0.5" title="потери (1-нет потерь)"/>
         <label id="waistValue">W = 0.5</label>
-        <input type="range" id="rigidRange" step="0.1" min="0" max="1" value="0.1" />
+        <input type="range" id="rigidRange" step="0.1" min="0" max="1" value="0.1" title="упругость"/>
         <label id="rigidValue">K = 0.1</label>
 
         <div class="btn-group btn-group-sm" >
-            <button id="ballButton" type="button" class="btn" onclick="controller.createMode = 0" >
+            <button id="ballButton" type="button" class="btn" onclick="controller.createMode=0" >
               <span class="glyphicon glyphicon-record" /> Ball</button>
-            <button id="lineButton" type="button" class="btn" onclick="controller.createMode = 1" >
+            <button id="lineButton" type="button" class="btn" onclick="controller.createMode=1" >
               <span class="glyphicon glyphicon-resize-horizontal" /> Line</button>
-            <button id="linkButton" type="button" class="btn" onclick="controller.createMode = 2" >
+            <button id="linkButton" type="button" class="btn" onclick="controller.createMode=2" >
               <span class="glyphicon glyphicon-link" /> Link</button>
         </div>
-        <span title="s - step; c - copy selected ball; Del - delete selected">Info</span>
-        <button id="modeButton" class="btn btn-sm btn-success" ><span id="modeGlif" class="glyphicon glyphicon-pause"> </span></button>
+        <button id="modeButton" class="btn btn-sm btn-success" title="Start / Stop"><span id="modeGlif" class="glyphicon glyphicon-pause"> </span></button>
+        <b>S</b>tep, <b>C</b>opy, <b>B</b>lue, <b>Del</b>
+
     </div>
 
     <div class="panel panel-default">
         <input type="text" id="ballDefinition">
-        <button id="updateButton" class="btn btn-sm"><span class="glyphicon glyphicon-record" /></button>
-        <button id="prettyButton" class="btn btn-sm"><span class="glyphicon glyphicon-adjust" /></button>
-        <button id="restartButton" class="btn btn-sm" ><span class="glyphicon glyphicon-stop"> </span></button>
-        <button id="eraseButton" class="btn btn-sm" ><span class="glyphicon glyphicon-erase"> </span></button>
+        <button id="updateButton" class="btn btn-sm" title="Update selected ball"><span class="glyphicon glyphicon-record"/></button>
+        <button id="prettyButton" class="btn btn-sm" title="Debug / Exec"><span class="glyphicon glyphicon-adjust"/></button>
+        <button id="restartButton" class="btn btn-sm" title="Restart"><span class="glyphicon glyphicon-stop"> </span></button>
+        <button id="eraseButton" class="btn btn-sm" title="Clear screen"><span class="glyphicon glyphicon-erase"> </span></button>
         <span id="mousePosSpan"></span>
     </div>
 
     <canvas id="canvas" width="1150" height="600" ></canvas>
 
     <div class="panel panel-default">
-        <button id="saveSceneButton" class="btn btn-sm" ><span class="glyphicon glyphicon-bookmark"> </span>Scene</button>
+        <button id="saveSceneButton" class="btn btn-sm" title="Save the scene"><span class="glyphicon glyphicon-bookmark"> </span>Scene</button>
         <input type="text" id="scenesExport">
-        <button id="exportScenesButton" class="btn btn-sm" title="Export"><span class="glyphicon glyphicon-export"> </span></button>
-        <button id="importScenesButton" class="btn btn-sm" title="Import"><span class="glyphicon glyphicon-import"> </span></button>
+        <button id="exportScenesButton" class="btn btn-sm" title="Export scenes"><span class="glyphicon glyphicon-export"> </span></button>
+        <button id="importScenesButton" class="btn btn-sm" title="Import" scenes><span class="glyphicon glyphicon-import"> </span></button>
     </div>
 
     <div id="scenesDiv"> </div>
