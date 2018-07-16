@@ -267,7 +267,7 @@ function setBallHandlers() {
     canvas.onmousemove = function(e) {
         let p = {x: e.pageX - this.offsetLeft - box.x, y: e.pageY - this.offsetTop - box.y };
 
-        // change mouse cursor
+        // change mouse cursor on velo
         canvas.style.cursor = box.ballVeloUnderPoint(p) ? "pointer" : "auto";
 
         switch (mode) {
