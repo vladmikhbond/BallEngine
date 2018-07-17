@@ -121,7 +121,7 @@ class Box {
     //</editor-fold>
 
     
-    calibration(f) {
+    calibrate(continuation) {
         // создать шар вверху ящика
         let b = new Ball(2, 10, 1, "red", 0, 0, 1 );
         this.addBall(b);
@@ -129,20 +129,20 @@ class Box {
         // запустить setInterval и засечь время
         let me = this;
         let t = Date.now();
+        controller.mode = MODE_STOP;
         controller.g = g;
+        chronos = 0;
         let id = setInterval(function () {
             me.mech.step();
             if (b.y > me.height - 10) {
                 t = Date.now() - t;
                 let h = b.y - 10;
                 let hm = t * t * 9.8 / 2000000
-
                 pixInMeter = h / hm;
                 clearInterval(id);
                 me.deleteBall(b);
                 drawAll();
-                f();
-                //canvas.dispatchEvent(new Event("calibrated"));
+                continuation();
             }
             }, INTERVAL);
     }

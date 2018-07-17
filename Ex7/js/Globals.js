@@ -10,7 +10,7 @@ let K = 0.1;    // модуль упругости (1 - твердый)
 let g = 0.001;  // 0.002 = 1g;
 const Wl = 0.99;  // 0.96 потери на связях
 
-const INTERVAL = 20;
+const INTERVAL = 30;
 let intervalId = null;
 let chronos = 0;
 

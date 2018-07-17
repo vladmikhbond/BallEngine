@@ -12,10 +12,7 @@ function drawAll(lineWidth=0.5)
     ctx.strokeRect(box.x, box.y, box.width, box.height);
 
     // draw scale
-    //ctx.beginPath();
-    for (let y = 0, n = 0; y < box.height; y += pixInMeter, n++) {
-        //ctx.moveTo(1, y + box.y);
-        //ctx.lineTo(5, y + box.y );
+    for (let y = box.height, n = 0; y >= 0; y -= pixInMeter, n++) {
         ctx.fillText(n.toString(), 0, y + box.y );
     }
     //ctx.stroke();

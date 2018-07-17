@@ -183,6 +183,11 @@ function setListeners(controller) {
                 }
                 break;
 
+            // calbrate
+            case 't': case 'T':
+                box.calibrate(drawAll());
+                break;
+
             // delete selected object
             case 'Delete':
                 if (!controller.selected)

@@ -25,15 +25,14 @@
               <span class="glyphicon glyphicon-link" /> Link</button>
         </div>
         <button id="modeButton" class="btn btn-sm btn-success" title="Start / Stop"><span id="modeGlif" class="glyphicon glyphicon-pause"> </span></button>
-        <b>S</b>tep, <b>C</b>opy, <b>B</b>lue, <b>Del</b>
-
+        <b>S</b>tep, <b>C</b>opy, <b>B</b>lue, <b>Del</b>, <b>T</b>-calibr
+        <button id="restartButton" class="btn btn-sm" title="Restart"><span class="glyphicon glyphicon-stop"> </span></button>
     </div>
 
     <div class="panel panel-default">
         <input type="text" id="ballDefinition">
         <button id="updateButton" class="btn btn-sm" title="Update selected ball"><span class="glyphicon glyphicon-record"/></button>
         <button id="prettyButton" class="btn btn-sm" title="Debug / Exec"><span class="glyphicon glyphicon-adjust"/></button>
-        <button id="restartButton" class="btn btn-sm" title="Restart"><span class="glyphicon glyphicon-stop"> </span></button>
         <button id="eraseButton" class="btn btn-sm" title="Clear screen"><span class="glyphicon glyphicon-erase"> </span></button>
         <span id="mousePosSpan"></span>
     </div>
@@ -63,13 +62,8 @@
     <script src="js/View.js"></script>
     <script src="js/Storage.js"></script>
     <script src="js/Controller.js"></script>
-    <script>
-        let box = new Box(10, 25, canvas.width - 20, canvas.height - 35 );
-        let controller = new Controller();
-        box.calibration(loadGalery);
-        //loadGalery();
-        drawAll();
-    </script>
+    <script src="js/main.js"></script>
+
 </div>
 </body>
 </html>
