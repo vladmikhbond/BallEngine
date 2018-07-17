@@ -80,8 +80,10 @@ function drawAll(lineWidth=0.5)
         ctx.stroke();
     }
 
-    // print sum energy
+    // print info
     ctx.fillText("E = " + box.SumEnergy, 20, 20 );
+    let sec = (chronos/ 1000 * INTERVAL).toFixed(2);
+    ctx.fillText("T = " + sec, 120, 20 );
 }
 
 

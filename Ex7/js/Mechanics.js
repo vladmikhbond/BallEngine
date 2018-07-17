@@ -40,6 +40,7 @@ function Mechanics(box)
 
                 box.balls.forEach( b => b.move(0, g) )
             }
+            chronos++;
             canvas.dispatchEvent(new Event("changed"));
         },
 

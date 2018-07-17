@@ -11,7 +11,8 @@ let g = 0.001;  // 0.002 = 1g;
 const Wl = 0.99;  // 0.96 потери на связях
 
 const INTERVAL = 20;
-let intervalId;
+let intervalId = null;
+let chronos = 0;
 
 const REPEATER = 10;
 let PRETTY = 0;  // false
