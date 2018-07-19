@@ -57,6 +57,8 @@ importScenesButton.addEventListener("click", function ()
 //
 saveSceneButton.addEventListener("click", function ()
 {
+    controller.mode = MODE_STOP;
+    curentScene.restore();
     let img = new Image();
     img.id = Date.now().toString();
     drawAll(5);
