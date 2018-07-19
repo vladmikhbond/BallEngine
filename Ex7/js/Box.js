@@ -122,6 +122,11 @@ class Box {
 
     
     calibrate(continuation) {
+        if (!g) {
+            alert("Cannot calibrate if g = 0");
+            return
+        }
+
         // создать шар вверху ящика
         let b = new Ball(2, 10, 1, "red", 0, 0, 1 );
         this.addBall(b);
