@@ -3,4 +3,4 @@ let controller = new Controller();
 //box.calibrate(loadGalery);
 loadGalery();
 drawAll();
-box.calibrate(drawAll());
+box.calibrate(drawAll);

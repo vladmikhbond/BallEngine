@@ -38,8 +38,14 @@ importScenesButton.addEventListener("click", function ()
 {
     //
     try {
-        let o = JSON.parse(scenesExport.value);
-        localStorage.setItem(KEY, scenesExport.value);
+        let newScenes = JSON.parse(scenesExport.value);
+        let oldScenes = JSON.parse(localStorage.getItem(KEY));
+        // add new to old
+        for (let key in newScenes) {
+            oldScenes[key] = newScenes[key]
+        }
+        // save
+        localStorage.setItem(KEY, JSON.stringify(oldScenes));
         loadGalery();
     } catch (e) {
        alert(e.message)
@@ -90,15 +96,12 @@ function restoreScene(id, img)
 function loadGalery() {
     try {
         scenes = JSON.parse(localStorage.getItem(KEY));
-
     } catch (e) {
         alert(e.message)
         return;
     }
 
-    scenes = JSON.parse(localStorage.getItem(KEY));
-    if (!scenes)
-        scenes = {};
+    scenesDiv.innerHTML = '';
     for(let id in scenes) {
         scenes[id].__proto__ = Scene.prototype;
         scenes[id].restore();
@@ -112,7 +115,6 @@ function loadGalery() {
         drawAll();
         img.setAttribute("onclick", `restoreScene("${img.id}", this)`);
         img.className = "thumbnail";
-
         scenesDiv.appendChild(img);
     }
 
