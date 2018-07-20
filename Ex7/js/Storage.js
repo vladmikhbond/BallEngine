@@ -1,7 +1,6 @@
 const KEY = "BallEngine-scenes";
-let scenes;
-let curentScene;
-
+let scenes = [];
+let curentScene = null;
 
 class Scene {
     constructor() {
@@ -63,6 +62,8 @@ importScenesButton.addEventListener("click", function ()
 saveSceneButton.addEventListener("click", function ()
 {
     controller.mode = MODE_STOP;
+    if (!curentScene)
+        curentScene = new Scene();
     curentScene.restore();
     let img = new Image();
     img.id = Date.now().toString();
@@ -121,6 +122,8 @@ function loadGalery() {
         return;
     }
 
+    if (!scenes)
+        scenes = [];
     scenesDiv.innerHTML = '';
     for(let id in scenes) {
         scenes[id].__proto__ = Scene.prototype;
