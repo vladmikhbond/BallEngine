@@ -107,7 +107,7 @@ function restoreScene(id, img)
     scenes[id].restore();
 
     controller.mode = MODE_STOP;
-
+    chronos = 0;
     drawAll();
 }
 
