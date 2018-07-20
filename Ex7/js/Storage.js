@@ -44,9 +44,11 @@ importScenesButton.addEventListener("click", function ()
     try {
         let newScenes = JSON.parse(scenesExport.value);
         let oldScenes = JSON.parse(localStorage.getItem(KEY));
+        if (!oldScenes || oldScenes == [])
+            oldScenes = {};
         // add new to old
         for (let key in newScenes) {
-            oldScenes[key] = newScenes[key]
+            oldScenes[key.toString()] = newScenes[key]
         }
         // save
         localStorage.setItem(KEY, JSON.stringify(oldScenes));
