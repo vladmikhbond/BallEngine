@@ -177,13 +177,40 @@ function drawGrayLine(p0, p) {
 //
 function drawRedCross() {
     const ctx = canvas.getContext("2d");
-    ctx.lineWidth = 10;
+    // иконка удаления
+    let w = 150, x = canvas.width - w - box.x, y = box.y;
+    ctx.strokeStyle = "gray";
+    ctx.lineWidth = 5;
+    ctx.clearRect(x, y, w, w);
+    ctx.strokeRect(x, y, w, w);
+
+    let d = 30;
+    x += d, y += d, w -= 2 * d;
     ctx.strokeStyle = "red";
+    ctx.lineWidth = 10;
     ctx.beginPath();
-    ctx.moveTo(canvas.width, 10);
-    ctx.lineTo(canvas.width - 100, 100);
-    ctx.moveTo(canvas.width - 100, 10);
-    ctx.lineTo(canvas.width, 100);
+    ctx.moveTo(x, y);
+    ctx.lineTo(x + w, y + w);
+    ctx.moveTo(x + w, y);
+    ctx.lineTo(x, y + w);
     ctx.stroke();
+
+    // иконка подписи
+    w = 150, x = canvas.width - w - box.x, y = canvas.height - w;
+    ctx.lineWidth = 5;
+    ctx.strokeStyle = "gray";
+    ctx.clearRect(x, y, w, w);
+    ctx.strokeRect(x, y, w, w);
+
+    d = 20, x += d, y += d, w -= 2 * d;
+    ctx.strokeStyle = "black";
+    ctx.lineWidth = 10;
+    ctx.beginPath();
+    ctx.moveTo(x + d, y + d);
+    ctx.lineTo(x + w, y + d);
+    ctx.moveTo(x + (d + w)/2, y + d);
+    ctx.lineTo(x + (d + w)/2, y + w);
+    ctx.stroke();
+
 }
 

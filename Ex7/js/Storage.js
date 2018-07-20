@@ -9,8 +9,10 @@ class Scene {
         this.lines = box.lines.map(l => l.toString());
         this.links = box.links.map(l => l.toString());
         this.world = world.toString();
+        this.title = null;
     }
 
+    // воссоздает сцену на большом экране
     restore() {
         box.balls = [];
         this.balls.forEach(o => box.addBall(Ball.fromString(o)));
@@ -18,10 +20,13 @@ class Scene {
         this.lines.forEach(o => box.addLine(Line.fromString(o)));
         box.links = [];
         this.links.forEach(o => box.addLink(Link.fromString(o, box.balls)));
+
         world.fromString(this.world);
         controller.g = g;
         controller.W = W;
         controller.K = K;
+
+        header.innerHTML = this.title;
     }
 }
 
@@ -80,14 +85,27 @@ function restoreScene(id, img)
 {
     let p = {x: event.pageX - img.offsetLeft, y: event.pageY - img.offsetTop};
     // удаление
-    if (100 - p.x < 10 && p.y < 10) {
+    let d = 15
+    if (p.x > img.width - d && p.y < d) {
         delete scenes[id];
         scenesDiv.removeChild(img);
         localStorage.setItem(KEY, JSON.stringify(scenes));
         return;
     }
+    // подпись
+    if (p.x > img.width - d && p.y > img.height - d) {
+        let res = prompt("Введите", img.title);
+        if (res) {
+            scenes[id].title = res;
+            img.title = res;
+            localStorage.setItem(KEY, JSON.stringify(scenes));
+        }
+        return;
+    }
+
     // реконструкция
     scenes[id].restore();
+
     controller.mode = MODE_STOP;
 
     drawAll();
@@ -117,6 +135,7 @@ function loadGalery() {
         drawAll();
         img.setAttribute("onclick", `restoreScene("${img.id}", this)`);
         img.className = "thumbnail";
+        img.title = scenes[id].title;
         scenesDiv.appendChild(img);
     }
 
