@@ -58,3 +58,10 @@ let ballDefinition = document.getElementById("ballDefinition");
 let scenesDiv = document.getElementById("scenesDiv");
 let redBallImg = document.getElementById("redBallImg");
 let blueBallImg = document.getElementById("blueBallImg");
+let header = document.getElementById("header");
+let exportScenesButton = document.getElementById("exportScenesButton");
+let importScenesButton = document.getElementById("importScenesButton");
+let scenesExportText = document.getElementById("scenesExportText");
+
+
+

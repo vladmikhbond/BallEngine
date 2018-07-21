@@ -33,7 +33,7 @@ class Scene {
 //
 exportScenesButton.addEventListener("click", function ()
 {
-    scenesExport.value = localStorage.getItem(KEY);
+    scenesExportText.value = localStorage.getItem(KEY);
 });
 
 
@@ -42,9 +42,9 @@ importScenesButton.addEventListener("click", function ()
 {
     //
     try {
-        let newScenes = JSON.parse(scenesExport.value);
+        let newScenes = JSON.parse(scenesExportText.value);
         let oldScenes = JSON.parse(localStorage.getItem(KEY));
-        if (!oldScenes || oldScenes == [])
+        if (!oldScenes || oldScenes === [])
             oldScenes = {};
         // add new to old
         for (let key in newScenes) {
@@ -87,7 +87,7 @@ saveSceneButton.addEventListener("click", function ()
 function restoreScene(id, img)
 {
     let p = {x: event.pageX - img.offsetLeft, y: event.pageY - img.offsetTop};
-    // удаление
+    // удаление из галереи
     let d = 15
     if (p.x > img.width - d && p.y < d) {
         delete scenes[id];
@@ -95,7 +95,7 @@ function restoreScene(id, img)
         localStorage.setItem(KEY, JSON.stringify(scenes));
         return;
     }
-    // подпись
+    // подпись под сценой
     if (p.x > img.width - d && p.y > img.height - d) {
         let res = prompt("Введите", img.title);
         if (res) {
@@ -111,6 +111,9 @@ function restoreScene(id, img)
 
     controller.mode = MODE_STOP;
     chronos = 0;
+    let obj = {};
+    obj[id] = scenes[id];
+    scenesExportText.value = JSON.stringify(obj)
     drawAll();
 }
 
