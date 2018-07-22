@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="site.css" />
+</head>
+<body>
+<div class="container">
+    <h3 id="header"> Ex7. Presentation</h3>
+
+    <div class="panel panel-default">
+        <input type="range" id="graviRange" step="0.0005" min="0" max="0.02" value="0.001" title="гравитация"/>
+        <label id="graviValue">G = 0</label>
+        <input type="range" id="waistRange" step="0.001" min="0" max="1" value="0.5" title="потери (1-нет потерь)"/>
+        <label id="waistValue">W = 0.5</label>
+        <input type="range" id="rigidRange" step="0.1" min="0" max="1" value="0.1" title="упругость"/>
+        <label id="rigidValue">K = 0.1</label>
+
+        <button id="modeButton" class="btn btn-sm btn-success" title="Start / Stop"><span id="modeGlif" class="glyphicon glyphicon-pause"> </span></button>
+        <button id="restartButton" class="btn btn-sm" title="Return to the last stop"><span class="glyphicon glyphicon-triangle-left"> </span></button>
+    </div>
+
+    <div class="panel panel-default">
+        <input type="text" id="ballDefinition">
+        <button id="prettyButton" class="btn btn-sm" title="Debug / Exec"><span class="glyphicon glyphicon-adjust"/></button>
+        <button id="eraseButton" class="btn btn-sm" title="Clear screen"><span class="glyphicon glyphicon-erase"> </span></button>
+        <span id="infoSpan"></span>
+        <span id="mousePosSpan"></span>
+    </div>
+
+    <canvas id="canvas" width="1150" height="600" ></canvas>
+
+    <div class="panel panel-default">
+        <button id="saveSceneButton" class="btn btn-sm" title="Save the scene"><span class="glyphicon glyphicon-save"> </span></button>
+        <input type="text" id="scenesExportText">
+        <button id="importScenesButton" class="btn btn-sm" title="Import scenes" scenes><span class="glyphicon glyphicon-import"> </span></button>
+        <button id="exportScenesButton" class="btn btn-sm" title="Export all scenes"><span class="glyphicon glyphicon-export"> </span></button>
+    </div>
+
+    <div id="scenesDiv"> </div>
+
+    <img src="pic/redBall.png" id="redBallImg" width="523" height="520" />
+    <img src="pic/blueBall.png" id="blueBallImg" width="523" height="520" />
+
+
+    <script src="js/Globals.js"></script>
+    <script src="js/Geometry.js"></script>
+    <script src="js/Ball.js"></script>
+    <script src="js/Line.js"></script>
+    <script src="js/Link.js"></script>
+    <script src="js/Mechanics.js"></script>
+    <script src="js/Box.js"></script>
+    <script src="js/View.js"></script>
+    <script src="js/Storage.js"></script>
+    <script src="js/Controller.js"></script>
+    <script src="js/main.js"></script>
+
+</div>
+</body>
+</html>
