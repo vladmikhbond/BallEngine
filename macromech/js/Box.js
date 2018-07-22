@@ -56,10 +56,24 @@ class Box {
         this.balls.splice(idx, 1);
         if (this.balls.selected === b)
             this.balls.selected = null;
-        // delete links
-        for (let link of this.links.slice()) {
-            if (link.b1 === b || link.b2 === b)
-                this.deleteLink(link);
+        // delete boll's links
+        for (let i = this.links.length - 1; i >= 0; i--) {
+            if (this.links[i].b1 === b || this.links[i].b2 === b)
+                this.links.splice(i, 1);
+        }
+    }
+
+    clearLostBalls() {
+        for (let i = this.balls.length; i >= 0; i--) {
+            let b = this.balls[i];
+            if (b.x < -b.radius || b.x > this.width + b.radius ||
+                b.y < -b.radius || b.y > this.height + b.radius)
+                this.balls.splice(idx, 1);
+        }
+        for (let i = this.links.length; i >= 0; i--) {
+            let link = this.links[i];
+            if (this.balls.indexOf(link.b1) === -1 || this.balls.indexOf(link.b2) === -1)
+                this.links.splice(idx, 1);
         }
     }
 
@@ -114,8 +128,6 @@ class Box {
         if (idx === -1)
             return;
         this.links.splice(idx, 1);
-        if (this.links.selected === l)
-            this.links.selected = null;
     }
 
     //</editor-fold>

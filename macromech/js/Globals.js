@@ -12,7 +12,7 @@ const Wl = 0.99;  // 0.96 потери на связях
 
 const INTERVAL = 30;
 let intervalId = null;
-let chronos = 0;
+let chronos = 0;  // in ticks (1 sec = 1000/INTERVAL ticks)
 
 const REPEATER = 10;
 let PRETTY = 0;  // false

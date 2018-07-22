@@ -1,6 +1,6 @@
 
 class Ball {
-    constructor(x, y, r, c='red', vx=0, vy=0, m=0) {
+    constructor(x, y, r, c='red', vx=0, vy=0, m=0, name = null) {
         this.x = x;
         this.y = y;
         this.radius = r;
@@ -9,6 +9,7 @@ class Ball {
         this.vy = vy;
         // если масса не задана, она равна квадрату радиуса
         this.m = m ? m : r * r;
+        this.name = name;
     }
 
     get Energy() {

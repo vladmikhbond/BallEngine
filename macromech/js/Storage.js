@@ -8,7 +8,8 @@ class Scene {
         this.lines = box.lines.map(l => l.toString());
         this.links = box.links.map(l => l.toString());
         this.world = world.toString();
-        this.title = null;
+        this.title = "";
+        this.chronos = chronos;
     }
 
     // воссоздает сцену на большом экране
@@ -24,7 +25,7 @@ class Scene {
         controller.g = g;
         controller.W = W;
         controller.K = K;
-
+        chronos = this.chronos ? +this.chronos : 0;
         header.innerHTML = this.title;
     }
 }
