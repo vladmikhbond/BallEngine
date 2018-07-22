@@ -16,34 +16,25 @@
         <input type="range" id="rigidRange" step="0.1" min="0" max="1" value="0.1" title="упругость"/>
         <label id="rigidValue">K = 0.1</label>
 
-        <div class="btn-group btn-group-sm" >
-            <button id="ballButton" type="button" class="btn" onclick="controller.createMode=0" >
-              <span class="glyphicon glyphicon-record" /> Ball</button>
-            <button id="lineButton" type="button" class="btn" onclick="controller.createMode=1" >
-              <span class="glyphicon glyphicon-resize-horizontal" /> Line</button>
-            <button id="linkButton" type="button" class="btn" onclick="controller.createMode=2" >
-              <span class="glyphicon glyphicon-link" /> Link</button>
-        </div>
         <button id="modeButton" class="btn btn-sm btn-success" title="Start / Stop"><span id="modeGlif" class="glyphicon glyphicon-pause"> </span></button>
-        <b>S</b>tep, <b>C</b>opy, <b>B</b>lue, <b>Del</b>, <b>T</b>-calibr
-        <button id="restartButton" class="btn btn-sm" title="Restart"><span class="glyphicon glyphicon-stop"> </span></button>
+        <button id="restartButton" class="btn btn-sm" title="Return to the last stop"><span class="glyphicon glyphicon-triangle-left"> </span></button>
     </div>
 
     <div class="panel panel-default">
         <input type="text" id="ballDefinition">
-        <button id="updateButton" class="btn btn-sm" title="Update selected ball"><span class="glyphicon glyphicon-record"/></button>
         <button id="prettyButton" class="btn btn-sm" title="Debug / Exec"><span class="glyphicon glyphicon-adjust"/></button>
         <button id="eraseButton" class="btn btn-sm" title="Clear screen"><span class="glyphicon glyphicon-erase"> </span></button>
+        <span id="infoSpan"></span>
         <span id="mousePosSpan"></span>
     </div>
 
     <canvas id="canvas" width="1150" height="600" ></canvas>
 
     <div class="panel panel-default">
-        <button id="saveSceneButton" class="btn btn-sm" title="Save the scene"><span class="glyphicon glyphicon-bookmark"> </span>Scene</button>
+        <button id="saveSceneButton" class="btn btn-sm" title="Save the scene"><span class="glyphicon glyphicon-save"> </span></button>
         <input type="text" id="scenesExportText">
-        <button id="importScenesButton" class="btn btn-sm" title="Import" scenes><span class="glyphicon glyphicon-import"> </span></button>
-        <button id="exportScenesButton" class="btn btn-sm" title="Export scenes"><span class="glyphicon glyphicon-export"> </span></button>
+        <button id="importScenesButton" class="btn btn-sm" title="Import scenes" scenes><span class="glyphicon glyphicon-import"> </span></button>
+        <button id="exportScenesButton" class="btn btn-sm" title="Export all scenes"><span class="glyphicon glyphicon-export"> </span></button>
     </div>
 
     <div id="scenesDiv"> </div>

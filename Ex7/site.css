@@ -1,17 +1,28 @@
 input[type=text] {
-    width: 600px;
+    width: 650px;
+}
+
+button {
+    /*margin: 0px 5px 0px 5px;*/
 }
 
 input[type=range]
 {
-    width: 120px;
-    height: 15px;
+    width: 126px;
+    height: 14px;
     display: inline;
     margin: 5px 0px 0px 5px;
 }
 input[type=range]+label
 {
     width: 80px;
+}
+
+#infoSpan {
+    color: blue;
+    margin: 0px 10px 0px 10px;
+    border: blue solid thin;
+    padding: 5px 10px 5px 10px;
 }
 
 #redBallImg, #blueBallImg {

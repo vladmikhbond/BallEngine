@@ -4,12 +4,23 @@ class Controller {
         this.g = g;
         this.W = W;
         this.K = K;
-        this._createMode = CREATE_MODE_BALL;
+        //this._createMode = CREATE_MODE_BALL;
         this.createMode = CREATE_MODE_BALL;
         this.selected = null;
         this._mousePos = {x: 0, y: 0}; // relative to the box
-    }
 
+        infoSpan.title = "Клавиши:\
+    \nB - balls\
+    \nL - lines\
+    \nK - links\
+    \nC - copy selected\
+    \nF - fixed ball\
+    \nS - step\
+    \nT - calibrate\
+    \nDel - delete selected\
+    ";
+
+    }
 
     // mode property
     set mode(v) {
@@ -25,18 +36,21 @@ class Controller {
     // createMode property
     set createMode(v) {
         this._createMode = v;
-        ballButton.className = lineButton.className = linkButton.className = "btn btn-default";
+        infoSpan.innerHTML = v === CREATE_MODE_BALL ? "Ball"
+                           : v === CREATE_MODE_LINE ? "Line"
+                           : v === CREATE_MODE_LINK ? "Link" : "";
         // mouse handlers
         if (v === CREATE_MODE_BALL) {
             setBallHandlers();
-            ballButton.className = "btn btn-info";
         } else if (v === CREATE_MODE_LINE) {
             setLineHandlers();
-            lineButton.className = "btn btn-info";
         }  else if (v === CREATE_MODE_LINK) {
             setLinkHandlers();
-            linkButton.className = "btn btn-info";
         }
+
+        // set curentScene
+        if (v === MODE_PLAY)
+            curentScene = new Scene();
     }
     get createMode() {
         return this._createMode;
@@ -78,15 +92,26 @@ function setListeners(controller) {
         drawAll();
     });
 
+    // update selected ball
+    ballDefinition.addEventListener("change", function ()
+    {
+        if (controller.selected && controller.selected.constructor === Ball) {
+            let o = JSON.parse(ballDefinition.value);
+            Object.assign(controller.selected, o);
+            drawAll();
+        }
+    });
+
     //------------------- buttons --------------------------------------
 
-    // mode toggle
+    // play-stop toggle
     modeButton.addEventListener("click", function ()
     {
         controller.mode = (controller.mode + 1) % 2;
         if (controller.mode === MODE_PLAY)
             curentScene = new Scene();
     });
+
 
     // restart button
     restartButton.addEventListener("click", function ()
@@ -97,24 +122,13 @@ function setListeners(controller) {
         }
     });
 
-
-    // pretty toggle
+    // ugly-pretty toggle
     prettyButton.addEventListener("click", function ()
     {
         // const names = ["Ugly", "Pretty"];
         // this.innerHTML = names[PRETTY];
         PRETTY = (PRETTY + 1)  % 2;
         drawAll();
-    });
-
-    // update selected ball
-    updateButton.addEventListener("click", function ()
-    {
-        if (controller.selected && controller.selected.constructor === Ball) {
-            let o = JSON.parse(ballDefinition.value);
-            Object.assign(controller.selected, o);
-            drawAll();
-        }
     });
 
     // clear screen
@@ -128,6 +142,7 @@ function setListeners(controller) {
         controller.g = 0.002;  // 0.002 = 1g;
         controller.mode = MODE_STOP;
         controller.createMode = CREATE_MODE_BALL;
+        chronos = 0;
         drawAll();
     });
 
@@ -154,8 +169,13 @@ function setListeners(controller) {
 
     document.addEventListener("keydown", function (e) {
         switch(e.key) {
+            // stop=play toggle
+            case 'Enter':
+                controller.mode = (controller.mode + 1) % 2;
+                break;
+
             // step execution
-            case 's': case 'S':
+            case 's': case 'S': case 'ы': case 'Ы':
                 box.mech.step(box);
                 controller.mode = MODE_STOP;
                 if (controller.selected)
@@ -163,7 +183,7 @@ function setListeners(controller) {
                 break;
 
             // copy selected ball
-            case 'c': case 'C':
+            case 'c': case 'C': case 'с': case 'С':
                 if (controller.selected && controller.selected.constructor === Ball) {
                     let s = controller.selected;
                     let p = controller.mousePos;
@@ -175,18 +195,33 @@ function setListeners(controller) {
                 break;
 
             // toggle ball color
-            case 'b': case 'B':
-                let b = controller.selected;
-                if (b && b.constructor === Ball) {
-                    b.color = b.color === "red" ? "blue" : "red";
-                    drawAll();
-                }
-                break;
+            case 'f': case 'F': case 'а': case 'А':
+            let b = controller.selected;
+            if (b && b.constructor === Ball) {
+                b.color = b.color === "red" ? "blue" : "red";
+                drawAll();
+            }
+            break;
 
             // calbrate
-            case 't': case 'T':
-                box.calibrate(drawAll());
-                break;
+            case 't': case 'T': case 'е': case 'Е':
+            box.calibrate(drawAll());
+            break;
+
+            // balls
+            case 'b': case 'B': case 'и': case 'И':
+            controller.createMode = CREATE_MODE_BALL;
+            break;
+
+            // lines
+            case 'l': case 'L': case 'д': case 'Д':
+            controller.createMode = CREATE_MODE_LINE;
+            break;
+
+            // links
+            case 'k': case 'K': case 'л': case 'Л':
+            controller.createMode = CREATE_MODE_LINK;
+            break;
 
             // delete selected object
             case 'Delete':
@@ -204,6 +239,8 @@ function setListeners(controller) {
         }
     });
 
+
+    controller.createMode=0
     //------------------------------ mouse ---------------------------
 
     // select object
