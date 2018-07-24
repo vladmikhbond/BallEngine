@@ -33,15 +33,6 @@ class Scene {
         box.setScriptFunc(this.script);
 
     }
-
-    // resetChronosListener() {
-    //
-    //     if (canvas.f) {
-    //         canvas.removeEventListener("chronos", canvas.f);
-    //     }
-    //     canvas.f = new Function("e", this.scriptFunc);
-    //     canvas.addEventListener("chronos", canvas.f);
-    // }
 }
 
 
@@ -79,9 +70,7 @@ importScenesButton.addEventListener("click", function ()
 saveSceneButton.addEventListener("click", function ()
 {
     controller.mode = MODE_STOP;
-    if (!curentScene)
-        curentScene = new Scene();
-    curentScene.restore();
+    (new Scene()).restore();
     let img = new Image();
     img.id = Date.now().toString();
     drawAll(5);
@@ -121,7 +110,7 @@ function restoreScene(id, img)
         // }
         let script = prompt("Script", scenes[id].scriptFunc);
         if (script) {
-            scenes[id].scriptFunc = script;
+            scenes[id].script = script;
             box.setScriptFunc(script);
             localStorage.setItem(KEY, JSON.stringify(scenes));
         }

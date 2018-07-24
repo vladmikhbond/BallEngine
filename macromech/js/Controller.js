@@ -7,6 +7,7 @@ class Controller {
         this.createMode = CREATE_MODE_BALL;
         this.selected = null;
         this._mousePos = {x: 0, y: 0}; // relative to the box
+        this.currentScene;
 
         infoSpan.title = "Клавиши:\
     \nB - balls\
@@ -103,19 +104,19 @@ function setListeners(controller) {
     modeButton.addEventListener("click", function ()
     {
         controller.mode = (controller.mode + 1) % 2;
-        // if (controller.mode === MODE_PLAY)
-        //     curentScene = new Scene();
+        if (controller.mode === MODE_PLAY)
+            controller.curentScene = new Scene();
     });
 
 
     // restart button
-    // restartButton.addEventListener("click", function ()
-    // {
-    //     if (curentScene) {
-    //         curentScene.restore();
-    //         controller.mode = MODE_STOP;
-    //     }
-    // });
+    restartButton.addEventListener("click", function ()
+    {
+        if (controller.curentScene) {
+            controller.curentScene.restore();
+            controller.mode = MODE_STOP;
+        }
+    });
 
     // ugly-pretty toggle
     prettyButton.addEventListener("click", function ()
@@ -161,7 +162,7 @@ function setListeners(controller) {
     //----------------------------- keyboard ----------------------------
 
     document.addEventListener("keydown", function (e) {
-        if (!canvas.focused)
+        if (document.activeElement === ballDefinition)
             return;
         switch(e.key) {
             // stop=play toggle
