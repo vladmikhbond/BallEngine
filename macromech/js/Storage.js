@@ -86,6 +86,23 @@ saveSceneButton.addEventListener("click", function ()
 });
 
 
+saveSceneScriptButton.addEventListener("click", function ()
+{
+    let id = +this.sceneId;
+    let title = sceneTitle.value;
+    if (title) {
+        scenes[id].title = title;
+        // img.title = title;
+    }
+    let script = sceneScript.value;
+    if (script) {
+        scenes[id].script = script;
+        box.setScriptFunc(script);
+    }
+    sceneAttrs.style.display = "none";
+    localStorage.setItem(KEY, JSON.stringify(scenes));
+});
+
 // реконструкция сцены из макета с заданным id или удаление макета
 //
 function restoreScene(id, img)
@@ -101,6 +118,10 @@ function restoreScene(id, img)
     }
     // подпись под сценой
     if (p.x > img.width - d && p.y > img.height - d) {
+        sceneTitle.value = scenes[id].title;
+        sceneScript.value = scenes[id].script;
+        sceneAttrs.style.display = "block";
+        saveSceneScriptButton.sceneId = id;
 
         // let title = prompt("Название", scenes[id].title);
         // if (title) {
@@ -108,12 +129,12 @@ function restoreScene(id, img)
         //     img.title = title;
         //     localStorage.setItem(KEY, JSON.stringify(scenes));
         // }
-        let script = prompt("Script", scenes[id].scriptFunc);
-        if (script) {
-            scenes[id].script = script;
-            box.setScriptFunc(script);
-            localStorage.setItem(KEY, JSON.stringify(scenes));
-        }
+        // let script = prompt("Script", scenes[id].script);
+        // if (script) {
+        //     scenes[id].script = script;
+        //     box.setScriptFunc(script);
+        //     localStorage.setItem(KEY, JSON.stringify(scenes));
+        // }
         return;
     }
 
@@ -127,6 +148,9 @@ function restoreScene(id, img)
     scenesExportText.value = JSON.stringify(obj)
     drawAll();
 }
+
+
+
 
 // извлечение макетов из локального хранилища
 //

@@ -146,7 +146,7 @@ function drawPretty() {
     ctx.stroke();
 
     // print info
-    let sec = (chronos/ 1000 * INTERVAL).toFixed(0);
+    let sec = chronos / 1000 * INTERVAL | 0;
     ctx.fillText("T = " + sec, 20, 20 );
 }
 

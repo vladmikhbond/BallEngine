@@ -46,7 +46,7 @@ function Mechanics(box)
             canvas.dispatchEvent(new Event("changed"));
 
             if (chronos % (1000/INTERVAL | 0) === 0 && box.scriptFunc)
-                box.scriptFunc(chronos / 1000 * INTERVAL | 0 );
+                box.scriptFunc(chronos / 1000 * INTERVAL | 0);
         },
 
         // собирает на шары точки касания с отрезками (в т.ч. с границами)
