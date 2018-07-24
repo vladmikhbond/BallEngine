@@ -92,14 +92,16 @@ const G = function () {
 }();
 
 ///////////////////////////////////////////////////////////////
-function near(a, b) {
-    return Math.abs(a - b) < 0.00000001;
-}
+
+// function near(a, b) {
+//     return Math.abs(a - b) < 0.00000001;
+// }
 
 
 
 
-// angle tests
+// angle unit tests
+
 // let res = _G.angle({x: 0, y: 0}, {x: 1, y: 0} )
 // console.log(res == 0)
 // res = G.angle({x: 0, y: 0}, {x: 0, y: 1} )
@@ -110,10 +112,11 @@ function near(a, b) {
 // console.log(res == Math.PI / 2)
 
 
-// turn tests
-res = G.turn(1, 0,  Math.PI / 2);
-console.log(near(res.x, 0) && near(res.y, -1));
-res = G.turn(1, 0,  Math.PI);
-console.log(near(res.x, -1) && near(res.y, 0));
-res = G.turn(1, 0,  -Math.PI / 2);
-console.log(near(res.x, 0) && near(res.y, 1));
+// turn unit tests
+
+// res = G.turn(1, 0,  Math.PI / 2);
+// console.log(near(res.x, 0) && near(res.y, -1));
+// res = G.turn(1, 0,  Math.PI);
+// console.log(near(res.x, -1) && near(res.y, 0));
+// res = G.turn(1, 0,  -Math.PI / 2);
+// console.log(near(res.x, 0) && near(res.y, 1));

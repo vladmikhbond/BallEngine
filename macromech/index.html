@@ -2,7 +2,15 @@
 <html>
 <head>
     <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/css/bootstrap.min.css" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
     <link rel="stylesheet" href="site.css" />
+
 </head>
 <body>
 <div class="container">
@@ -17,7 +25,7 @@
         <label id="rigidValue">K = 0.1</label>
 
         <button id="modeButton" class="btn btn-sm btn-success" title="Start / Stop"><span id="modeGlif" class="glyphicon glyphicon-pause"> </span></button>
-        <button id="restartButton" class="btn btn-sm" title="Return to the last stop"><span class="glyphicon glyphicon-triangle-left"> </span></button>
+        <!--<button id="restartButton" class="btn btn-sm" title="Return to the last stop"><span class="glyphicon glyphicon-triangle-left"> </span></button>-->
     </div>
 
     <div class="panel panel-default">
@@ -37,7 +45,12 @@
         <button id="exportScenesButton" class="btn btn-sm" title="Export all scenes"><span class="glyphicon glyphicon-export"> </span></button>
     </div>
 
+
     <div id="scenesDiv"> </div>
+    <!--<div id="sceneAttr">-->
+       <!--<input type="text" id="sceneTitle" />-->
+       <!--<textarea id="sceneScript"></textarea>-->
+    <!--</div>-->
 
     <img src="pic/redBall.png" id="redBallImg" width="523" height="520" />
     <img src="pic/blueBall.png" id="blueBallImg" width="523" height="520" />
@@ -59,3 +72,4 @@
 </div>
 </body>
 </html>
+

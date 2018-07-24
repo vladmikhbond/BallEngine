@@ -15,6 +15,11 @@ class Box {
             new Line(0, h, 0, 0), // left
         ];
         this.mech = Mechanics(this);
+        this.scriptFunc = null;
+    }
+
+    setScriptFunc(body) {
+        this.scriptFunc = new Function("t", body);
     }
 
     // 0-stop, 1-play

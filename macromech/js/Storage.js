@@ -1,15 +1,18 @@
 const KEY = "BallEngine-scenes";
 let scenes = [];
-let curentScene = null;
 
 class Scene {
+    // make scene from box, world and document
     constructor() {
         this.balls = box.balls.map(b => b.toString(), box);
         this.lines = box.lines.map(l => l.toString());
         this.links = box.links.map(l => l.toString());
         this.world = world.toString();
-        this.title = "";
         this.chronos = chronos;
+        this.title = header.innerHTML;
+        // scriptFunc body
+        let s = box.scriptFunc.toString();
+        this.script = s.slice(s.indexOf("{") + 1, s.lastIndexOf("}"));
     }
 
     // воссоздает сцену на большом экране
@@ -27,7 +30,18 @@ class Scene {
         controller.K = K;
         chronos = this.chronos ? +this.chronos : 0;
         header.innerHTML = this.title;
+        box.setScriptFunc(this.script);
+
     }
+
+    // resetChronosListener() {
+    //
+    //     if (canvas.f) {
+    //         canvas.removeEventListener("chronos", canvas.f);
+    //     }
+    //     canvas.f = new Function("e", this.scriptFunc);
+    //     canvas.addEventListener("chronos", canvas.f);
+    // }
 }
 
 
@@ -98,10 +112,17 @@ function restoreScene(id, img)
     }
     // подпись под сценой
     if (p.x > img.width - d && p.y > img.height - d) {
-        let res = prompt("Введите", img.title);
-        if (res) {
-            scenes[id].title = res;
-            img.title = res;
+
+        // let title = prompt("Название", scenes[id].title);
+        // if (title) {
+        //     scenes[id].title = title;
+        //     img.title = title;
+        //     localStorage.setItem(KEY, JSON.stringify(scenes));
+        // }
+        let script = prompt("Script", scenes[id].scriptFunc);
+        if (script) {
+            scenes[id].scriptFunc = script;
+            box.setScriptFunc(script);
             localStorage.setItem(KEY, JSON.stringify(scenes));
         }
         return;

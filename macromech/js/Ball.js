@@ -9,7 +9,7 @@ class Ball {
         this.vy = vy;
         // если масса не задана, она равна квадрату радиуса
         this.m = m ? m : r * r;
-        this.name = name;
+        //this.name = name;
     }
 
     get Energy() {

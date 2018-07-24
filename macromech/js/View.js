@@ -78,9 +78,9 @@ function drawAll(lineWidth=0.5)
     }
 
     // print info
-    ctx.fillText("E = " + box.SumEnergy, 20, 20 );
     let sec = (chronos/ 1000 * INTERVAL).toFixed(2);
-    ctx.fillText("T = " + sec, 120, 20 );
+    ctx.fillText("T = " + sec, 20, 20 );
+    ctx.fillText("E = " + box.SumEnergy, 120, 20 );
 }
 
 
@@ -145,6 +145,9 @@ function drawPretty() {
     }
     ctx.stroke();
 
+    // print info
+    let sec = (chronos/ 1000 * INTERVAL).toFixed(0);
+    ctx.fillText("T = " + sec, 20, 20 );
 }
 
 //<editor-fold desc="Gray objects drawing">

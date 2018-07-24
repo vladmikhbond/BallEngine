@@ -41,12 +41,12 @@ function Mechanics(box)
                 box.balls.forEach( b => b.move(0, g) )
             }
             chronos++;
+
             // fire events
             canvas.dispatchEvent(new Event("changed"));
-            if (chronos % (1000/INTERVAL | 0) === 0) {
-                var event = new CustomEvent('chronos', { 'detail': chronos / 1000 * INTERVAL | 0 });
-                canvas.dispatchEvent(event);
-            }
+
+            if (chronos % (1000/INTERVAL | 0) === 0 && box.scriptFunc)
+                box.scriptFunc(chronos / 1000 * INTERVAL | 0 );
         },
 
         // собирает на шары точки касания с отрезками (в т.ч. с границами)

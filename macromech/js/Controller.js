@@ -4,7 +4,6 @@ class Controller {
         this.g = g;
         this.W = W;
         this.K = K;
-        //this._createMode = CREATE_MODE_BALL;
         this.createMode = CREATE_MODE_BALL;
         this.selected = null;
         this._mousePos = {x: 0, y: 0}; // relative to the box
@@ -47,10 +46,6 @@ class Controller {
         }  else if (v === CREATE_MODE_LINK) {
             setLinkHandlers();
         }
-
-        // set curentScene
-        if (v === MODE_PLAY)
-            curentScene = new Scene();
     }
     get createMode() {
         return this._createMode;
@@ -108,25 +103,23 @@ function setListeners(controller) {
     modeButton.addEventListener("click", function ()
     {
         controller.mode = (controller.mode + 1) % 2;
-        if (controller.mode === MODE_PLAY)
-            curentScene = new Scene();
+        // if (controller.mode === MODE_PLAY)
+        //     curentScene = new Scene();
     });
 
 
     // restart button
-    restartButton.addEventListener("click", function ()
-    {
-        if (curentScene) {
-            curentScene.restore();
-            controller.mode = MODE_STOP;
-        }
-    });
+    // restartButton.addEventListener("click", function ()
+    // {
+    //     if (curentScene) {
+    //         curentScene.restore();
+    //         controller.mode = MODE_STOP;
+    //     }
+    // });
 
     // ugly-pretty toggle
     prettyButton.addEventListener("click", function ()
     {
-        // const names = ["Ugly", "Pretty"];
-        // this.innerHTML = names[PRETTY];
         PRETTY = (PRETTY + 1)  % 2;
         drawAll();
     });
@@ -168,6 +161,8 @@ function setListeners(controller) {
     //----------------------------- keyboard ----------------------------
 
     document.addEventListener("keydown", function (e) {
+        if (!canvas.focused)
+            return;
         switch(e.key) {
             // stop=play toggle
             case 'Enter':
