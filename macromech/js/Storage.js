@@ -121,20 +121,8 @@ function restoreScene(id, img)
         sceneTitle.value = scenes[id].title;
         sceneScript.value = scenes[id].script;
         sceneAttrs.style.display = "block";
+        //sceneAttrs.style.top = img.offsetTop+"px";
         saveSceneScriptButton.sceneId = id;
-
-        // let title = prompt("Название", scenes[id].title);
-        // if (title) {
-        //     scenes[id].title = title;
-        //     img.title = title;
-        //     localStorage.setItem(KEY, JSON.stringify(scenes));
-        // }
-        // let script = prompt("Script", scenes[id].script);
-        // if (script) {
-        //     scenes[id].script = script;
-        //     box.setScriptFunc(script);
-        //     localStorage.setItem(KEY, JSON.stringify(scenes));
-        // }
         return;
     }
 

@@ -1,4 +1,6 @@
-input[type=text] {
+#ballDefinition,
+#scenesExportText
+{
     width: 650px;
 }
 
@@ -40,7 +42,20 @@ input[type=range]+label
     display: inline;
 }
 
-#scinesDiv {
+#scenesDiv {
     height: 80px;
     margin-bottom: -10px;
+}
+
+#sceneAttrs {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: 230px;
+    width: 60%;
+    height: 500px;
+}
+
+.form-group {
+    width: 100%;
 }

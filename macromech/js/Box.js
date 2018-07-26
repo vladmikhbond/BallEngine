@@ -19,6 +19,7 @@ class Box {
     }
 
     setScriptFunc(body) {
+        if (!body) body = "";
         this.scriptFunc = new Function("t", body);
     }
 

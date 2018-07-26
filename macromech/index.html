@@ -36,7 +36,9 @@
         <span id="mousePosSpan"></span>
     </div>
 
-    <canvas id="canvas" width="1150" height="600" ></canvas>
+
+      <canvas id="canvas" width="1150" height="600" ></canvas>
+
 
     <div class="panel panel-default">
         <button id="saveSceneButton" class="btn btn-sm" title="Save the scene"><span class="glyphicon glyphicon-save"> </span></button>
@@ -48,20 +50,25 @@
 
     <div id="scenesDiv"> </div>
 
+  <div class="container" id="sceneAttrs" >
+    <div class="panel panel-default">
+      <div class="panel-heading">Scene</div>
+      <div class="panel-body">
+        <div class="form-group">
+          <label for="sceneTitle">Title</label>
+          <input type="text" class="form-control" id="sceneTitle" >
+        </div>
 
-  <div class="container" id="sceneAttrs"style="display: none">
-    <div class="form-group">
-      <label for="sceneTitle">Title</label>
-      <input type="text" class="form-control" id="sceneTitle" >
+        <div class="form-group">
+          <label for="sceneScript">Script</label>
+          <textarea class="form-control" id="sceneScript" rows="20"></textarea>
+        </div>
+
+        <button class="btn btn-primary" id="saveSceneScriptButton">Save</button>
+      </div>
     </div>
-
-    <div class="form-group">
-      <label for="sceneScript">Script</label>
-      <textarea class="form-control" id="sceneScript" style="width: 650px;"></textarea>
-    </div>
-
-    <button class="btn btn-default" id="saveSceneScriptButton">Save</button>
   </div>
+
 
     <img src="pic/redBall.png" id="redBallImg" width="523" height="520" />
     <img src="pic/blueBall.png" id="blueBallImg" width="523" height="520" />
