@@ -138,7 +138,7 @@ function Mechanics(box)
         {
              for (let b of box.balls) {
                 for (let l of box.links) {
-                    if (b === l.b1 || b === l.b2)
+                    if (b === l.b1 || b === l.b2 || l.transparent)
                         continue;
                     let line = new Line(l.x1, l.y1, l.x2, l.y2);
                     let d = G.distToInfiniteLine(b, line);

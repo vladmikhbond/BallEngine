@@ -68,9 +68,9 @@ function drawAll(lineWidth=0.5)
     }
 
     // draw links
-    ctx.strokeStyle = "gray";
     for (let l of box.links) {
         ctx.lineWidth = controller.selected === l ? 3 * lineWidth : lineWidth;
+        ctx.strokeStyle = l.transparent ? "lightgray" : "gray";
         ctx.beginPath();
         ctx.moveTo(box.x + l.x1, box.y + l.y1);
         ctx.lineTo(box.x + l.x2, box.y + l.y2);
@@ -98,6 +98,8 @@ function drawPretty() {
     ctx.strokeStyle = "gray";
     ctx.beginPath();
     for (let l of box.links) {
+        if (l.transparent)
+            continue;
         ctx.moveTo(box.x + l.x1, box.y + l.y1);
         ctx.lineTo(box.x + l.x2, box.y + l.y2);
     }

@@ -192,9 +192,14 @@ function setListeners(controller) {
 
             // toggle ball color
             case 'f': case 'F': case 'а': case 'А':
-            let b = controller.selected;
-            if (b && b.constructor === Ball) {
-                b.color = b.color === "red" ? "blue" : "red";
+            let sel = controller.selected;
+            if (!sel)
+                break;
+            if (sel.constructor === Ball) {
+                sel.color = sel.color === "red" ? "blue" : "red";
+                drawAll();
+            } else if (sel.constructor === Link) {
+                sel.transparent = ! sel.transparent;
                 drawAll();
             }
             break;
