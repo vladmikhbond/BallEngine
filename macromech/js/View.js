@@ -107,7 +107,7 @@ function drawPretty() {
     // draw balls
     for (let b of box.balls) {
         ctx.save();
-        let img = b.color === "red" ? redBallImg : blueBallImg;
+        let img = b.color === "red" ? redBallImg : b.color === "blue" ? blueBallImg : greenBallImg;
         let x = box.x + b.x, y = box.y + b.y;
 
         if (b.dots && b.dots.length > 0) {

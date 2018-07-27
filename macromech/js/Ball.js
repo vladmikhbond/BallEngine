@@ -39,7 +39,7 @@ class Ball {
     // вызывается, когда собраны точки касания
     move(ax, ay) {
         let b = this;
-        if (b.color !== "red")
+        if (b.color === "blue")
             return;
 
         // суммируем ускорения от реакций точек касания

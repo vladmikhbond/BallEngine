@@ -30,7 +30,6 @@ function Mechanics(box)
         // static because call from setInterval()
         step() {
             for (let i = 0; i < REPEATER; i++) {
-                //Box.dotsFromLinksMulty(box, 10);
                 box.balls.forEach(b => b.dots = []);
 
                 box.mech.dotsFromLines();
@@ -45,6 +44,7 @@ function Mechanics(box)
             // fire events
             canvas.dispatchEvent(new Event("changed"));
 
+            // invoke scriptFunc 2 times per sec
             if (chronos % (500/INTERVAL | 0) === 0 && box.scriptFunc)
                 box.scriptFunc(chronos / 500 * INTERVAL | 0);
         },
